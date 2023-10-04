@@ -1,5 +1,5 @@
 import { Input } from "../components/Input";
-import { Button } from "./Button";
+import { Button } from "../components/Button";
 
 export function SignUp() {
     return (

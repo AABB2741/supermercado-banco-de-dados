@@ -6,6 +6,8 @@ import {
     useState,
 } from "react";
 
+import { signIn, SignInProps } from "../services/auth/signIn";
+
 import { userTest } from "../tests/user.test";
 
 interface AuthContextProps {
@@ -19,7 +21,7 @@ export type UserProps = {
 
 interface AuthContextValue {
     user?: UserProps;
-    signIn: () => Promise<void>;
+    signIn: (props: SignInProps) => Promise<void>;
     signUp: () => Promise<void>;
     signOut: () => void;
 }
@@ -31,10 +33,6 @@ export function AuthProvider({ children }: AuthContextProps) {
 
     useEffect(() => {
         setUser(userTest);
-    }, []);
-
-    const signIn = useCallback(async () => {
-        //
     }, []);
 
     const signUp = useCallback(async () => {
