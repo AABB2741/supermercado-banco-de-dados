@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         element: <AuthRoutes />,
         children: [
             {
-                path: "/auth/login",
+                path: "/auth/",
                 element: <Login />,
             },
             {

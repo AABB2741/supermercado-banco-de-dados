@@ -9,7 +9,7 @@ export function AuthRoutes() {
                 src={authBackground}
                 className="min-h-screen w-1/2 object-cover"
             />
-            <div className="min-w-[400px] flex-1 p-8">
+            <div className="mx-auto max-w-[600px] flex-1 p-8">
                 <Outlet />
             </div>
         </div>
