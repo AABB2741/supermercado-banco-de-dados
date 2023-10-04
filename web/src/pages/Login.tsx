@@ -9,7 +9,7 @@ export function Login() {
                 Faça login para sincronizar suas listas de compras e aproveitar
                 ao máximo a RPB Shopping!
             </p>
-            <form className="flex flex-col gap-2 py-4">
+            <form className="flex flex-col gap-4 py-4">
                 <Input
                     label="Endereço de e-mail"
                     placeholder="seuemail@exemplo.com"
@@ -20,7 +20,10 @@ export function Login() {
                     placeholder="Insira sua senha"
                     type="password"
                 />
-                <Button.Accent>Fazer login</Button.Accent>
+                <Button.Normal accent>Fazer login</Button.Normal>
+                <Button.Link to="./signup">
+                    Ainda não tenho uma conta
+                </Button.Link>
             </form>
         </div>
     );

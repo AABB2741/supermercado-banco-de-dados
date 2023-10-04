@@ -1,5 +1,7 @@
-import { ButtonAccent } from "./ButtonAccent";
+import { ButtonNormal } from "./ButtonNormal";
+import { ButtonLink } from "./ButtonLink";
 
 export const Button = {
-    Accent: ButtonAccent,
+    Normal: ButtonNormal,
+    Link: ButtonLink,
 };
