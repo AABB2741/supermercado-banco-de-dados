@@ -6,6 +6,8 @@ import {
     useState,
 } from "react";
 
+import { userTest } from "../tests/user.test";
+
 interface AuthContextProps {
     children: React.ReactNode;
 }
@@ -26,6 +28,10 @@ const AuthContext = createContext({} as AuthContextValue);
 
 export function AuthProvider({ children }: AuthContextProps) {
     const [user, setUser] = useState<UserProps>();
+
+    useEffect(() => {
+        setUser(userTest);
+    }, []);
 
     const signIn = useCallback(async () => {
         //
