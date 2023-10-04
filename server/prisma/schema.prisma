@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  lists List[]
+}
+
+model List {
+  id        Int       @id @default(autoincrement())
+  name      String
+  color     String
+  due       DateTime?
+  createdAt DateTime  @default(now())
+  checked   Boolean   @default(false)
+
+  items ListItem[]
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model ListItem {
+  id      Int     @id @default(autoincrement())
+  checked Boolean @default(false)
+  amount  Float   @default(1)
+
+  list   List @relation(fields: [listId], references: [id])
+  listId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Product {
+  id      Int    @id @default(autoincrement())
+  name    String
+  price   Float  @default(0)
+  dueDate Int?
+
+  lists ListItem[]
+
+  brand   Brand? @relation(fields: [brandId], references: [id])
+  brandId Int?
+}
+
+model Recipe {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  content     String
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
