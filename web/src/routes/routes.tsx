@@ -8,6 +8,8 @@ import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 
 import { Dashboard } from "../pages/Dashboard";
+import { Lists } from "../pages/Dashboard/Lists";
+import { Inventory } from "../pages/Dashboard/Inventory";
 
 export const router = createBrowserRouter([
     {
@@ -38,11 +40,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/lists",
-                element: <Dashboard />,
+                element: <Lists />,
             },
             {
                 path: "/dashboard/inventory",
-                element: <Dashboard />,
+                element: <Inventory />,
             },
         ],
     },

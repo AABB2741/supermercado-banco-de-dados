@@ -12,7 +12,7 @@ export function NavBarTab({ label, icon: Icon, ...rest }: NavBarTabProps) {
     return (
         <Link
             {...rest}
-            className="relative flex items-center justify-center gap-4 px-4 py-2 after:absolute after:top-full after:mt-1 after:rounded-full data-[selected=true]:pointer-events-none data-[selected=true]:after:h-[5px] data-[selected=true]:after:w-1/2 data-[selected=true]:after:bg-sky-500"
+            className="relative flex items-center justify-center gap-4 px-4 py-2 after:absolute after:top-full after:mt-1 after:rounded-full data-[selected=true]:pointer-events-none data-[selected=true]:font-bold data-[selected=true]:after:h-[5px] data-[selected=true]:after:w-1/2 data-[selected=true]:after:bg-sky-500"
             data-selected={pathname === rest.to}
         >
             <Icon
