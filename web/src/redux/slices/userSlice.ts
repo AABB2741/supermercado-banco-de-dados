@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type User = {
+export type UserProps = {
     id: number;
     name: string;
     email: string;
 };
 
-const initialState: User | Partial<User> = {};
+const initialState: UserProps | Partial<UserProps> = {};
 
 const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<User>) => {
+        setUser: (state, action: PayloadAction<UserProps>) => {
             state = action.payload;
         },
     },
