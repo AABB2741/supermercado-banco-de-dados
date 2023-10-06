@@ -9,7 +9,7 @@ export function ButtonNormal({ accent, ...props }: ButtonNormalProps) {
         <button
             type="button"
             {...props}
-            className="rounded-lg px-4 py-2 font-bold data-[accent=true]:bg-yellow-400"
+            className="rounded-lg px-4 py-2 font-bold data-[accent=true]:bg-yellow-400 data-[accent=true]:text-black"
             data-accent={accent}
         />
     );

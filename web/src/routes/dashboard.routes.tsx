@@ -8,7 +8,9 @@ export function DashboardRoutes() {
         <div>
             <Header />
             <NavBar />
-            <Outlet />
+            <div className="mt-8">
+                <Outlet />
+            </div>
         </div>
     );
 }
