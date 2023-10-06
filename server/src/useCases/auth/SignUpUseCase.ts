@@ -21,6 +21,6 @@ export async function SignUpUseCase({ name, email, password }: SignUpProps) {
 			email: true,
 		},
 	});
-
+	console.log(user);
 	return user;
 }
