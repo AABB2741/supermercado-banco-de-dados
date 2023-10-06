@@ -12,11 +12,11 @@ export function ButtonMenu({ icon: Icon, label, to }: ButtonMenuProps) {
 
     return (
         <Link
-            className="flex select-none items-center gap-2 rounded-lg px-4 py-2 font-medium hover:bg-gray-200 data-[selected=true]:pointer-events-none data-[selected=true]:font-bold"
+            className="flex select-none items-center gap-2 rounded-lg px-4 py-2 font-medium hover:bg-gray-200 data-[selected=true]:pointer-events-none data-[selected=true]:font-bold dark:hover:bg-gray-700"
             to={to}
             data-selected={pathname === to}
         >
-            <Icon size={18} className="text-gray-700" />
+            <Icon size={18} className="text-gray-700 dark:text-gray-500" />
             <p>{label}</p>
         </Link>
     );

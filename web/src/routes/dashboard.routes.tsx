@@ -1,18 +1,14 @@
 import { Outlet } from "react-router-dom";
 
 import { Header } from "../components/Header";
-import { Menu } from "../components/Menu";
+import { NavBar } from "../components/NavBar";
 
 export function DashboardRoutes() {
     return (
         <div>
             <Header />
-            <div className="flex">
-                <Menu />
-                <div className="flex-1">
-                    <Outlet />
-                </div>
-            </div>
+            <NavBar />
+            <Outlet />
         </div>
     );
 }
