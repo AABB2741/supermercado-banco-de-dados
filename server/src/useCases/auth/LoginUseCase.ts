@@ -14,4 +14,6 @@ export async function LoginUseCase({ email, password }: LoginProps) {
 			password: SHA256(password).toString(),
 		},
 	});
+
+	return user;
 }

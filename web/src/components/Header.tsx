@@ -2,7 +2,9 @@ import avatar from "../assets/avatar.png";
 import { useAppSelector } from "../redux/store";
 
 export function Header() {
-    const user = useAppSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
+
+    console.log(user);
 
     return (
         <header className="flex items-center justify-between p-4">

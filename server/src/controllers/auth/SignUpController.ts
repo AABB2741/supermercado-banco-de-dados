@@ -26,7 +26,7 @@ export async function SignUpController(req: Request, res: Response) {
 		},
 		process.env.JWT_SECRET as string,
 		{
-			expiresIn: 60 * 60 * 30, // 1 month
+			expiresIn: 60 * 60 * 24 * 30, // 1 month
 		}
 	);
 

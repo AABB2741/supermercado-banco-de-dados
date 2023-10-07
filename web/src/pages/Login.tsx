@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import z from "zod";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import z, { ZodError } from "zod";
 
 import { setUser } from "../redux/slices/userSlice";
 
@@ -9,37 +11,48 @@ import { Button } from "../components/Button";
 
 import { signIn } from "../services/auth/signIn";
 
-import { ErrorCode } from "../errors/AppError";
+import { errors, ErrorCode } from "../errors/AppError";
 
 export function Login() {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>();
+    const [error, setError] = useState<ErrorCode>();
 
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const submitRef = useRef<HTMLButtonElement>(null);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     async function handleLogin() {
         setError(undefined);
         setLoading(true);
 
-        const email = z
-            .string()
-            .email()
-            .parse(emailRef.current?.value);
-        const password = z.string().parse(passwordRef.current?.value);
-
         try {
+            const email = z
+                .string()
+                .email()
+                .parse(emailRef.current?.value);
+            const password = z.string().parse(passwordRef.current?.value);
+
             const user = await signIn({
                 email,
                 password,
             });
-
+            console.log(user);
             dispatch(setUser(user));
+            navigate("/dashboard/");
         } catch (err) {
-            setError(String(err));
+            if (err instanceof AxiosError) {
+                return setError("invalid_username_or_password");
+            }
+
+            if (err instanceof ZodError) {
+                return setError("unknown_error");
+            }
+
+            setError("unknown_error");
+            passwordRef.current?.focus();
         } finally {
             setLoading(false);
         }
@@ -67,7 +80,11 @@ export function Login() {
                     ref={passwordRef}
                     nextFocus={submitRef}
                 />
-                {error && <p className="my-2 text-sm text-red-400">{error}</p>}
+                {error && (
+                    <p className="my-2 text-center text-sm text-red-400">
+                        {error}
+                    </p>
+                )}
                 <Button.Normal
                     accent
                     loading={loading}

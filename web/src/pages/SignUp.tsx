@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import z, { ZodError } from "zod";
 
 import { Input } from "../components/Input";
@@ -22,6 +23,7 @@ export function SignUp() {
     const submitRef = useRef<HTMLButtonElement>(null);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     async function handleSignUp() {
         setError(undefined);
@@ -46,6 +48,7 @@ export function SignUp() {
             await wait(3000);
             const user = await signUp({ email, name, password });
             dispatch(setUser(user));
+            navigate("/dashboard/");
         } catch (err) {
             // TODO: handle error
 

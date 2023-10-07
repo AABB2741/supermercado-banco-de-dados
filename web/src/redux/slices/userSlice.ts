@@ -6,14 +6,16 @@ export type UserProps = {
     email: string;
 };
 
-const initialState: UserProps | Partial<UserProps> = {};
+const initialState: { user: UserProps | null } = {
+    user: null,
+};
 
 const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<UserProps>) => {
-            state = action.payload;
+            state.user = action.payload;
         },
     },
 });

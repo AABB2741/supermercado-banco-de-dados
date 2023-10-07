@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import z from "zod";
 
 import { api } from "../../api/api";
@@ -17,9 +18,11 @@ export async function signIn(props: SignInProps) {
 
     const credentials = schema.parse(props);
 
-    const response = await api.post<UserProps & { token: string }>(
+    const { data } = await api.post<UserProps & { token: string }>(
         "/auth/login",
         credentials,
     );
-    return response.data;
+
+    Cookies.set("token", data.token);
+    return data;
 }
