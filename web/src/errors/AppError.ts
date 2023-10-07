@@ -1,4 +1,4 @@
-type ErrorCode =
+export type ErrorCode =
     | "invalid_username"
     | "username_too_short"
     | "username_too_long"
