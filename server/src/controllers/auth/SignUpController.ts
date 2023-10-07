@@ -5,6 +5,7 @@ import z from "zod";
 import { SignUpUseCase } from "../../useCases/auth/SignUpUseCase";
 
 export async function SignUpController(req: Request, res: Response) {
+	console.log("Criando novo usuário");
 	const bodySchema = z.object({
 		name: z
 			.string()

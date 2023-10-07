@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
-
+import { useDispatch } from "react-redux";
 import z, { ZodError } from "zod";
 
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 
+import { signUp } from "../services/auth/signUp";
+import { setUser } from "../redux/slices/userSlice";
+
 import { AppError } from "../errors/AppError";
+import { wait } from "../utils/wait";
 
 export function SignUp() {
     const [error, setError] = useState<string>();
@@ -17,6 +21,8 @@ export function SignUp() {
     const passwordConfirmRef = useRef<HTMLInputElement>(null);
     const submitRef = useRef<HTMLButtonElement>(null);
 
+    const dispatch = useDispatch();
+
     async function handleSignUp() {
         setError(undefined);
         setLoading(true);
@@ -24,7 +30,7 @@ export function SignUp() {
         try {
             const name = z
                 .string({
-                    invalid_type_error: "invalid_username",
+                    invalid_type_error: "unknown_error",
                     required_error: "invalid_username",
                 })
                 .parse(nameRef.current?.value?.trim());
@@ -36,6 +42,10 @@ export function SignUp() {
 
             if (password !== passwordConfirm)
                 throw new AppError("passwords_not_match");
+
+            await wait(3000);
+            const user = await signUp({ email, name, password });
+            dispatch(setUser(user));
         } catch (err) {
             // TODO: handle error
 
@@ -63,27 +73,36 @@ export function SignUp() {
                     placeholder="Digite qualquer nome"
                     type="email"
                     nextFocus={emailRef}
+                    ref={nameRef}
                 />
                 <Input
                     label="Endereço de e-mail"
                     placeholder="seuemail@exemplo.com"
                     type="email"
                     nextFocus={passwordRef}
+                    ref={emailRef}
                 />
                 <Input
                     label="Senha"
                     placeholder="Insira sua senha"
                     type="password"
                     nextFocus={passwordConfirmRef}
+                    ref={passwordRef}
                 />
                 <Input
                     label="Confirmar senha"
                     placeholder="Insira sua senha novamente"
                     type="password"
                     nextFocus={submitRef}
+                    ref={passwordConfirmRef}
                 />
                 {error && <p className="my-2 text-sm text-red-400">{error}</p>}
-                <Button.Normal accent ref={submitRef} onClick={handleSignUp}>
+                <Button.Normal
+                    accent
+                    loading={loading}
+                    ref={submitRef}
+                    onClick={handleSignUp}
+                >
                     Criar sua conta
                 </Button.Normal>
                 <Button.Link to="../">Já tenho uma conta</Button.Link>
