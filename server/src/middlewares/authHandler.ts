@@ -4,13 +4,13 @@ import z from "zod";
 
 export function authHandler(req: Request, res: Response, next: NextFunction) {
 	const headerSchema = z.object({
-		authorization: z.string().transform(Number),
+		authorization: z.string(),
 	});
 
 	const { authorization } = headerSchema.parse(req.headers);
 
 	const token = jwt.verify(
-		authorization.toString(),
+		authorization,
 		process.env.JWT_SECRET as string
 	) as jwt.JwtPayload;
 
