@@ -18,7 +18,7 @@ export function Filter({ title, value, options, onValueChange }: FilterProps) {
     return (
         <div>
             {title && <p className="mb-4 text-lg font-bold">{title}</p>}
-            <div className="flex">
+            <div className="flex gap-2">
                 {options.map((o) => (
                     <button
                         className="flex flex-col items-center rounded-xl border border-zinc-700 bg-zinc-900 px-8 py-4 shadow-lg data-[selected=true]:border-0 data-[selected=true]:bg-gradient-to-br data-[selected=true]:from-sky-400 data-[selected=true]:to-sky-600"
