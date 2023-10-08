@@ -1,7 +1,17 @@
+import { useEffect } from "react";
+
+import { Banner } from "./Banner";
+
 import { useList } from "../../contexts/ListProvider";
 
 export function List() {
     const { list } = useList();
 
-    return <h1>List {JSON.stringify(list)}</h1>;
+    useEffect(() => {
+        if (!list?.name) return;
+
+        document.title = `${list.name} - RPB Shopping`;
+    }, [list?.name]);
+    console.log("Carregando lista");
+    return <Banner />;
 }
