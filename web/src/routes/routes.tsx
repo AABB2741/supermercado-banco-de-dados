@@ -11,6 +11,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { Lists } from "../pages/Dashboard/Lists";
 import { Inventory } from "../pages/Dashboard/Inventory";
 
+import { ListProvider } from "../contexts/ListProvider";
 import { List } from "../pages/List";
 
 export const router = createBrowserRouter([
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
     },
     {
         path: "/list/:id",
-        element: <List />,
+        element: (
+            <ListProvider>
+                <List />
+            </ListProvider>
+        ),
     },
 ]);

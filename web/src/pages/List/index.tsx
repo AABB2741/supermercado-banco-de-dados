@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useList } from "../../contexts/ListProvider";
 
 export function List() {
-    const { id } = useParams();
+    const { list } = useList();
 
-    return <h1>List {id}</h1>;
+    return <h1>List {JSON.stringify(list)}</h1>;
 }
