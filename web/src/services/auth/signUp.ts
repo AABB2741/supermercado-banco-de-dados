@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 import { api } from "../../api/api";
 
-import { UserProps } from "../../redux/slices/userSlice";
+import { UserProps } from "../../@types/user-props";
 
 interface SignUpProps {
     name: string;

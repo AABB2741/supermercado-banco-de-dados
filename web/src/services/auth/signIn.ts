@@ -3,7 +3,7 @@ import z from "zod";
 
 import { api } from "../../api/api";
 
-import { UserProps } from "../../redux/slices/userSlice";
+import { UserProps } from "../../@types/user-props";
 
 export interface SignInProps {
     email: string;
