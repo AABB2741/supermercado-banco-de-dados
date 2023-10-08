@@ -76,6 +76,7 @@ export function Login() {
                     type="email"
                     ref={emailRef}
                     nextFocus={passwordRef}
+                    autoFocus
                 />
                 <Input
                     label="Senha"

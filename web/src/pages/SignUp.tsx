@@ -81,6 +81,7 @@ export function SignUp() {
                     type="email"
                     nextFocus={emailRef}
                     ref={nameRef}
+                    autoFocus
                 />
                 <Input
                     label="Endereço de e-mail"
