@@ -28,7 +28,7 @@ export function Banner() {
                             Vence em 28/01/2005
                         </span>
                     </div>
-                    <h1 className="font-featured text-6xl font-bold">
+                    <h1 className="mt-4 font-featured text-6xl font-bold">
                         {list.name}
                     </h1>
 

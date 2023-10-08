@@ -4,6 +4,8 @@ import { Combobox } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
+import { Button } from "../../components/Button";
+
 import banner from "../../assets/list-banner.jpg";
 
 interface AddItemProps {
@@ -11,6 +13,10 @@ interface AddItemProps {
 }
 
 export function AddItem({ children }: AddItemProps) {
+    const [loading, setLoading] = useState(false);
+
+    const [amount, setAmount] = useState(0);
+
     return (
         <Dialog.Root>
             <Dialog.Trigger asChild>{children}</Dialog.Trigger>
@@ -73,11 +79,23 @@ export function AddItem({ children }: AddItemProps) {
                         min={1}
                         max={100}
                     >
-                        <Slider.Track className="relative h-2 flex-grow overflow-hidden rounded-full bg-gray-400">
-                            <Slider.Range className="absolute h-full bg-white" />
+                        <Slider.Track className="relative h-2 flex-grow overflow-hidden rounded-full bg-gray-400 dark:bg-zinc-600">
+                            <Slider.Range className="absolute h-full bg-white dark:bg-sky-500" />
                         </Slider.Track>
-                        <Slider.Thumb className="block h-5 w-5 rounded-full bg-white shadow-md" />
+                        <Slider.Thumb className="block h-5 w-5 rounded-full bg-white shadow-md dark:bg-sky-500" />
                     </Slider.Root>
+
+                    <div className="mt-4 flex items-center justify-end gap-2">
+                        <Dialog.Close
+                            className="px-4 font-bold"
+                            disabled={loading}
+                        >
+                            Cancelar
+                        </Dialog.Close>
+                        <Button.Normal accent loading={loading}>
+                            Criar lista
+                        </Button.Normal>
+                    </div>
                 </Dialog.Content>
             </Dialog.Portal>
         </Dialog.Root>
