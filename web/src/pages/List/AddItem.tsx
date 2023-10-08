@@ -15,6 +15,7 @@ interface AddItemProps {
 export function AddItem({ children }: AddItemProps) {
     const [loading, setLoading] = useState(false);
 
+    const [selectedItem, setSelectedItem] = useState();
     const [amount, setAmount] = useState(0);
 
     return (
@@ -78,12 +79,19 @@ export function AddItem({ children }: AddItemProps) {
                         defaultValue={[1]}
                         min={1}
                         max={100}
+                        onValueChange={(value) => setAmount(value[0])}
                     >
                         <Slider.Track className="relative h-2 flex-grow overflow-hidden rounded-full bg-gray-400 dark:bg-zinc-600">
                             <Slider.Range className="absolute h-full bg-white dark:bg-sky-500" />
                         </Slider.Track>
                         <Slider.Thumb className="block h-5 w-5 rounded-full bg-white shadow-md dark:bg-sky-500" />
                     </Slider.Root>
+                    <div className="mt-4 flex items-center justify-between">
+                        <span className="rounded-lg border px-2 py-1 dark:border-zinc-700 dark:bg-zinc-900">
+                            {amount}
+                        </span>
+                        <span className="text-green font-bold">R$0,00</span>
+                    </div>
 
                     <div className="mt-4 flex items-center justify-end gap-2">
                         <Dialog.Close
@@ -93,7 +101,7 @@ export function AddItem({ children }: AddItemProps) {
                             Cancelar
                         </Dialog.Close>
                         <Button.Normal accent loading={loading}>
-                            Criar lista
+                            Adicionar item
                         </Button.Normal>
                     </div>
                 </Dialog.Content>

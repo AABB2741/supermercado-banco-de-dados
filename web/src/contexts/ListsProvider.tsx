@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { getLists } from "../services/list/getLists";
 
-import { ListProps } from "../@types/createList";
+import { ListProps } from "../@types/list-props";
 
 interface ListsProviderProps {
     children: React.ReactNode;

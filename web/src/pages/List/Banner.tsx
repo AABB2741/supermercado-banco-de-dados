@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 
 import { useList } from "../../contexts/ListProvider";
 
@@ -28,7 +28,14 @@ export function Banner() {
                             Vence em 28/01/2005
                         </span>
                     </div>
-                    <h1 className="mt-4 font-featured text-6xl font-bold">
+                    {/* <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/50 px-6 py-2 text-green-400">
+                        <Check color="currentColor" size={20} />
+                        <span className="text-lg font-bold">Concluída</span>
+                    </div> */}
+                    <h1
+                        className="mt-4 font-featured text-6xl font-bold"
+                        contentEditable
+                    >
                         {list.name}
                     </h1>
 

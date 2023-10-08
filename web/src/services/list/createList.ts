@@ -1,7 +1,7 @@
 import z from "zod";
 import { api } from "../../api/api";
 
-import { ListProps } from "../../@types/createList";
+import { ListProps } from "../../@types/list-props";
 
 export async function createList(props: Pick<ListProps, "name" | "color">) {
     const dataSchema = z.object({

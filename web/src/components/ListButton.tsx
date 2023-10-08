@@ -3,7 +3,7 @@ import { CheckCircle } from "lucide-react";
 
 import thumbnail from "../assets/list-banner.jpg";
 
-import { ListProps } from "../@types/createList";
+import { ListProps } from "../@types/list-props";
 
 export function ListButton({ id, name, color }: ListProps) {
     return (
