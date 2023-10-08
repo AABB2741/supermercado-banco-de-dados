@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+import { CheckCheck } from "lucide-react";
 
 import { Banner } from "./Banner";
+import { Filter } from "../../components/Filter";
 
 import { useList } from "../../contexts/ListProvider";
 
@@ -12,6 +14,23 @@ export function List() {
 
         document.title = `${list.name} - RPB Shopping`;
     }, [list?.name]);
-    console.log("Carregando lista");
-    return <Banner />;
+
+    return (
+        <div>
+            <Banner />
+            <section className="p-8">
+                <Filter
+                    title="Filtrar produtos"
+                    value="all"
+                    options={[
+                        {
+                            icon: CheckCheck,
+                            label: "Tudo",
+                            value: "all",
+                        },
+                    ]}
+                />
+            </section>
+        </div>
+    );
 }
