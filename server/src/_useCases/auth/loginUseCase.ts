@@ -7,7 +7,7 @@ interface LoginProps {
 	password: string;
 }
 
-export async function LoginUseCase({ email, password }: LoginProps) {
+export async function loginUseCase({ email, password }: LoginProps) {
 	const user = await prisma.user.findUniqueOrThrow({
 		where: {
 			email,

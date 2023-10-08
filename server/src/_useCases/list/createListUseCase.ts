@@ -6,7 +6,7 @@ interface CreateListProps {
 	color: string;
 }
 
-export async function CreateListUseCase(data: CreateListProps) {
+export async function createListUseCase(data: CreateListProps) {
 	const list = await prisma.list.create({
 		data,
 	});

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import z from "zod";
-import { CreateListUseCase } from "../../useCases/list/CreateListUseCase";
+import { createListUseCase } from "../../useCases/list/createListUseCase";
 
-export async function CreateListController(req: Request, res: Response) {
+export async function createListController(req: Request, res: Response) {
 	const userId = z.number().int().positive().parse(req.userId);
 	console.log("Criando lista para usuário " + userId);
 
@@ -12,6 +12,6 @@ export async function CreateListController(req: Request, res: Response) {
 	});
 
 	const data = bodySchema.parse(req.body);
-	const list = await CreateListUseCase({ ...data, userId });
+	const list = await createListUseCase({ ...data, userId });
 	res.json(list.id);
 }

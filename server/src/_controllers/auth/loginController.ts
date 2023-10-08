@@ -2,16 +2,16 @@ import { Request, Response } from "express";
 import z from "zod";
 import jwt from "jsonwebtoken";
 
-import { LoginUseCase } from "../../useCases/auth/LoginUseCase";
+import { loginUseCase } from "../../useCases/auth/loginUseCase";
 
-export async function LoginController(req: Request, res: Response) {
+export async function loginController(req: Request, res: Response) {
 	const bodySchema = z.object({
 		email: z.string().email("invalid_email"),
 		password: z.string(),
 	});
 
 	const credentials = bodySchema.parse(req.body);
-	const user = await LoginUseCase(credentials);
+	const user = await loginUseCase(credentials);
 
 	const token = jwt.sign(
 		{

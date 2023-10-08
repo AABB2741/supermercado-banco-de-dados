@@ -1,6 +1,6 @@
 import { prisma } from "../../prisma";
 
-export async function GetListsUseCase(userId: number) {
+export async function getListsUseCase(userId: number) {
 	const lists = await prisma.list.findMany({
 		where: {
 			userId,

@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import z from "zod";
 
-import { SignUpUseCase } from "../../useCases/auth/SignUpUseCase";
+import { signUpUseCase } from "../../useCases/auth/signUpUseCase";
 
-export async function SignUpController(req: Request, res: Response) {
+export async function signUpController(req: Request, res: Response) {
 	console.log("Criando novo usuário");
 	const bodySchema = z.object({
 		name: z
@@ -19,7 +19,7 @@ export async function SignUpController(req: Request, res: Response) {
 	});
 
 	const credentials = bodySchema.parse(req.body);
-	const user = await SignUpUseCase(credentials);
+	const user = await signUpUseCase(credentials);
 	const token = jwt.sign(
 		{
 			id: user.id,

@@ -8,7 +8,7 @@ interface SignUpProps {
 	password: string;
 }
 
-export async function SignUpUseCase({ name, email, password }: SignUpProps) {
+export async function signUpUseCase({ name, email, password }: SignUpProps) {
 	const user = await prisma.user.create({
 		data: {
 			name,
