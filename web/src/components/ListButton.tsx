@@ -7,7 +7,10 @@ interface ListButtonProps {}
 
 export function ListButton() {
     return (
-        <Link to="/list/1" className="rounded-xl bg-gray-100 p-4">
+        <Link
+            to="/list/1"
+            className="rounded-xl bg-gray-100 p-4 shadow-md dark:border dark:border-zinc-700 dark:bg-zinc-900"
+        >
             {/* Top */}
             <div className="mb-2">
                 <div className="flex items-center gap-3 text-green-400">

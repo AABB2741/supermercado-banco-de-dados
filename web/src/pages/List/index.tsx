@@ -44,7 +44,7 @@ export function List() {
                 <div className="mt-4 flex items-center justify-between gap-4">
                     <input
                         type="text"
-                        className="min-w-0 max-w-[500px] flex-1 rounded-full bg-gray-100 px-6 py-2 shadow-lg outline-none focus:shadow-input dark:bg-zinc-900"
+                        className="min-w-0 max-w-[500px] flex-1 rounded-full bg-gray-100 px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
                         placeholder="Pesquisar itens"
                     />
                     <AddItem>
