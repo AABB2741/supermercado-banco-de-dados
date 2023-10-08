@@ -1,3 +1,3 @@
 import { Request, Response } from "express";
 
-export async function GetListController(req: Request, res: Response) {}
+export async function getListController(req: Request, res: Response) {}

@@ -9,6 +9,9 @@ interface CreateListProps {
 export async function createListUseCase(data: CreateListProps) {
 	const list = await prisma.list.create({
 		data,
+		select: {
+			id: true,
+		},
 	});
 	return list;
 }

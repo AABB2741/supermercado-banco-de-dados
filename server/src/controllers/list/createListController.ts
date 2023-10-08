@@ -13,5 +13,5 @@ export async function createListController(req: Request, res: Response) {
 
 	const data = bodySchema.parse(req.body);
 	const list = await createListUseCase({ ...data, userId });
-	res.json(list.id);
+	res.json(list);
 }

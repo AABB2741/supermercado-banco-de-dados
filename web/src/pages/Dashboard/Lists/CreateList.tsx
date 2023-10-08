@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
-
+import z from "zod";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
+
+import { createList } from "../../../services/list/createList";
+
+import { ErrorCode } from "../../../errors/AppError";
 
 const colors = [
     "#ff6b6b",
@@ -18,9 +23,30 @@ const colors = [
 ];
 
 export function CreateList() {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<ErrorCode>();
     const [color, setColor] = useState(
         colors[Math.round(Math.random() * (colors.length - 1))],
     );
+
+    const nameRef = useRef<HTMLInputElement>(null);
+
+    const navigate = useNavigate();
+
+    async function handleCreateList() {
+        setLoading(true);
+        setError(undefined);
+
+        try {
+            const name = z.string().parse(nameRef.current?.value);
+            const listId = await createList({ name, color });
+            navigate("/dashboard/lists/" + listId);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <Dialog.Root>
@@ -42,23 +68,32 @@ export function CreateList() {
                         label="Nome da lista"
                         placeholder="Compras do mês"
                         autoFocus
+                        ref={nameRef}
+                        disabled={loading}
                     />
                     <p className="my-2">Cor da lista</p>
                     <div className="flex items-center gap-2">
                         {colors.map((c) => (
                             <button
+                                key={c}
                                 className="h-5 w-5 rounded-full data-[selected=true]:ring-2 data-[selected=true]:ring-sky-500"
                                 data-selected={color === c}
                                 style={{ backgroundColor: c }}
                                 onClick={() => setColor(c)}
+                                disabled={loading}
                             />
                         ))}
                     </div>
                     <div className="mt-4 flex items-center justify-end gap-2">
-                        <Dialog.Close className="px-4 font-bold">
+                        <Dialog.Close
+                            className="px-4 font-bold"
+                            disabled={loading}
+                        >
                             Cancelar
                         </Dialog.Close>
-                        <Button.Normal accent>Criar lista</Button.Normal>
+                        <Button.Normal accent loading={loading}>
+                            Criar lista
+                        </Button.Normal>
                     </div>
                 </Dialog.Content>
             </Dialog.Portal>
