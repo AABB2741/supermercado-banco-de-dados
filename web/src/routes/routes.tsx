@@ -43,17 +43,15 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/lists",
                 element: <Lists />,
-                children: [
-                    {
-                        path: "/dashboard/lists/:id",
-                        element: <List />,
-                    },
-                ],
             },
             {
                 path: "/dashboard/inventory",
                 element: <Inventory />,
             },
         ],
+    },
+    {
+        path: "/list/:id",
+        element: <List />,
     },
 ]);

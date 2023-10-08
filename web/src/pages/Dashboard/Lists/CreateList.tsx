@@ -41,7 +41,7 @@ export function CreateList() {
         try {
             const name = z.string().parse(nameRef.current?.value);
             const listId = await createList({ name, color });
-            navigate("/dashboard/lists/" + listId);
+            navigate("/list/" + listId);
         } catch (err) {
             console.error(err);
             setError("unknown_error");
