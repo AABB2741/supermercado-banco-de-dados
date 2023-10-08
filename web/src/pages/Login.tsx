@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -57,6 +57,10 @@ export function Login() {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        document.title = "Login - RPB Shopping";
+    }, []);
 
     return (
         <div>

@@ -7,7 +7,7 @@ export async function createListController(req: Request, res: Response) {
 
 	const bodySchema = z.object({
 		name: z.string().min(1).max(100),
-		color: z.string(), // TODO: colocar REGEX de cor
+		color: z.string().regex(/^#(?:[0-9a-fA-F]{3}){1,2}$/), // TODO: colocar REGEX de cor
 	});
 
 	const data = bodySchema.parse(req.body);

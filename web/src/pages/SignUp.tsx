@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import z, { ZodError } from "zod";
@@ -62,6 +62,10 @@ export function SignUp() {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        document.title = "Cadastro - RPB Shopping";
+    }, []);
 
     return (
         <div>
