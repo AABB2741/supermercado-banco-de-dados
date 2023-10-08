@@ -12,7 +12,7 @@ export function Banner() {
 
     return (
         <div
-            className="flex min-h-[400px] flex-col justify-between bg-cover"
+            className="flex min-h-[400px] flex-col justify-between bg-cover text-white"
             style={{ backgroundImage: `url(${listBanner})` }}
         >
             {/* Top */}
@@ -28,7 +28,7 @@ export function Banner() {
                             Vence em 28/01/2005
                         </span>
                     </div>
-                    <h1 className="font-featured text-6xl font-bold text-white">
+                    <h1 className="font-featured text-6xl font-bold">
                         {list.name}
                     </h1>
 
