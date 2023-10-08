@@ -11,7 +11,7 @@ import { Button } from "../components/Button";
 
 import { signIn } from "../services/auth/signIn";
 
-import { errors, ErrorCode } from "../errors/AppError";
+import { ErrorCode } from "../errors/AppError";
 
 export function Login() {
     const [loading, setLoading] = useState(false);

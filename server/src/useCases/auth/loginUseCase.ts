@@ -13,6 +13,11 @@ export async function loginUseCase({ email, password }: LoginProps) {
 			email,
 			password: SHA256(password).toString(),
 		},
+		select: {
+			id: true,
+			name: true,
+			email: true,
+		},
 	});
 
 	return user;

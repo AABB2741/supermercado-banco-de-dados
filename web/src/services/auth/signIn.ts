@@ -22,7 +22,7 @@ export async function signIn(props: SignInProps) {
         "/auth/login",
         credentials,
     );
-
+    localStorage.setItem("user", JSON.stringify(data));
     Cookies.set("token", data.token);
     return data;
 }

@@ -4,7 +4,6 @@ import { createListUseCase } from "../../useCases/list/createListUseCase";
 
 export async function createListController(req: Request, res: Response) {
 	const userId = z.number().int().positive().parse(req.userId);
-	console.log("Criando lista para usuário " + userId);
 
 	const bodySchema = z.object({
 		name: z.string().min(1).max(100),

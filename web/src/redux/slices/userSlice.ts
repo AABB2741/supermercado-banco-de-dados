@@ -7,7 +7,7 @@ export type UserProps = {
 };
 
 const initialState: { user: UserProps | null } = {
-    user: null,
+    user: JSON.parse(localStorage.getItem("user") ?? "null"),
 };
 
 const userSlice = createSlice({

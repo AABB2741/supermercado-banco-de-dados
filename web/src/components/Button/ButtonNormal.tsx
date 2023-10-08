@@ -15,7 +15,7 @@ export const ButtonNormal = forwardRef(
             <button
                 type="button"
                 {...props}
-                className="flex items-center justify-center gap-4 rounded-lg px-4 py-2 font-bold disabled:opacity-50 data-[loading=true]:pointer-events-none data-[accent=true]:bg-yellow-400 data-[accent=true]:text-black data-[loading=true]:opacity-50"
+                className="flex items-center justify-center gap-4 rounded-lg px-4 py-2 font-bold outline-none focus:ring-4 focus:ring-sky-500 disabled:opacity-50 data-[loading=true]:pointer-events-none data-[accent=true]:bg-yellow-400 data-[accent=true]:text-black data-[loading=true]:opacity-50"
                 data-accent={accent}
                 data-loading={loading}
                 ref={ref}

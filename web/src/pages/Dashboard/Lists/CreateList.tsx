@@ -30,6 +30,7 @@ export function CreateList() {
     );
 
     const nameRef = useRef<HTMLInputElement>(null);
+    const submitRef = useRef<HTMLButtonElement>(null);
 
     const navigate = useNavigate();
 
@@ -43,6 +44,7 @@ export function CreateList() {
             navigate("/dashboard/lists/" + listId);
         } catch (err) {
             console.error(err);
+            setError("unknown_error");
         } finally {
             setLoading(false);
         }
@@ -56,7 +58,7 @@ export function CreateList() {
             </Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 bg-black/25" />
-                <Dialog.Content className="bottom fixed left-1/2 top-1/2 max-h-[calc(100vh-48px)] w-[calc(100vw-48px)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl bg-gray-200 p-6 shadow-lg dark:bg-zinc-800 dark:text-gray-100">
+                <Dialog.Content className="bottom fixed left-1/2 top-1/2 max-h-[calc(100vh-48px)] w-[calc(100vw-48px)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-zinc-700 bg-gray-200 p-6 shadow-lg outline-none dark:bg-zinc-800 dark:text-gray-100">
                     <Dialog.Title className="text-lg font-bold">
                         Criar nova lista
                     </Dialog.Title>
@@ -70,13 +72,14 @@ export function CreateList() {
                         autoFocus
                         ref={nameRef}
                         disabled={loading}
+                        nextFocus={submitRef}
                     />
                     <p className="my-2">Cor da lista</p>
                     <div className="flex items-center gap-2">
                         {colors.map((c) => (
                             <button
                                 key={c}
-                                className="h-5 w-5 rounded-full data-[selected=true]:ring-2 data-[selected=true]:ring-sky-500"
+                                className="h-5 w-5 rounded-full outline-none data-[selected=true]:ring-2 data-[selected=true]:ring-sky-500"
                                 data-selected={color === c}
                                 style={{ backgroundColor: c }}
                                 onClick={() => setColor(c)}
@@ -84,6 +87,11 @@ export function CreateList() {
                             />
                         ))}
                     </div>
+                    {error && (
+                        <p className="my-2 text-center text-sm text-red-400">
+                            {error}
+                        </p>
+                    )}
                     <div className="mt-4 flex items-center justify-end gap-2">
                         <Dialog.Close
                             className="px-4 font-bold"
@@ -91,7 +99,12 @@ export function CreateList() {
                         >
                             Cancelar
                         </Dialog.Close>
-                        <Button.Normal accent loading={loading}>
+                        <Button.Normal
+                            accent
+                            loading={loading}
+                            ref={submitRef}
+                            onClick={handleCreateList}
+                        >
                             Criar lista
                         </Button.Normal>
                     </div>
