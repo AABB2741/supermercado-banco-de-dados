@@ -1,0 +1,50 @@
+import { useEffect, useState, useContext, createContext } from "react";
+import axios from "axios";
+
+import { getLists } from "../services/list/getLists";
+
+import { ListProps } from "../@types/createList";
+
+interface ListsProviderProps {
+    children: React.ReactNode;
+}
+
+interface ListsProviderValue {
+    lists?: ListProps[];
+    setLists: React.Dispatch<React.SetStateAction<ListProps[] | undefined>>;
+}
+
+const ListsContext = createContext({} as ListsProviderValue);
+
+export function ListsProvider({ children }: ListsProviderProps) {
+    const [lists, setLists] = useState<ListProps[]>();
+
+    useEffect(() => {
+        const cancelToken = axios.CancelToken.source();
+
+        getLists(cancelToken.token)
+            .then((lists) => {
+                console.log("Listas:");
+                console.log(lists);
+                setLists(lists);
+            })
+            .catch((err) => {
+                if (!axios.isCancel(err)) {
+                    // TODO: Handle error
+                }
+            });
+
+        return () => {
+            cancelToken.cancel();
+            setLists(undefined);
+        };
+    }, []);
+
+    return (
+        <ListsContext.Provider value={{ lists, setLists }}>
+            {children}
+        </ListsContext.Provider>
+    );
+}
+
+export const useLists = () => useContext(ListsContext);

@@ -4,8 +4,6 @@ import { useAppSelector } from "../redux/store";
 export function Header() {
     const { user } = useAppSelector((state) => state.user);
 
-    console.log(user);
-
     return (
         <header className="flex items-center justify-between p-4">
             <p className="text-lg font-bold">

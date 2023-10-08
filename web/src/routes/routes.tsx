@@ -8,6 +8,7 @@ import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 
 import { Dashboard } from "../pages/Dashboard";
+import { ListsProvider } from "../contexts/ListsProvider";
 import { Lists } from "../pages/Dashboard/Lists";
 import { Inventory } from "../pages/Dashboard/Inventory";
 
@@ -43,7 +44,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/lists",
-                element: <Lists />,
+                element: (
+                    <ListsProvider>
+                        <Lists />
+                    </ListsProvider>
+                ),
             },
             {
                 path: "/dashboard/inventory",

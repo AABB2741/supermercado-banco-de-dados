@@ -7,11 +7,7 @@ import { getList } from "../services/list/getList";
 import { ErrorCode } from "../errors/AppError";
 import axios from "axios";
 
-export type ListProps = {
-    id: number;
-    name: string;
-    color: string;
-};
+import { ListProps } from "../@types/createList";
 
 interface ListProviderProps {
     children: React.ReactNode;

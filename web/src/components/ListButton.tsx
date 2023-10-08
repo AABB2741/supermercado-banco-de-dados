@@ -3,12 +3,12 @@ import { CheckCircle } from "lucide-react";
 
 import thumbnail from "../assets/list-banner.jpg";
 
-interface ListButtonProps {}
+import { ListProps } from "../@types/createList";
 
-export function ListButton() {
+export function ListButton({ id, name, color }: ListProps) {
     return (
         <Link
-            to="/list/1"
+            to={"/list/" + id}
             className="rounded-xl bg-gray-100 p-4 shadow-md dark:border dark:border-zinc-700 dark:bg-zinc-900"
         >
             {/* Top */}
@@ -28,13 +28,11 @@ export function ListButton() {
                     />
                     <div
                         className="mx-auto mt-2 h-2 w-10 rounded-full"
-                        style={{ backgroundColor: "#1e90ff" }}
+                        style={{ backgroundColor: color }}
                     />
                 </div>
                 <div>
-                    <p className="font-featured text-xl font-bold">
-                        Lista de compras de teste
-                    </p>
+                    <p className="font-featured text-xl font-bold">{name}</p>
                     <ul className="list-disc text-sm">
                         <li>Produto 1</li>
                         <li>Produto 2</li>
