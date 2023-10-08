@@ -4,6 +4,9 @@ export default {
     darkMode: "class",
     theme: {
         extend: {
+            fontFamily: {
+                featured: ["Josefin Sans", "Inter", "Arial", "sans-serif"],
+            },
             boxShadow: {
                 input: "inset 0 -2px 0 #0ea5e9",
             },
