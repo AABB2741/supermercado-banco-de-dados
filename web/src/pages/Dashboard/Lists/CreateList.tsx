@@ -52,7 +52,7 @@ export function CreateList() {
 
     return (
         <Dialog.Root>
-            <Dialog.Trigger className="font-white flex items-center justify-center gap-4 rounded-lg bg-gradient-to-br from-green-400 to-green-600 px-10 py-6 font-bold text-gray-100">
+            <Dialog.Trigger className="font-white flex items-center justify-center gap-4 rounded-xl bg-gradient-to-br from-green-400 to-green-600 px-10 py-6 font-bold text-gray-100">
                 <Plus />
                 <span>Criar nova lista</span>
             </Dialog.Trigger>
