@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type UserProps = {
-    id: number;
-    name: string;
-    email: string;
-};
+import { UserProps } from "../../@types/user-props";
 
 const initialState: { user: UserProps | null } = {
     user: JSON.parse(localStorage.getItem("user") ?? "null"),
