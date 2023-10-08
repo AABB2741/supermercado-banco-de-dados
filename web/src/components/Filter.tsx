@@ -27,7 +27,7 @@ export function Filter({ title, value, options, onValueChange }: FilterProps) {
                         onClick={() => onValueChange?.(o.value)}
                     >
                         <o.icon size={28} />
-                        <p className="font-bold">{o.label}</p>
+                        <p className="mt-2 font-bold">{o.label}</p>
                     </button>
                 ))}
             </div>
