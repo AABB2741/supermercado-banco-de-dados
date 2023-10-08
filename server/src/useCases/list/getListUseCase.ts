@@ -1,0 +1,17 @@
+import { prisma } from "../../prisma";
+
+interface GetListProps {
+	userId: number;
+	listId: number;
+}
+
+export async function getListUseCase({ userId, listId }: GetListProps) {
+	const list = await prisma.list.findUniqueOrThrow({
+		where: {
+			id: listId,
+			userId,
+		},
+	});
+
+	return list;
+}
