@@ -21,7 +21,7 @@ export function Filter({ title, value, options, onValueChange }: FilterProps) {
             <div className="flex gap-2">
                 {options.map((o) => (
                     <button
-                        className="flex flex-col items-center rounded-xl bg-gray-100 px-8 py-4 shadow-md data-[selected=true]:border-0 data-[selected=true]:bg-gradient-to-br data-[selected=true]:from-sky-400 data-[selected=true]:to-sky-600 data-[selected=true]:text-white dark:border dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+                        className="flex flex-col items-center rounded-xl bg-gray-100 px-8 py-4 shadow-md data-[selected=true]:border-0 data-[selected=true]:bg-gradient-to-br data-[selected=true]:from-sky-400 data-[selected=true]:to-sky-600 data-[selected=true]:text-white dark:border dark:border-zinc-700 dark:bg-zinc-900 dark:text-white dark:data-[selected=true]:border-none"
                         data-selected={value === o.value}
                         key={o.value}
                         onClick={() => onValueChange?.(o.value)}

@@ -27,7 +27,7 @@ export function ListButton({ id, name, color }: ListProps) {
                         className="h-16 w-16 rounded-xl object-cover"
                     />
                     <div
-                        className="mx-auto mt-2 h-2 w-10 rounded-full"
+                        className="mx-auto mt-2 h-[6px] w-10 rounded-full"
                         style={{ backgroundColor: color }}
                     />
                 </div>

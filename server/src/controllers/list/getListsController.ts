@@ -12,7 +12,7 @@ export async function getListsController(req: Request, res: Response) {
 		.int()
 		.positive()
 		.parse(req.userId);
-	console.log("Obtendo listas do usuario " + userId);
+
 	const lists = await getListsUseCase(userId);
 	res.json(lists);
 }

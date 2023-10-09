@@ -1,12 +1,16 @@
-import { useState } from "react";
-import { History, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { History, ShoppingCart, Sparkles } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
+import { getProducts } from "../../services/products/getProducts";
+
 import { Button } from "../../components/Button";
 
 import banner from "../../assets/list-banner.jpg";
+
+import { ProductProps } from "../../@types/product-props";
 
 interface AddItemProps {
     children: React.ReactNode;
@@ -15,8 +19,15 @@ interface AddItemProps {
 export function AddItem({ children }: AddItemProps) {
     const [loading, setLoading] = useState(false);
 
+    const [search, setSearch] = useState("");
+
+    const [products, setProducts] = useState<ProductProps[]>();
     const [selectedItem, setSelectedItem] = useState();
     const [amount, setAmount] = useState(0);
+
+    useEffect(() => {
+        getProducts(search).then((products) => setProducts(products));
+    }, [search]);
 
     return (
         <Dialog.Root>
@@ -32,6 +43,8 @@ export function AddItem({ children }: AddItemProps) {
                         <Combobox.Input
                             className="block w-full min-w-0 rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-none outline-none ring-0 transition-shadow focus:shadow-input focus:ring-0 focus:ring-transparent dark:border-zinc-700 dark:bg-zinc-900"
                             placeholder="Desinfetante, carne moída..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                         />
                         <Combobox.Options className="mt-2 overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
                             <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
@@ -56,6 +69,85 @@ export function AddItem({ children }: AddItemProps) {
                                         </p>
                                     </div>
                                 </Combobox.Option>
+                            </div>
+                            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
+                                <History size={12} />
+                                <span className="text-xs">
+                                    Está acabando da sua dispensa
+                                </span>
+                            </div>
+                            <div className="p-2">
+                                <Combobox.Option
+                                    className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
+                                    value={2}
+                                >
+                                    <img
+                                        src={banner}
+                                        className="h-8 w-8 rounded-lg"
+                                    />
+                                    <div>
+                                        <p>Macarrão</p>
+                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
+                                            Bosch
+                                        </p>
+                                    </div>
+                                </Combobox.Option>
+                                <Combobox.Option
+                                    className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
+                                    value={2}
+                                >
+                                    <img
+                                        src={banner}
+                                        className="h-8 w-8 rounded-lg"
+                                    />
+                                    <div>
+                                        <p>Macarrão</p>
+                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
+                                            Bosch
+                                        </p>
+                                    </div>
+                                </Combobox.Option>
+                                <Combobox.Option
+                                    className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
+                                    value={2}
+                                >
+                                    <img
+                                        src={banner}
+                                        className="h-8 w-8 rounded-lg"
+                                    />
+                                    <div>
+                                        <p>Macarrão</p>
+                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
+                                            Bosch
+                                        </p>
+                                    </div>
+                                </Combobox.Option>
+                            </div>
+                            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
+                                <ShoppingCart size={12} />
+                                <span className="text-xs">
+                                    Todos os produtos
+                                </span>
+                            </div>
+                            <div className="p-2">
+                                {products?.map((p) => (
+                                    <Combobox.Option
+                                        className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
+                                        value={2}
+                                        key={p.id}
+                                    >
+                                        <img
+                                            src={banner}
+                                            className="h-8 w-8 rounded-lg"
+                                        />
+                                        <div>
+                                            <p>{p.name}</p>
+                                            <p className="text-xs text-gray-600 dark:text-zinc-400">
+                                                Bosch
+                                            </p>
+                                        </div>
+                                    </Combobox.Option>
+                                ))}
                             </div>
                         </Combobox.Options>
                     </Combobox>
