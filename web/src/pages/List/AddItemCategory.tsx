@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
@@ -15,6 +15,9 @@ interface AddItemCategoryProps {
     title: string;
     search: string;
     url: string;
+    setSelectedItem: React.Dispatch<
+        React.SetStateAction<ProductProps | undefined>
+    >;
 }
 
 export function AddItemCategory({
@@ -22,6 +25,7 @@ export function AddItemCategory({
     title,
     search,
     url,
+    setSelectedItem,
 }: AddItemCategoryProps) {
     const [products, setProducts] = useState<ProductProps[]>();
 
@@ -45,6 +49,7 @@ export function AddItemCategory({
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                         value={p.id}
                         key={p.id}
+                        onClick={() => setSelectedItem(p)}
                     >
                         <img src={banner} className="h-8 w-8 rounded-lg" />
                         <div className="flex-1">

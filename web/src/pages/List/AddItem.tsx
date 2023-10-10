@@ -12,6 +12,7 @@ import { Button } from "../../components/Button";
 import { ProductProps } from "../../@types/product-props";
 
 import banner from "../../assets/list-banner.jpg";
+import { Input } from "../../components/Input";
 
 interface AddItemProps {
     children: React.ReactNode;
@@ -24,6 +25,10 @@ export function AddItem({ children }: AddItemProps) {
     const src = useMemo(() => search.trim(), [search]);
 
     const [selectedItem, setSelectedItem] = useState<ProductProps>();
+    const selectedId = useMemo(
+        () => selectedItem?.id ?? null,
+        [selectedItem?.id],
+    );
     const [amount, setAmount] = useState(0);
 
     const { list } = useList();
@@ -38,7 +43,7 @@ export function AddItem({ children }: AddItemProps) {
                         Adicionar item
                     </Dialog.Title>
 
-                    <Combobox>
+                    <Combobox value={selectedId}>
                         <Combobox.Input
                             className="block w-full min-w-0 rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-none outline-none ring-0 transition-shadow focus:shadow-input focus:ring-0 focus:ring-transparent dark:border-zinc-700 dark:bg-zinc-900"
                             placeholder="Desinfetante, carne moída..."
@@ -71,18 +76,21 @@ export function AddItem({ children }: AddItemProps) {
                                 title="Sugestões para você"
                                 search={src}
                                 url=""
+                                setSelectedItem={setSelectedItem}
                             />
                             <AddItemCategory
                                 icon={AlertTriangle}
                                 title="Está acabando da sua dispensa"
                                 search={src}
                                 url=""
+                                setSelectedItem={setSelectedItem}
                             />
                             <AddItemCategory
                                 icon={ShoppingCart}
                                 title="Todos os produtos"
                                 search={src}
                                 url=""
+                                setSelectedItem={setSelectedItem}
                             />
                         </Combobox.Options>
                     </Combobox>
@@ -92,11 +100,22 @@ export function AddItem({ children }: AddItemProps) {
                     <div className="mt-2 flex gap-4">
                         <img src={banner} className="h-14 w-14 rounded-lg" />
                         <div className="flex-1">
-                            <p className="text-xl font-bold">Macarrão</p>
-                            <p>Vendido por: Amazon</p>
-                            <p>Marca: Bosch</p>
+                            <p className="text-xl font-bold">
+                                {selectedItem?.name}
+                            </p>
+                            {/* <p>Vendido por: Amazon</p> */}
+                            {selectedItem?.brand && (
+                                <p>Marca: {selectedItem.brand.name}</p>
+                            )}
                             <p>Vence em 3 dias (11/10/2023)</p>
-                            <p>Unidade: R$854,39</p>
+                            {typeof selectedItem?.price === "number" && (
+                                <p>
+                                    Unidade: R$
+                                    {selectedItem.price
+                                        .toFixed(2)
+                                        .replace(".", ",")}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -106,6 +125,7 @@ export function AddItem({ children }: AddItemProps) {
                         defaultValue={[1]}
                         min={1}
                         max={100}
+                        value={[!isNaN(amount) ? amount : 0]}
                         onValueChange={(value) => setAmount(value[0])}
                     >
                         <Slider.Track className="relative h-2 flex-grow overflow-hidden rounded-full bg-gray-400 dark:bg-zinc-600">
@@ -114,10 +134,22 @@ export function AddItem({ children }: AddItemProps) {
                         <Slider.Thumb className="block h-5 w-5 rounded-full bg-white shadow-md dark:bg-sky-500" />
                     </Slider.Root>
                     <div className="mt-4 flex items-center justify-between">
-                        <span className="rounded-lg border px-2 py-1 dark:border-zinc-700 dark:bg-zinc-900">
-                            {amount}
+                        <Input
+                            type="number"
+                            value={!isNaN(amount) ? amount : 0}
+                            onChange={(e) =>
+                                setAmount(parseInt(e.target.value))
+                            }
+                        />
+                        <span className="font-bold text-red-500">
+                            R$
+                            {(!isNaN((selectedItem?.price ?? 0) * amount)
+                                ? (selectedItem?.price ?? 0) * amount
+                                : 0
+                            )
+                                .toFixed(2)
+                                .replace(".", ",")}
                         </span>
-                        <span className="text-green font-bold">R$0,00</span>
                     </div>
 
                     <div className="mt-4 flex items-center justify-end gap-2">
