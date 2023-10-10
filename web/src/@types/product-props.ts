@@ -1,5 +1,6 @@
 import { BrandProps } from "./brand-props";
 import { ListProps } from "./list-props";
+import { UserProps } from "./user-props";
 
 export type ProductProps = {
     id: number;
@@ -11,4 +12,7 @@ export type ProductProps = {
 
     brand?: BrandProps;
     brandId?: number;
+
+    user?: UserProps;
+    userId: number;
 };

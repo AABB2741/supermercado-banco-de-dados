@@ -3,6 +3,7 @@ import { AlertTriangle, ShoppingCart, Sparkles } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
+// import * as Checkbox from "@radix-ui/react-checkbox";
 
 import { useList } from "../../contexts/ListProvider";
 
@@ -24,12 +25,14 @@ export function AddItem({ children }: AddItemProps) {
     const [search, setSearch] = useState("");
     const src = useMemo(() => search.trim(), [search]);
 
-    const [selectedItem, setSelectedItem] = useState<ProductProps>();
+    const [selectedItem, setSelectedItem] =
+        useState<Omit<ProductProps & { isCustom?: boolean }, "userId">>();
     const selectedId = useMemo(
         () => selectedItem?.id ?? null,
         [selectedItem?.id],
     );
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(1);
+    // const [isPublic, setIsPublic] = useState(true);
 
     const { list } = useList();
 
@@ -38,7 +41,16 @@ export function AddItem({ children }: AddItemProps) {
             <Dialog.Trigger asChild>{children}</Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 bg-black/25" />
-                <Dialog.Content className="bottom fixed left-1/2 top-1/2 max-h-[calc(100vh-48px)] w-[calc(100vw-48px)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-gray-300 bg-gray-200 p-6 shadow-lg outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-100">
+                <Dialog.Content
+                    className="bottom fixed left-1/2 top-1/2 max-h-[calc(100vh-48px)] w-[calc(100vw-48px)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-gray-300 bg-gray-200 p-6 shadow-lg outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-100"
+                    onClick={() =>
+                        setSelectedItem({
+                            id: new Date().getTime(),
+                            name: src,
+                            price: 0,
+                        })
+                    }
+                >
                     <Dialog.Title className="mb-4 text-lg font-bold">
                         Adicionar item
                     </Dialog.Title>
@@ -103,7 +115,9 @@ export function AddItem({ children }: AddItemProps) {
                             <p className="text-xl font-bold">
                                 {selectedItem?.name}
                             </p>
-                            {/* <p>Vendido por: Amazon</p> */}
+                            {selectedItem?.user && (
+                                <p>Vendido por: {selectedItem.user.name}</p>
+                            )}
                             {selectedItem?.brand && (
                                 <p>Marca: {selectedItem.brand.name}</p>
                             )}
@@ -119,6 +133,7 @@ export function AddItem({ children }: AddItemProps) {
                         </div>
                     </div>
 
+                    {/* Amount selector */}
                     <p className="mb-2 mt-4 text-lg font-bold">Quantidade</p>
                     <Slider.Root
                         className="relative flex h-2 select-none items-center"
@@ -151,6 +166,22 @@ export function AddItem({ children }: AddItemProps) {
                                 .replace(".", ",")}
                         </span>
                     </div>
+
+                    {/* Public checkbox */}
+                    {/* <div className="mt-4 flex items-center gap-3">
+                        <Checkbox.Root
+                            id="public"
+                            className="flex h-5 w-5 items-center justify-center rounded border border-gray-300 bg-white"
+                            defaultChecked
+                        >
+                            <Checkbox.Indicator>
+                                {isPublic && <Check size={14} />}
+                            </Checkbox.Indicator>
+                        </Checkbox.Root>
+                        <label htmlFor="public">
+                            Tornar este produto público
+                        </label>
+                    </div> */}
 
                     <div className="mt-4 flex items-center justify-end gap-2">
                         <Dialog.Close

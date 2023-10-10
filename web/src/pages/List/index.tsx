@@ -1,5 +1,17 @@
-import { useEffect } from "react";
-import { CheckCheck, Cherry, Laptop, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+    Book,
+    Carrot,
+    CheckCheck,
+    Cherry,
+    Glasses,
+    Hammer,
+    Laptop,
+    LeafyGreen,
+    Plus,
+    Shapes,
+    Shirt,
+} from "lucide-react";
 
 import { Banner } from "./Banner";
 import { Filter } from "../../components/Filter";
@@ -8,6 +20,8 @@ import { AddItem } from "./AddItem";
 import { useList } from "../../contexts/ListProvider";
 
 export function List() {
+    const [filter, setFilter] = useState("all");
+
     const { list } = useList();
 
     useEffect(() => {
@@ -22,7 +36,8 @@ export function List() {
             <section className="p-8">
                 <Filter
                     title="Filtrar produtos"
-                    value="all"
+                    value={filter}
+                    onValueChange={setFilter}
                     options={[
                         {
                             icon: CheckCheck,
@@ -35,9 +50,44 @@ export function List() {
                             value: "fruits",
                         },
                         {
+                            icon: LeafyGreen,
+                            label: "Verduras",
+                            value: "greens",
+                        },
+                        {
+                            icon: Carrot,
+                            label: "Legumes",
+                            value: "vegetables",
+                        },
+                        {
                             icon: Laptop,
                             label: "Eletrônicos",
                             value: "electronic",
+                        },
+                        {
+                            icon: Shirt,
+                            label: "Vestimentas",
+                            value: "clothes",
+                        },
+                        {
+                            icon: Glasses,
+                            label: "Acessórios",
+                            value: "accessories",
+                        },
+                        {
+                            icon: Hammer,
+                            label: "Ferramentas",
+                            value: "tools",
+                        },
+                        {
+                            icon: Shapes,
+                            label: "Brinquedos",
+                            value: "toys",
+                        },
+                        {
+                            icon: Book,
+                            label: "Materiais escolares",
+                            value: "school_supplies",
                         },
                     ]}
                 />
