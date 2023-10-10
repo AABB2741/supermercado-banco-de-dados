@@ -1,19 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AlertTriangle, ShoppingCart, Sparkles } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
-import { useDebounce } from "../../hooks/useDebounce";
 import { useList } from "../../contexts/ListProvider";
-import { getProducts } from "../../services/products/getProducts";
 
 import { AddItemCategory } from "./AddItemCategory";
 import { Button } from "../../components/Button";
 
-import banner from "../../assets/list-banner.jpg";
-
 import { ProductProps } from "../../@types/product-props";
+
+import banner from "../../assets/list-banner.jpg";
 
 interface AddItemProps {
     children: React.ReactNode;
@@ -25,19 +23,10 @@ export function AddItem({ children }: AddItemProps) {
     const [search, setSearch] = useState("");
     const src = useMemo(() => search.trim(), [search]);
 
-    const [products, setProducts] = useState<ProductProps[]>();
-    const [selectedItem, setSelectedItem] = useState();
+    const [selectedItem, setSelectedItem] = useState<ProductProps>();
     const [amount, setAmount] = useState(0);
 
     const { list } = useList();
-
-    useDebounce(
-        () => {
-            getProducts(search).then((products) => setProducts(products));
-        },
-        3000,
-        [src],
-    );
 
     return (
         <Dialog.Root>
@@ -66,7 +55,7 @@ export function AddItem({ children }: AddItemProps) {
                                     value={2}
                                 >
                                     <span
-                                        className="flex h-8 w-8 items-center justify-center rounded-lg"
+                                        className="flex h-8 w-8 items-center justify-center rounded-lg text-white"
                                         style={{
                                             backgroundColor:
                                                 list?.color ?? "#1e90ff",
