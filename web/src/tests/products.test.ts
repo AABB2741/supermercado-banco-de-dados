@@ -13,7 +13,12 @@ export const products: ProductProps[] = [
     { id: 10, name: "Sapato Social", price: 69.99 },
     { id: 11, name: "Caneca", price: 9.99 },
     { id: 12, name: "Colar", price: 34.99 },
-    { id: 13, name: "Luvas", price: 12.99 },
+    {
+        id: 13,
+        name: "Luvas",
+        price: 12.99,
+        brand: { id: 1, name: "De pedreiro", userId: 1 },
+    },
     { id: 14, name: "Meias", price: 6.99 },
     { id: 15, name: "Cinto", price: 15.99 },
     { id: 16, name: "Pulseira", price: 8.99 },

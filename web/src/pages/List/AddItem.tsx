@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { History, ShoppingCart, Sparkles } from "lucide-react";
+import { AlertTriangle, ShoppingCart, Sparkles } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
+import { useDebounce } from "../../hooks/useDebounce";
+import { useList } from "../../contexts/ListProvider";
 import { getProducts } from "../../services/products/getProducts";
 
+import { AddItemCategory } from "./AddItemCategory";
 import { Button } from "../../components/Button";
 
 import banner from "../../assets/list-banner.jpg";
@@ -25,9 +28,19 @@ export function AddItem({ children }: AddItemProps) {
     const [selectedItem, setSelectedItem] = useState();
     const [amount, setAmount] = useState(0);
 
+    const { list } = useList();
+
     useEffect(() => {
         getProducts(search).then((products) => setProducts(products));
     }, [search]);
+
+    useDebounce(
+        () => {
+            getProducts(search).then((products) => setProducts(products));
+        },
+        3000,
+        [search],
+    );
 
     return (
         <Dialog.Root>
@@ -46,109 +59,45 @@ export function AddItem({ children }: AddItemProps) {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                        <Combobox.Options className="mt-2 overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
-                            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
-                                <Sparkles size={12} />
-                                <span className="text-xs">
-                                    Sugestões para você
-                                </span>
-                            </div>
-                            <div className="p-2">
+                        <Combobox.Options className="absolute top-[107px] z-10 mt-2 max-h-[calc(100%-139px)] w-[calc(100%-48px)] overflow-y-auto rounded-lg border border-gray-300 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
+                            <div
+                                className="p-2 data-[empty=true]:hidden"
+                                data-empty={!search}
+                            >
                                 <Combobox.Option
                                     className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                                     value={2}
                                 >
-                                    <img
-                                        src={banner}
-                                        className="h-8 w-8 rounded-lg"
-                                    />
-                                    <div>
-                                        <p>Macarrão</p>
-                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                            Bosch
-                                        </p>
-                                    </div>
-                                </Combobox.Option>
-                            </div>
-                            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
-                                <History size={12} />
-                                <span className="text-xs">
-                                    Está acabando da sua dispensa
-                                </span>
-                            </div>
-                            <div className="p-2">
-                                <Combobox.Option
-                                    className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
-                                    value={2}
-                                >
-                                    <img
-                                        src={banner}
-                                        className="h-8 w-8 rounded-lg"
-                                    />
-                                    <div>
-                                        <p>Macarrão</p>
-                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                            Bosch
-                                        </p>
-                                    </div>
-                                </Combobox.Option>
-                                <Combobox.Option
-                                    className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
-                                    value={2}
-                                >
-                                    <img
-                                        src={banner}
-                                        className="h-8 w-8 rounded-lg"
-                                    />
-                                    <div>
-                                        <p>Macarrão</p>
-                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                            Bosch
-                                        </p>
-                                    </div>
-                                </Combobox.Option>
-                                <Combobox.Option
-                                    className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
-                                    value={2}
-                                >
-                                    <img
-                                        src={banner}
-                                        className="h-8 w-8 rounded-lg"
-                                    />
-                                    <div>
-                                        <p>Macarrão</p>
-                                        <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                            Bosch
-                                        </p>
-                                    </div>
-                                </Combobox.Option>
-                            </div>
-                            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
-                                <ShoppingCart size={12} />
-                                <span className="text-xs">
-                                    Todos os produtos
-                                </span>
-                            </div>
-                            <div className="p-2">
-                                {products?.map((p) => (
-                                    <Combobox.Option
-                                        className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
-                                        value={2}
-                                        key={p.id}
+                                    <span
+                                        className="flex h-8 w-8 items-center justify-center rounded-lg"
+                                        style={{
+                                            backgroundColor:
+                                                list?.color ?? "#1e90ff",
+                                        }}
                                     >
-                                        <img
-                                            src={banner}
-                                            className="h-8 w-8 rounded-lg"
-                                        />
-                                        <div>
-                                            <p>{p.name}</p>
-                                            <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                                Bosch
-                                            </p>
-                                        </div>
-                                    </Combobox.Option>
-                                ))}
+                                        {search[0]}
+                                    </span>
+                                    <p>{search}</p>
+                                </Combobox.Option>
                             </div>
+                            <AddItemCategory
+                                icon={Sparkles}
+                                title="Sugestões para você"
+                                search={search}
+                                url=""
+                            />
+                            <AddItemCategory
+                                icon={AlertTriangle}
+                                title="Está acabando da sua dispensa"
+                                search={search}
+                                url=""
+                            />
+                            <AddItemCategory
+                                icon={ShoppingCart}
+                                title="Todos os produtos"
+                                search={search}
+                                url=""
+                            />
                         </Combobox.Options>
                     </Combobox>
 
