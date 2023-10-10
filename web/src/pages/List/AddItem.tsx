@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, ShoppingCart, Sparkles } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -23,6 +23,7 @@ export function AddItem({ children }: AddItemProps) {
     const [loading, setLoading] = useState(false);
 
     const [search, setSearch] = useState("");
+    const src = useMemo(() => search.trim(), [search]);
 
     const [products, setProducts] = useState<ProductProps[]>();
     const [selectedItem, setSelectedItem] = useState();
@@ -30,16 +31,12 @@ export function AddItem({ children }: AddItemProps) {
 
     const { list } = useList();
 
-    useEffect(() => {
-        getProducts(search).then((products) => setProducts(products));
-    }, [search]);
-
     useDebounce(
         () => {
             getProducts(search).then((products) => setProducts(products));
         },
         3000,
-        [search],
+        [src],
     );
 
     return (
@@ -62,7 +59,7 @@ export function AddItem({ children }: AddItemProps) {
                         <Combobox.Options className="absolute top-[107px] z-10 mt-2 max-h-[calc(100%-139px)] w-[calc(100%-48px)] overflow-y-auto rounded-lg border border-gray-300 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
                             <div
                                 className="p-2 data-[empty=true]:hidden"
-                                data-empty={!search}
+                                data-empty={!src}
                             >
                                 <Combobox.Option
                                     className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
@@ -75,7 +72,7 @@ export function AddItem({ children }: AddItemProps) {
                                                 list?.color ?? "#1e90ff",
                                         }}
                                     >
-                                        {search[0]}
+                                        {src[0]}
                                     </span>
                                     <p>{search}</p>
                                 </Combobox.Option>
@@ -83,19 +80,19 @@ export function AddItem({ children }: AddItemProps) {
                             <AddItemCategory
                                 icon={Sparkles}
                                 title="Sugestões para você"
-                                search={search}
+                                search={src}
                                 url=""
                             />
                             <AddItemCategory
                                 icon={AlertTriangle}
                                 title="Está acabando da sua dispensa"
-                                search={search}
+                                search={src}
                                 url=""
                             />
                             <AddItemCategory
                                 icon={ShoppingCart}
                                 title="Todos os produtos"
-                                search={search}
+                                search={src}
                                 url=""
                             />
                         </Combobox.Options>
