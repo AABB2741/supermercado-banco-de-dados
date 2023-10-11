@@ -2,9 +2,9 @@ import React from "react";
 import { LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
-import { ProductProps } from "../../@types/product-props";
+import { ProductProps } from "../../../@types/product-props";
 
-import banner from "../../assets/list-banner.jpg";
+import banner from "../../../assets/list-banner.jpg";
 
 interface AddItemCategoryProps {
     icon: React.ElementType<LucideProps>;
