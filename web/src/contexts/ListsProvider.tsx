@@ -24,8 +24,6 @@ export function ListsProvider({ children }: ListsProviderProps) {
 
         getLists(cancelToken.token)
             .then((lists) => {
-                console.log("Listas:");
-                console.log(lists);
                 setLists(lists);
             })
             .catch((err) => {

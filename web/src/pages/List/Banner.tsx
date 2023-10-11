@@ -32,7 +32,7 @@ export function Banner() {
                         <Check color="currentColor" size={20} />
                         <span className="text-lg font-bold">Concluída</span>
                     </div> */}
-                    <h1 className="mt-4 font-featured text-6xl font-bold">
+                    <h1 className="mt-4 line-clamp-2 break-words font-featured text-6xl font-bold">
                         {list.name}
                     </h1>
 
