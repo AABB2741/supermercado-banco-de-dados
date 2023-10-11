@@ -37,8 +37,13 @@ export function AddItemCategory({
                         // onClick={() => setSelectedItem(p)}
                     >
                         <img src={banner} className="h-8 w-8 rounded-lg" />
-                        <div className="flex-1">
-                            <p>{p.name}</p>
+                        <div className="flex-1 overflow-x-hidden">
+                            <p
+                                className="flex-1 break-all data-[has-brand=false]:line-clamp-2 data-[has-brand=true]:overflow-x-hidden data-[has-brand=true]:text-ellipsis data-[has-brand=true]:whitespace-nowrap"
+                                data-has-brand={Boolean(p.brand)}
+                            >
+                                {p.name}
+                            </p>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
                                 {p.brand?.name}
                             </p>

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Combobox } from "@headlessui/react";
-import { ShoppingCart, Sparkles } from "lucide-react";
+import { ShoppingCart, Sparkles, Star } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
@@ -28,6 +28,7 @@ export function AddItem({ children }: AddItemProps) {
     const src = useMemo(() => search.trim().toLowerCase(), [search]);
     const [products, setProducts] = useState<Partial<GetProductsProps>>({
         all: undefined,
+        branded: undefined,
         suggested: undefined,
     });
 
@@ -89,7 +90,9 @@ export function AddItem({ children }: AddItemProps) {
                                     >
                                         {src[0]}
                                     </span>
-                                    <p>{search}</p>
+                                    <p className="line-clamp-2 flex-1 break-all">
+                                        {search}
+                                    </p>
                                 </Combobox.Option>
                             </div>
                             <AddItemCategory
@@ -99,8 +102,13 @@ export function AddItem({ children }: AddItemProps) {
                             />
                             <AddItemCategory
                                 icon={ShoppingCart}
-                                title="Todos os produtos"
+                                title="Produtos genéricos"
                                 products={products?.all}
+                            />
+                            <AddItemCategory
+                                icon={Star}
+                                title="Produtos de marca"
+                                products={products?.branded}
                             />
                         </Combobox.Options>
                     </Combobox>
