@@ -17,8 +17,9 @@ model User {
     password  String
     createdAt DateTime @default(now())
 
-    lists  List[]
-    brands Brand[]
+    lists   List[]
+    brands  Brand[]
+    Product Product[]
 }
 
 model List {
@@ -57,6 +58,9 @@ model Product {
 
     brand   Brand? @relation(fields: [brandId], references: [id])
     brandId Int?
+
+    user   User @relation(fields: [userId], references: [id])
+    userId Int
 }
 
 model Recipe {
