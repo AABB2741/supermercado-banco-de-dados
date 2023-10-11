@@ -1,25 +1,35 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
 import { useList } from "../../../contexts/ListProvider";
 import { useAddItem } from "./AddItemRoot";
 
-import { ProductProps } from "../../../@types/product-props";
+import { defaultProducts } from "../../../data/defaultProducts";
+defaultProducts.map((p) => (p.isOffline = true));
 
 import banner from "../../../assets/list-banner.jpg";
+import { normalize } from "../../../utils/normalize";
 
-interface AddItemCategoryProps {
+interface AddOfflineItemCategoryProps {
     icon: React.ElementType<LucideProps>;
     title: string;
-    products?: ProductProps[];
+    search: string;
 }
 
-export function AddItemCategory({
+export function AddOfflineItemCategory({
     icon: Icon,
     title,
-    products,
-}: AddItemCategoryProps) {
+    search,
+}: AddOfflineItemCategoryProps) {
+    const products = useMemo(
+        () =>
+            defaultProducts
+                .filter((p) => normalize(p.name).toLowerCase().includes(search))
+                .slice(0, 5),
+        [search],
+    );
+
     const { list } = useList();
     const { setProduct } = useAddItem();
 

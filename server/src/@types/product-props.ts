@@ -3,16 +3,17 @@ import { ListProps } from "./list-props";
 import { UserProps } from "./user-props";
 
 export type ProductProps = {
-    id: number;
-    name: string;
-    price: number;
-    dueTime?: number;
+	id: number;
+	name: string;
+	price: number;
+	dueTime?: number;
+	isOffline?: boolean;
 
-    lists?: ListProps[];
+	lists?: ListProps[];
 
-    brand?: BrandProps;
-    brandId?: number;
+	brand?: BrandProps;
+	brandId?: number;
 
-    user?: UserProps;
-    userId: number;
+	user?: UserProps;
+	userId: number;
 };

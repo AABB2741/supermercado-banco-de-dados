@@ -5,8 +5,9 @@ import { UserProps } from "./user-props";
 export type ProductProps = {
     id: number;
     name: string;
-    price: number;
+    price?: number;
     dueTime?: number;
+    isOffline?: boolean;
 
     lists?: ListProps[];
 
@@ -14,5 +15,5 @@ export type ProductProps = {
     brandId?: number;
 
     user?: UserProps;
-    userId: number;
+    userId?: number;
 };

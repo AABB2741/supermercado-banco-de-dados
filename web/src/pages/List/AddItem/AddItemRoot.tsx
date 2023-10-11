@@ -5,12 +5,15 @@ import { AddItem } from ".";
 import { Button } from "../../../components/Button";
 
 import { ProductProps } from "../../../@types/product-props";
+import { ListItemProps } from "../../../@types/list-item-props";
 
 interface AddItemValue {
     product?: Partial<ProductProps>;
+    item?: ListItemProps;
     setProduct: React.Dispatch<
         React.SetStateAction<Partial<ProductProps> | undefined>
     >;
+    setItem: React.Dispatch<React.SetStateAction<ListItemProps | undefined>>;
 }
 
 interface AddItemProps {
@@ -20,10 +23,11 @@ interface AddItemProps {
 const AddItemContext = createContext({} as AddItemValue);
 
 export function AddItemRoot({ children }: AddItemProps) {
+    const [item, setItem] = useState<ListItemProps>();
     const [product, setProduct] = useState<Partial<ProductProps>>();
 
     return (
-        <AddItemContext.Provider value={{ product, setProduct }}>
+        <AddItemContext.Provider value={{ product, item, setProduct, setItem }}>
             <Dialog.Root>
                 <Dialog.Trigger asChild>{children}</Dialog.Trigger>
                 <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 bg-black/25" />

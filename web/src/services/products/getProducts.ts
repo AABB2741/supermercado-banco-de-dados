@@ -6,8 +6,7 @@ import { ProductProps } from "../../@types/product-props";
 
 export type GetProductsProps = {
     suggested: ProductProps[];
-    branded: ProductProps[];
-    all: ProductProps[];
+    public: ProductProps[];
 };
 
 export async function getProducts(

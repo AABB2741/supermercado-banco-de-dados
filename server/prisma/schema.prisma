@@ -49,10 +49,11 @@ model ListItem {
 }
 
 model Product {
-    id      Int    @id @default(autoincrement())
-    name    String
-    price   Float  @default(0)
-    dueTime Int?
+    id        Int     @id @default(autoincrement())
+    name      String
+    price     Float   @default(0)
+    dueTime   Int?
+    isOffline Boolean @default(false)
 
     list ListItem[]
 

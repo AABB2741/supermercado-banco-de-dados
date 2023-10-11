@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Combobox } from "@headlessui/react";
-import { ShoppingCart, Sparkles, Star } from "lucide-react";
+import { ShoppingCart, Sparkles, Users } from "lucide-react";
 
 import { useList } from "../../../contexts/ListProvider";
 import { useAddItem } from "./AddItemRoot";
@@ -13,6 +13,8 @@ import {
     getProducts,
     GetProductsProps,
 } from "../../../services/products/getProducts";
+import { defaultProducts } from "../../../data/defaultProducts";
+defaultProducts.map((p) => (p.isOffline = true));
 
 export function AddItemSearch() {
     const [search, setSearch] = useState("");
@@ -65,15 +67,15 @@ export function AddItemSearch() {
                     title="Sugestões para você"
                     products={products?.suggested}
                 />
-                <AddItem.Category
+                <AddItem.OfflineCategory
                     icon={ShoppingCart}
-                    title="Produtos genéricos"
-                    products={products?.all}
+                    title="Produtos comuns"
+                    search={src}
                 />
                 <AddItem.Category
-                    icon={Star}
-                    title="Produtos de marca"
-                    products={products?.branded}
+                    icon={Users}
+                    title="Publicado por outros usuários"
+                    products={products?.public}
                 />
             </Combobox.Options>
         </Combobox>
