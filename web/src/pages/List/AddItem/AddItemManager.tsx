@@ -1,8 +1,14 @@
 import * as Slider from "@radix-ui/react-slider";
 
+import { useAddItem } from "./AddItemRoot";
+
 import { Input } from "../../../components/Input";
 
 export function AddItemManager() {
+    const { product } = useAddItem();
+
+    if (!product) return null;
+
     return (
         <>
             <p className="mb-2 mt-4 text-lg font-bold">Quantidade</p>

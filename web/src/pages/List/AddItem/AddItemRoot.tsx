@@ -1,9 +1,17 @@
-import { createContext, useContext } from "react";
+import { useState, createContext, useContext } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { AddItem } from ".";
+import { Button } from "../../../components/Button";
 
-interface AddItemValue {}
+import { ProductProps } from "../../../@types/product-props";
+
+interface AddItemValue {
+    product?: Partial<ProductProps>;
+    setProduct: React.Dispatch<
+        React.SetStateAction<Partial<ProductProps> | undefined>
+    >;
+}
 
 interface AddItemProps {
     children: React.ReactNode;
@@ -12,8 +20,10 @@ interface AddItemProps {
 const AddItemContext = createContext({} as AddItemValue);
 
 export function AddItemRoot({ children }: AddItemProps) {
+    const [product, setProduct] = useState<Partial<ProductProps>>();
+
     return (
-        <AddItemContext.Provider value={{}}>
+        <AddItemContext.Provider value={{ product, setProduct }}>
             <Dialog.Root>
                 <Dialog.Trigger asChild>{children}</Dialog.Trigger>
                 <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 bg-black/25" />
@@ -24,7 +34,23 @@ export function AddItemRoot({ children }: AddItemProps) {
 
                     <AddItem.Search />
                     <AddItem.Empty />
+                    <AddItem.Overview />
                     <AddItem.Manager />
+
+                    <div className="mt-4 flex items-center justify-end gap-2">
+                        <Dialog.Close
+                            className="px-4 font-bold"
+                            // disabled={loading}
+                        >
+                            Cancelar
+                        </Dialog.Close>
+                        <Button.Normal
+                            accent
+                            // loading={loading}
+                        >
+                            Adicionar item
+                        </Button.Normal>
+                    </div>
                 </Dialog.Content>
             </Dialog.Root>
         </AddItemContext.Provider>

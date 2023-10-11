@@ -2,6 +2,8 @@ import React from "react";
 import { LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
+import { useAddItem } from "./AddItemRoot";
+
 import { ProductProps } from "../../../@types/product-props";
 
 import banner from "../../../assets/list-banner.jpg";
@@ -17,7 +19,7 @@ export function AddItemCategory({
     title,
     products,
 }: AddItemCategoryProps) {
-    // TODO: onClick
+    const { setProduct } = useAddItem();
 
     return (
         <div
@@ -34,7 +36,7 @@ export function AddItemCategory({
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                         value={p.id}
                         key={p.id}
-                        // onClick={() => setSelectedItem(p)}
+                        onClick={() => setProduct(p)}
                     >
                         <img src={banner} className="h-8 w-8 rounded-lg" />
                         <div className="flex-1 overflow-x-hidden">

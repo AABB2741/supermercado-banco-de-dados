@@ -3,6 +3,7 @@ import { Combobox } from "@headlessui/react";
 import { ShoppingCart, Sparkles, Star } from "lucide-react";
 
 import { useList } from "../../../contexts/ListProvider";
+import { useAddItem } from "./AddItemRoot";
 import { useDebounce } from "../../../hooks/useDebounce";
 
 import { AddItem } from ".";
@@ -19,6 +20,7 @@ export function AddItemSearch() {
     const [products, setProducts] = useState<GetProductsProps>();
 
     const { list } = useList();
+    const { setProduct } = useAddItem();
 
     useDebounce(
         () => {
@@ -41,6 +43,9 @@ export function AddItemSearch() {
                     <Combobox.Option
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                         value={2}
+                        onClick={() => {
+                            setProduct({ name: search });
+                        }}
                     >
                         <span
                             className="flex h-8 w-8 items-center justify-center rounded-lg text-white"
