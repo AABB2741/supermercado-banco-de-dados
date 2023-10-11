@@ -8,6 +8,6 @@ const productRoutes = Router();
 
 productRoutes.use(authHandler);
 
-productRoutes.get("/:search", getProductsController);
+productRoutes.get("/recommended/:search", getProductsController);
 
 export default productRoutes;
