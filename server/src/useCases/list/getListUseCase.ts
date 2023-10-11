@@ -11,6 +11,9 @@ export async function getListUseCase({ userId, listId }: GetListProps) {
 			id: listId,
 			userId,
 		},
+		include: {
+			user: true,
+		},
 	});
 
 	return list;
