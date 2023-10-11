@@ -6,7 +6,8 @@ export type ErrorCode =
 	| "invalid_password"
 	| "password_too_short"
 	| "password_too_long"
-	| "passwords_not_match";
+	| "passwords_not_match"
+	| "unauthorized";
 
 export class AppError {
 	status: number;
