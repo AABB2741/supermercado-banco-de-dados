@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+
 import { AddItem } from ".";
 
 interface AddItemValue {}
@@ -22,6 +23,8 @@ export function AddItemRoot({ children }: AddItemProps) {
                     </Dialog.Title>
 
                     <AddItem.Search />
+                    <AddItem.Empty />
+                    <AddItem.Manager />
                 </Dialog.Content>
             </Dialog.Root>
         </AddItemContext.Provider>
