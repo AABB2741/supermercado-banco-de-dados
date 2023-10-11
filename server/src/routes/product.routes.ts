@@ -2,12 +2,13 @@ import { Router } from "express";
 
 import { authHandler } from "../middlewares/authHandler";
 
-import { getProductsController } from "../controllers/product/getProductsController";
+import { getRecommendedProductsController } from "../controllers/product/getRecommendedProductsController";
 
 const productRoutes = Router();
 
 productRoutes.use(authHandler);
 
-productRoutes.get("/recommended/:search", getProductsController);
+productRoutes.get("/recommended/:search", getRecommendedProductsController);
+productRoutes.get("/recommended/", getRecommendedProductsController);
 
 export default productRoutes;
