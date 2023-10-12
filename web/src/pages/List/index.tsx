@@ -29,7 +29,7 @@ export function List() {
 
         document.title = `${list.name} - RPB Shopping`;
     }, [list?.name]);
-
+    console.log(list);
     return (
         <div>
             <Banner />
