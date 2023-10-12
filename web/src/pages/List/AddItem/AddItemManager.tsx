@@ -45,12 +45,9 @@ export const AddItemManager = forwardRef((_, ref) => {
                 />
                 <span className="font-bold text-red-500">
                     R$
-                    {/* {(!isNaN((selectedItem?.price ?? 0) * amount)
-                                ? (selectedItem?.price ?? 0) * amount
-                                : 0
-                            )
-                                .toFixed(2)
-                                .replace(".", ",")} */}
+                    {typeof product.price === "number"
+                        ? (product.price * amount).toFixed(2).replace(".", ",")
+                        : "0,00"}
                 </span>
             </div>
         </>

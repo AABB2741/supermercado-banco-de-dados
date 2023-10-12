@@ -16,7 +16,9 @@ export function AddItemOverview() {
                     <p className="text-xl font-bold">{product?.name}</p>
                     {product?.user && <p>Vendido por: {product.user.name}</p>}
                     {product?.brand && <p>Marca: {product.brand.name}</p>}
-                    <p>Vence em 3 dias (11/10/2023)</p>
+                    {product?.dueTime && (
+                        <p>Vence em {product.dueTime} dias (11/10/2023)</p>
+                    )}
                     {typeof product?.price === "number" && (
                         <p>
                             Unidade: R$
