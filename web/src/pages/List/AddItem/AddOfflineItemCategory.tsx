@@ -41,7 +41,7 @@ export function AddOfflineItemCategory({
     }, [search]);
 
     if (!products || products?.length === 0) return null;
-    console.log(products.length, size);
+
     return (
         <div>
             <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">

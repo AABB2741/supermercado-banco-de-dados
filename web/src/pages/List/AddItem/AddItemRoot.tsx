@@ -31,7 +31,7 @@ export function AddItemRoot({ children }: AddItemProps) {
 
     const amountRef = useRef<AmountRefProps>(null);
 
-    const { list } = useList();
+    const { list, setList } = useList();
 
     useEffect(() => {
         if (!open) {
@@ -72,7 +72,16 @@ export function AddItemRoot({ children }: AddItemProps) {
             amount,
             listId,
         }).then((res) => {
-            console.log(res);
+            setList((list) => {
+                if (!list) throw new Error("List does not exist");
+
+                const items = [...(list.items ?? []), res];
+
+                return {
+                    ...list,
+                    items,
+                };
+            });
         });
     }
 

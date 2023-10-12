@@ -16,6 +16,7 @@ import {
 import { Banner } from "./Banner";
 import { Filter } from "../../components/Filter";
 import { AddItem } from "./AddItem";
+import { ListItem } from "./ListItem";
 
 import { useList } from "../../contexts/ListProvider";
 
@@ -104,6 +105,9 @@ export function List() {
                         </button>
                     </AddItem.Root>
                 </div>
+            </section>
+            <section className="px-8 pb-8">
+                <ListItem.Root />
             </section>
         </div>
     );

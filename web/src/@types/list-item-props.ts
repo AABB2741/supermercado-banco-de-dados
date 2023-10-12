@@ -12,5 +12,5 @@ export type ListItemProps = {
 
     product?: ProductProps;
     productId?: number;
-    offlineProductId?: boolean;
+    offlineProductId?: number;
 };
