@@ -23,11 +23,10 @@ export function AddItemCategory({
     const { list } = useList();
     const { setProduct } = useAddItem();
 
+    if (!products || products?.length === 0) return null;
+
     return (
-        <div
-            className="data-[empty=true]:hidden"
-            data-empty={products && products.length === 0}
-        >
+        <div>
             <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
                 <Icon size={12} />
                 <span className="text-xs">{title}</span>

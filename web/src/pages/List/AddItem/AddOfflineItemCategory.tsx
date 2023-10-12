@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
@@ -22,22 +22,28 @@ export function AddOfflineItemCategory({
     title,
     search,
 }: AddOfflineItemCategoryProps) {
+    const [size, setSize] = useState(5);
     const products = useMemo(
         () =>
             defaultProducts
                 .filter((p) => normalize(p.name).toLowerCase().includes(search))
-                .slice(0, 5),
-        [search],
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .slice(0, size),
+        [search, size],
     );
 
     const { list } = useList();
     const { setProduct } = useAddItem();
 
+    // Reinicia o tamanho de itens para exibir quando a pesquisa muda
+    useEffect(() => {
+        setSize(5);
+    }, [search]);
+
+    if (!products || products?.length === 0) return null;
+
     return (
-        <div
-            className="data-[empty=true]:hidden"
-            data-empty={products && products.length === 0}
-        >
+        <div>
             <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
                 <Icon size={12} />
                 <span className="text-xs">{title}</span>
@@ -80,6 +86,12 @@ export function AddOfflineItemCategory({
                         )}
                     </Combobox.Option>
                 ))}
+                <button
+                    onClick={() => setSize((size) => size + 5)}
+                    className="mt-2 block w-full text-center text-sm"
+                >
+                    Mostrar mais
+                </button>
             </div>
         </div>
     );
