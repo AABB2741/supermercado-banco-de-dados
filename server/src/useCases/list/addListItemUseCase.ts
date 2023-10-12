@@ -3,13 +3,16 @@ import { prisma } from "../../prisma";
 
 interface AddListItemProps {
 	amount?: number;
+	isOffline?: boolean;
 	listId: number;
-	productId: number;
+	productId?: number;
+	offlineProductId?: number;
 	userId: number;
 }
 
 export async function addListItemUseCase({
 	userId,
+	listId,
 	...data
 }: AddListItemProps) {
 	// This code checks if the user is owner of the list that is receiving a item
@@ -17,7 +20,7 @@ export async function addListItemUseCase({
 		const isUserOwner = await prisma.list.findUniqueOrThrow({
 			where: {
 				userId,
-				id: data.listId,
+				id: listId,
 			},
 		});
 	} catch (err) {
@@ -25,7 +28,10 @@ export async function addListItemUseCase({
 	}
 
 	const listItem = await prisma.listItem.create({
-		data,
+		data: {
+			...data,
+			listId,
+		},
 	});
 
 	return listItem;

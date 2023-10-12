@@ -1,8 +1,13 @@
 import { useEffect, useState, createContext, useContext, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import z from "zod";
+
+import { useList } from "../../../contexts/ListProvider";
 
 import { AddItem } from ".";
 import { Button } from "../../../components/Button";
+
+import { addItem } from "../../../services/list/addItem";
 
 import { ProductProps } from "../../../@types/product-props";
 import { AmountRefProps } from "./AddItemManager";
@@ -26,13 +31,50 @@ export function AddItemRoot({ children }: AddItemProps) {
 
     const amountRef = useRef<AmountRefProps>(null);
 
+    const { list } = useList();
+
     useEffect(() => {
         if (!open) {
             setProduct(undefined);
         }
     }, [open]);
 
-    function handleAddItem() {}
+    function handleAddItem() {
+        const productId = z
+            .number()
+            .int()
+            .positive()
+            .optional()
+            .parse(product?.id);
+        const offlineProductId = z
+            .number()
+            .int()
+            .positive()
+            .optional()
+            .parse(product?.id);
+        const isOffline = z
+            .boolean()
+            .optional()
+            .parse(product?.isOffline);
+        const amount = z
+            .number()
+            .positive()
+            .parse(amountRef.current?.amount);
+        const listId = z
+            .number()
+            .int()
+            .positive()
+            .parse(list?.id);
+        addItem({
+            offlineProductId,
+            productId: isOffline ? undefined : productId,
+            isOffline,
+            amount,
+            listId,
+        }).then((res) => {
+            console.log(res);
+        });
+    }
 
     return (
         <AddItemContext.Provider value={{ product, setProduct }}>

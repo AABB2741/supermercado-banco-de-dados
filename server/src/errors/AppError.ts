@@ -7,13 +7,14 @@ export type ErrorCode =
 	| "password_too_short"
 	| "password_too_long"
 	| "passwords_not_match"
-	| "unauthorized";
+	| "unauthorized"
+	| "unknown_error";
 
 export class AppError {
 	status: number;
 	code: ErrorCode;
 
-	constructor(code: ErrorCode, status = 500) {
+	constructor(code: ErrorCode = "unknown_error", status = 500) {
 		this.code = code;
 		this.status = status;
 	}
