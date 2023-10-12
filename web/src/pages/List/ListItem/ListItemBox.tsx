@@ -5,27 +5,26 @@ import { ListItemProps } from "../../../@types/list-item-props";
 import { ProductProps } from "../../../@types/product-props";
 
 import { defaultProducts } from "../../../data/defaultProducts";
+import { editItem } from "../../../services/list/editItem";
 
-export function ListItemBox({
-    id,
-    checked,
-    amount,
-    isOffline,
-    offlineProductId,
-    product,
-}: ListItemProps) {
+export function ListItemBox({ id, ...rest }: ListItemProps) {
+    const [props, setProps] = useState(rest);
     const [data, setData] = useState<ProductProps>();
 
     useEffect(() => {
-        if (isOffline) {
+        if (props.isOffline) {
             const offlineProduct = defaultProducts.find(
-                (p) => p.id === offlineProductId,
+                (p) => p.id === props.offlineProductId,
             );
             setData(offlineProduct);
         } else {
-            setData(product);
+            setData(props.product);
         }
-    }, [isOffline, offlineProductId, product]);
+    }, [props.isOffline, props.offlineProductId, props.product]);
+
+    async function handleCheckItem() {
+        editItem({ id, checked: !props.checked }).then((res) => setProps(res));
+    }
 
     if (!data) return null;
 
@@ -33,9 +32,10 @@ export function ListItemBox({
         <li className="flex items-center gap-3 rounded-xl border px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900">
             <button
                 className="flex h-5 w-5 items-center justify-center rounded-md border p-1 data-[checked=true]:border-none data-[checked=true]:bg-sky-500 data-[checked=true]:text-white dark:border-zinc-700"
-                data-checked={checked}
+                data-checked={props.checked}
+                onClick={handleCheckItem}
             >
-                {checked && <Check size={14} />}
+                {props.checked && <Check size={14} />}
             </button>
             <div>
                 <p>{data.name}</p>
