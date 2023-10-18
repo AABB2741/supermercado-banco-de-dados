@@ -47,7 +47,7 @@ export function ListProvider({ children }: ListProviderProps) {
 
         return cancelToken.cancel;
     }, [id]);
-    console.log(list);
+
     return (
         <ListContext.Provider
             value={{ error, list, search, setList, setSearch }}

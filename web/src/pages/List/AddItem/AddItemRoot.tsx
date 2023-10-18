@@ -8,6 +8,7 @@ import { AddItem } from ".";
 import { Button } from "../../../components/Button";
 
 import { addItem } from "../../../services/list/addItem";
+import { defaultProducts } from "../../../data/defaultProducts";
 
 import { ProductProps } from "../../../@types/product-props";
 import { AmountRefProps } from "./AddItemManager";
@@ -74,6 +75,16 @@ export function AddItemRoot({ children }: AddItemProps) {
         }).then((res) => {
             setList((list) => {
                 if (!list) throw new Error("List does not exist");
+
+                if (res.isOffline) {
+                    const product = defaultProducts.find(
+                        (p) => p.id === res.offlineProductId,
+                    );
+
+                    if (product) {
+                        res.product = product;
+                    }
+                }
 
                 const items = [...(list.items ?? []), res];
 
