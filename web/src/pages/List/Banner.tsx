@@ -53,7 +53,9 @@ export function Banner() {
                                 src={avatar}
                                 className="h-9 w-9 rounded-full"
                             />
-                            <span className="text-lg">por Lule</span>
+                            <span className="text-lg">
+                                por {list.user?.name ?? "Usuário desconhecido"}
+                            </span>
                         </div>
 
                         {/* List data */}

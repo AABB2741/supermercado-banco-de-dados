@@ -38,7 +38,6 @@ export function List() {
     useDebounce(
         () => {
             setSearch(normalize(src.trim().toLowerCase()));
-            console.log("Setando search");
         },
         1000,
         [src],

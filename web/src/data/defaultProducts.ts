@@ -37,7 +37,7 @@ export const defaultProducts: ProductProps[] = [
     { id: 34, name: "Pães" },
     { id: 35, name: "Queijo ralado" },
     // { id: 36, name: "Sal" },
-    { id: 37, name: "Temperos" },
+    { id: 37, name: "Tempero" },
     { id: 38, name: "Água Sanitária" },
     { id: 39, name: "Álcool em gel" },
     { id: 40, name: "Amaciante" },
