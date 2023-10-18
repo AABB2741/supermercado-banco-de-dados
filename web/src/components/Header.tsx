@@ -62,11 +62,8 @@ export function Header() {
                         <div className="mt-4 flex items-center justify-between dark:text-gray-100">
                             <span className="font-bold">Tema</span>
                             <div className="flex items-center overflow-hidden rounded-lg bg-sky-200 dark:bg-sky-700">
-                                {/* <button className="p-2">
-                                    <Monitor size={16} />
-                                </button> */}
                                 <button
-                                    className="bg-sky-400 p-2 px-3 dark:bg-none"
+                                    className="bg-sky-400 p-2 px-3 dark:bg-transparent"
                                     onClick={() => handleChangeTheme("light")}
                                 >
                                     <Sun
