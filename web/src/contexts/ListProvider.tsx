@@ -31,7 +31,7 @@ export function ListProvider({ children }: ListProviderProps) {
     const params = useParams();
 
     const id = useMemo(() => z.coerce.number().parse(params.id), [params.id]);
-
+    console.log("Renderizando listprovider");
     useEffect(() => {
         const cancelToken = axios.CancelToken.source();
 
@@ -47,7 +47,7 @@ export function ListProvider({ children }: ListProviderProps) {
 
         return cancelToken.cancel;
     }, [id]);
-
+    console.log(list);
     return (
         <ListContext.Provider
             value={{ error, list, search, setList, setSearch }}

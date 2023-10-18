@@ -13,9 +13,13 @@ export async function getListUseCase({ userId, listId }: GetListProps) {
 		},
 		include: {
 			user: true,
-			items: true,
+			items: {
+				include: {
+					product: true,
+				},
+			},
 		},
 	});
-
+	console.log(list);
 	return list;
 }
