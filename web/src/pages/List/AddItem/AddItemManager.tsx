@@ -42,6 +42,7 @@ export const AddItemManager = forwardRef((_, ref) => {
                     type="number"
                     value={!isNaN(amount) ? amount : 0}
                     onChange={(e) => setAmount(parseInt(e.target.value))}
+                    min={1}
                 />
                 <span className="font-bold text-red-500">
                     R$

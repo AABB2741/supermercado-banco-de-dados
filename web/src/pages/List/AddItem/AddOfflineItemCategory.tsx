@@ -28,7 +28,8 @@ export function AddOfflineItemCategory({
             defaultProducts
                 .filter((p) => normalize(p.name).toLowerCase().includes(search))
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .slice(0, size),
+                .slice(0, size)
+                .map((p) => ({ ...p, isOffline: true })),
         [search, size],
     );
 

@@ -14,5 +14,6 @@ export async function addItem({ listId, ...props }: AddItemProps) {
         "/lists/add/" + listId,
         props,
     );
+
     return data;
 }

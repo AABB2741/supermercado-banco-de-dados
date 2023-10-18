@@ -32,9 +32,6 @@ export async function addListItemUseCase({
 			...data,
 			listId,
 		},
-		select: {
-			product: true,
-		},
 	});
 
 	return listItem;

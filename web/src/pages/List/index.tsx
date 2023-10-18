@@ -43,6 +43,8 @@ export function List() {
         [src],
     );
 
+    if (!list) return null;
+
     return (
         <div>
             <Banner />
@@ -115,7 +117,7 @@ export function List() {
                     <AddItem.Root>
                         <button
                             className="flex items-center gap-2 font-bold"
-                            style={{ color: list?.color }}
+                            style={{ color: list.color }}
                         >
                             <Plus size={16} />
                             <span>Adicionar item</span>

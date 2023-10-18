@@ -20,6 +20,6 @@ export async function getListUseCase({ userId, listId }: GetListProps) {
 			},
 		},
 	});
-	console.log(list);
+
 	return list;
 }
