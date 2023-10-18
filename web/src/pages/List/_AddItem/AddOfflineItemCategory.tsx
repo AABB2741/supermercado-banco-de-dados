@@ -6,7 +6,6 @@ import { useList } from "../../../contexts/ListProvider";
 import { useAddItem } from "./AddItemRoot";
 
 import { defaultProducts } from "../../../data/defaultProducts";
-defaultProducts.map((p) => (p.isOffline = true));
 
 import banner from "../../../assets/list-banner.jpg";
 import { normalize } from "../../../utils/normalize";
@@ -28,8 +27,7 @@ export function AddOfflineItemCategory({
             defaultProducts
                 .filter((p) => normalize(p.name).toLowerCase().includes(search))
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .slice(0, size)
-                .map((p) => ({ ...p, isOffline: true })),
+                .slice(0, size),
         [search, size],
     );
 

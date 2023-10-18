@@ -7,7 +7,6 @@ export type ProductProps = {
     name: string;
     price?: number;
     dueTime?: number;
-    isOffline?: boolean;
 
     lists?: ListProps[];
 
