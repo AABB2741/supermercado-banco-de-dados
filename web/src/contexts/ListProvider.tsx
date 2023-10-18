@@ -16,7 +16,9 @@ interface ListProviderProps {
 interface ListProviderValue {
     list?: ListProps;
     error?: ErrorCode;
+    search: string;
     setList: React.Dispatch<React.SetStateAction<ListProps | undefined>>;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ListContext = createContext({} as ListProviderValue);
@@ -24,6 +26,7 @@ const ListContext = createContext({} as ListProviderValue);
 export function ListProvider({ children }: ListProviderProps) {
     const [list, setList] = useState<ListProps>();
     const [error, setError] = useState<ErrorCode>();
+    const [search, setSearch] = useState("");
 
     const params = useParams();
 
@@ -46,7 +49,9 @@ export function ListProvider({ children }: ListProviderProps) {
     }, [id]);
 
     return (
-        <ListContext.Provider value={{ error, list, setList }}>
+        <ListContext.Provider
+            value={{ error, list, search, setList, setSearch }}
+        >
             {children}
         </ListContext.Provider>
     );

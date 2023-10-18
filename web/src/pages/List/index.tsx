@@ -19,17 +19,29 @@ import { AddItem } from "./AddItem";
 import { ListItem } from "./ListItem";
 
 import { useList } from "../../contexts/ListProvider";
+import { useDebounce } from "../../hooks/useDebounce";
+
+import { normalize } from "../../utils/normalize";
 
 export function List() {
     const [filter, setFilter] = useState("all");
+    const [src, setSrc] = useState("");
 
-    const { list } = useList();
+    const { list, setSearch } = useList();
 
     useEffect(() => {
         if (!list?.name) return;
 
         document.title = `${list.name} - RPB Shopping`;
     }, [list?.name]);
+
+    useDebounce(
+        () => {
+            setSearch(normalize(src.trim().toLowerCase()));
+        },
+        1000,
+        [src],
+    );
 
     return (
         <div>
