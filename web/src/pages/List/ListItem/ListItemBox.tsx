@@ -39,6 +39,15 @@ export function ListItemBox({ id, ...rest }: ListItemProps) {
             </button>
             <div>
                 <p>{data.name}</p>
+                <p className="flex items-center gap-2 text-sm text-gray-600 dark:text-zinc-400">
+                    <span>x{props.amount}</span>
+                    <span className="font-medium text-green-400">
+                        R$
+                        {(props.amount * (data.price ?? 0))
+                            .toFixed(2)
+                            .replace(".", ",")}
+                    </span>
+                </p>
             </div>
         </li>
     );
