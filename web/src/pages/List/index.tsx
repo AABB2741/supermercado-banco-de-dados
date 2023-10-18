@@ -107,13 +107,16 @@ export function List() {
                 <div className="mt-8 flex items-center justify-between gap-4">
                     <input
                         type="text"
-                        className="min-w-0 max-w-[500px] flex-1 rounded-full bg-gray-100 px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
+                        className="min-w-0 max-w-[500px] flex-1 rounded-full bg-white px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
                         placeholder="Pesquisar itens"
                         value={src}
                         onChange={(e) => setSrc(e.currentTarget.value)}
                     />
                     <AddItem.Root>
-                        <button className="flex items-center gap-2 font-bold text-sky-500">
+                        <button
+                            className="flex items-center gap-2 font-bold"
+                            style={{ color: list?.color }}
+                        >
                             <Plus size={16} />
                             <span>Adicionar item</span>
                         </button>

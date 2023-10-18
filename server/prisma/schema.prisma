@@ -17,9 +17,9 @@ model User {
     password  String
     createdAt DateTime @default(now())
 
-    lists   List[]
-    brands  Brand[]
-    Product Product[]
+    lists    List[]
+    brands   Brand[]
+    products Product[]
 }
 
 model List {

@@ -48,7 +48,7 @@ export function Header() {
                         align="end"
                         side="bottom"
                         sideOffset={12}
-                        className="rounded-lg border border-gray-300 bg-white p-4 shadow-md dark:border-zinc-700 dark:bg-zinc-900"
+                        className="rounded-xl border border-gray-300 bg-white p-4 shadow-md dark:border-zinc-700 dark:bg-zinc-900"
                     >
                         <div className="flex items-center gap-2 dark:text-gray-100">
                             <img src={avatar} className="h-10 w-10" />
@@ -61,7 +61,7 @@ export function Header() {
                         </div>
                         <div className="mt-4 flex items-center justify-between dark:text-gray-100">
                             <span className="font-bold">Tema</span>
-                            <div className="flex items-center overflow-hidden rounded-lg bg-sky-200 dark:bg-sky-700">
+                            <div className="flex items-center overflow-hidden rounded-lg bg-sky-200 dark:bg-sky-900">
                                 <button
                                     className="bg-sky-400 p-2 px-3 dark:bg-transparent"
                                     onClick={() => handleChangeTheme("light")}

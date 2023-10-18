@@ -18,8 +18,8 @@ export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
 
             if (!newList.items) return list;
 
-            for (let i in newList.items) {
-                let listItem = newList.items[i];
+            for (const i in newList.items) {
+                const listItem = newList.items[i];
 
                 if (!listItem) break;
 
@@ -34,9 +34,9 @@ export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
     if (!product) return null;
 
     return (
-        <li className="flex items-center gap-3 rounded-xl border px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900">
+        <li className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900">
             <button
-                className="flex h-5 w-5 items-center justify-center rounded-md border p-1 data-[checked=true]:border-none data-[checked=true]:bg-sky-500 data-[checked=true]:text-white dark:border-zinc-700"
+                className="flex h-5 w-5 items-center justify-center rounded-md border border-gray-300 p-1 data-[checked=true]:border-none data-[checked=true]:bg-sky-500 data-[checked=true]:text-white dark:border-zinc-700"
                 data-checked={checked}
                 onClick={handleCheckItem}
             >

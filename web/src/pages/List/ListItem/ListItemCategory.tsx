@@ -14,8 +14,6 @@ export function ListItemCategory({
     title,
     items,
 }: ListItemCategoryProps) {
-    console.log("Ultimo item da categoria:", items[items.length - 1]);
-
     if (items.length === 0) return null;
 
     return (

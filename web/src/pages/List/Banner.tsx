@@ -71,7 +71,10 @@ export function Banner() {
                     <button>
                         <Settings size={32} />
                     </button>
-                    <button className="aspect-square rounded-full bg-sky-500 p-4 text-white">
+                    <button
+                        className="aspect-square rounded-full p-4 text-white"
+                        style={{ backgroundColor: list.color }}
+                    >
                         <Check />
                     </button>
                 </div>
