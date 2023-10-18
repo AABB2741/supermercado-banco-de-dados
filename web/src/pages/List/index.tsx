@@ -38,6 +38,7 @@ export function List() {
     useDebounce(
         () => {
             setSearch(normalize(src.trim().toLowerCase()));
+            console.log("Setando search");
         },
         1000,
         [src],
@@ -109,6 +110,8 @@ export function List() {
                         type="text"
                         className="min-w-0 max-w-[500px] flex-1 rounded-full bg-gray-100 px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
                         placeholder="Pesquisar itens"
+                        value={src}
+                        onChange={(e) => setSrc(e.currentTarget.value)}
                     />
                     <AddItem.Root>
                         <button className="flex items-center gap-2 font-bold text-sky-500">

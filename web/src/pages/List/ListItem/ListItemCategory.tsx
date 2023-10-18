@@ -1,16 +1,20 @@
 import { ChevronUp, LucideProps } from "lucide-react";
 
-import { useList } from "../../../contexts/ListProvider";
-
 import { ListItem } from ".";
+import { ListItemProps } from "../../../@types/list-item-props";
 
 interface ListItemCategoryProps {
     icon: React.ElementType<LucideProps>;
     title: string;
+    items: ListItemProps[];
 }
 
-export function ListItemCategory({ icon: Icon, title }: ListItemCategoryProps) {
-    const { list } = useList();
+export function ListItemCategory({
+    icon: Icon,
+    title,
+    items,
+}: ListItemCategoryProps) {
+    if (items.length === 0) return null;
 
     return (
         <div>
@@ -24,7 +28,11 @@ export function ListItemCategory({ icon: Icon, title }: ListItemCategoryProps) {
                 </button>
             </div>
             <ul className="mb-8 grid grid-cols-3 gap-4">
-                {list?.items?.map((i) => <ListItem.Box {...i} key={i.id} />)}
+                {items
+                    .sort((a, b) => (a.checked > b.checked ? 1 : -1))
+                    .map((i) => (
+                        <ListItem.Box {...i} key={i.id} />
+                    ))}
             </ul>
         </div>
     );

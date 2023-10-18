@@ -19,7 +19,10 @@ export function Banner() {
         >
             {/* Top */}
             <div className="flex p-10">
-                <Link to="/dashboard/" className="rounded-lg bg-black/50 p-3">
+                <Link
+                    to="/dashboard/lists"
+                    className="rounded-lg bg-black/50 p-3"
+                >
                     <ArrowLeft size={20} />
                 </Link>
             </div>
