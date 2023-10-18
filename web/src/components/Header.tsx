@@ -1,12 +1,15 @@
-import { LogOut } from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Popover from "@radix-ui/react-popover";
 
 import { useAppSelector } from "../redux/store";
 import { logOut } from "../redux/slices/userSlice";
+import { setSettings } from "../redux/slices/settingsSlice";
 
 import avatar from "../assets/avatar.png";
+
+import { SettingsProps } from "../@types/settings-props";
 
 export function Header() {
     const { user } = useAppSelector((state) => state.user);
@@ -17,6 +20,10 @@ export function Header() {
     function handleLogOut() {
         dispatch(logOut());
         navigate("/auth");
+    }
+
+    function handleChangeTheme(theme: SettingsProps["theme"]) {
+        dispatch(setSettings({ theme }));
     }
 
     return (
@@ -41,7 +48,7 @@ export function Header() {
                         align="end"
                         side="bottom"
                         sideOffset={12}
-                        className="rounded-lg border p-4 shadow-md dark:border-zinc-700 dark:bg-zinc-900"
+                        className="rounded-lg border border-gray-300 bg-white p-4 shadow-md dark:border-zinc-700 dark:bg-zinc-900"
                     >
                         <div className="flex items-center gap-2 dark:text-gray-100">
                             <img src={avatar} className="h-10 w-10" />
@@ -52,7 +59,32 @@ export function Header() {
                                 </p>
                             </div>
                         </div>
-
+                        <div className="mt-4 flex items-center justify-between dark:text-gray-100">
+                            <span className="font-bold">Tema</span>
+                            <div className="flex items-center overflow-hidden rounded-lg bg-sky-200 dark:bg-sky-700">
+                                {/* <button className="p-2">
+                                    <Monitor size={16} />
+                                </button> */}
+                                <button
+                                    className="bg-sky-400 p-2 px-3 dark:bg-none"
+                                    onClick={() => handleChangeTheme("light")}
+                                >
+                                    <Sun
+                                        size={16}
+                                        className="fill-current dark:fill-none"
+                                    />
+                                </button>
+                                <button
+                                    className="p-2 px-3 dark:bg-sky-500"
+                                    onClick={() => handleChangeTheme("dark")}
+                                >
+                                    <Moon
+                                        size={16}
+                                        className="fill-none dark:fill-current"
+                                    />
+                                </button>
+                            </div>
+                        </div>
                         <button
                             className="mt-4 flex w-full items-center justify-center gap-3 rounded-md py-1 text-red-600 hover:bg-red-600 hover:text-white"
                             onClick={handleLogOut}

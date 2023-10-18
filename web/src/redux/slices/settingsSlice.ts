@@ -19,6 +19,7 @@ const settingsSlice = createSlice({
     reducers: {
         setSettings: (state, action: PayloadAction<Partial<SettingsProps>>) => {
             state.settings = { ...state.settings, ...action.payload };
+            localStorage.setItem("settings", JSON.stringify(state.settings));
         },
     },
 });
