@@ -52,6 +52,7 @@ export function Header() {
                                 </p>
                             </div>
                         </div>
+
                         <button
                             className="mt-4 flex w-full items-center justify-center gap-3 rounded-md py-1 text-red-600 hover:bg-red-600 hover:text-white"
                             onClick={handleLogOut}

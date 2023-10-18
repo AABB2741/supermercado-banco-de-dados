@@ -1,12 +1,25 @@
 import "./styles/global.css";
 
+import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import { router } from "./routes/routes";
-import { store } from "./redux/store";
+import { store, useAppSelector } from "./redux/store";
 
 export function App() {
+    const {
+        settings: { theme },
+    } = useAppSelector((state) => state.settings);
+
+    useEffect(() => {
+        if (theme === "dark") {
+            document.body.classList.add("dark");
+        } else {
+            document.body.classList.remove("dark");
+        }
+    }, [theme]);
+
     return (
         <main className="min-h-screen bg-gray-200 dark:bg-zinc-800 dark:text-gray-100">
             <Provider store={store}>
