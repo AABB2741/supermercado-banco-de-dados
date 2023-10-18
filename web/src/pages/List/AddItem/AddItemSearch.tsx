@@ -1,9 +1,13 @@
 import { useState, useMemo } from "react";
 import { Combobox } from "@headlessui/react";
+import { ShoppingCart } from "lucide-react";
 
-import { normalize } from "../../../utils/normalize";
+import { AddItem } from ".";
 
 import { useProducts } from "../../../hooks/useProducts";
+import { useList } from "../../../contexts/ListProvider";
+
+import { normalize } from "../../../utils/normalize";
 
 export function AddItemSearch() {
     const [search, setSearch] = useState("");
@@ -13,7 +17,10 @@ export function AddItemSearch() {
         [search],
     );
 
-    const { localProducts } = useProducts(search);
+    const { list } = useList();
+    const { localProducts } = useProducts(normalizedSearch);
+
+    if (!list) return null;
 
     return (
         <Combobox>
@@ -31,8 +38,27 @@ export function AddItemSearch() {
                     <Combobox.Option
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                         value={0}
-                    ></Combobox.Option>
+                    >
+                        <span
+                            className="flex h-8 w-8 items-center justify-center rounded-lg text-white"
+                            style={{
+                                backgroundColor: list.color ?? "#1e90ff",
+                            }}
+                        >
+                            {normalizedSearch[0]}
+                        </span>
+                        <p className="line-clamp-2 flex-1 break-all">
+                            {search.trim()}
+                        </p>
+                    </Combobox.Option>
                 </div>
+
+                <AddItem.Category
+                    icon={ShoppingCart}
+                    title="Produtos básicos"
+                    products={localProducts}
+                    isOffline
+                />
             </Combobox.Options>
         </Combobox>
     );

@@ -2,6 +2,7 @@ import { LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
 import { useList } from "../../../contexts/ListProvider";
+import { useAddItem } from "./AddItemRoot";
 
 import { ProductProps } from "../../../@types/product-props";
 
@@ -21,10 +22,16 @@ export function AddItemCategory({
     isOffline,
 }: AddItemCategoryProps) {
     const { list } = useList();
+    const { setProduct } = useAddItem();
 
-    if (!list) return null;
+    if (!list || products.length === 0) return null;
 
-    function handleChooseItem(id: number) {}
+    function handleChooseItem(id: number) {
+        setProduct({
+            id,
+            isOffline,
+        });
+    }
 
     return (
         <div>

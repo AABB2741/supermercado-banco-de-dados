@@ -7,9 +7,9 @@ import { normalize } from "../utils/normalize";
 export function useProducts(search: string) {
     const localProducts = useMemo(
         () =>
-            defaultProducts.filter((p) =>
-                normalize(p.name).toLowerCase().includes(search),
-            ),
+            defaultProducts
+                .filter((p) => normalize(p.name).toLowerCase().includes(search))
+                .slice(0, 5),
         [search],
     );
 
