@@ -3,7 +3,7 @@ import { Combobox } from "@headlessui/react";
 
 import { normalize } from "../../../utils/normalize";
 
-import { defaultProducts } from "../../../data/defaultProducts";
+import { useProducts } from "../../../hooks/useProducts";
 
 export function AddItemSearch() {
     const [search, setSearch] = useState("");
@@ -13,13 +13,7 @@ export function AddItemSearch() {
         [search],
     );
 
-    const products = useMemo(
-        () =>
-            defaultProducts.filter((p) =>
-                normalize(p.name).toLowerCase().includes(normalizedSearch),
-            ),
-        [normalizedSearch],
-    );
+    const { localProducts } = useProducts(search);
 
     return (
         <Combobox>
