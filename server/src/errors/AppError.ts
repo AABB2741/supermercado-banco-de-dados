@@ -8,7 +8,8 @@ export type ErrorCode =
 	| "password_too_long"
 	| "passwords_not_match"
 	| "unauthorized"
-	| "unknown_error";
+	| "unknown_error"
+	| "bad_request";
 
 export class AppError {
 	status: number;
