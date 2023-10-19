@@ -10,10 +10,11 @@ import { SignUp } from "../pages/SignUp";
 import { Dashboard } from "../pages/Dashboard";
 import { ListsProvider } from "../contexts/ListsProvider";
 import { Lists } from "../pages/Dashboard/Lists";
-import { Inventory } from "../pages/Dashboard/Inventory";
 
 import { ListProvider } from "../contexts/ListProvider";
 import { List } from "../pages/List";
+
+import { Pantry } from "../pages/Pantry";
 
 export const router = createBrowserRouter([
     {
@@ -51,8 +52,8 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/dashboard/inventory",
-                element: <Inventory />,
+                path: "/dashboard/pantry",
+                element: <Pantry />,
             },
         ],
     },

@@ -1,4 +1,4 @@
-import { PackageOpen, Sparkles, ListTodo } from "lucide-react";
+import { Sparkles, ListTodo, Package } from "lucide-react";
 
 import { NavBarTab } from "./NavBarTab";
 
@@ -12,9 +12,9 @@ export function NavBar() {
                 icon={ListTodo}
             />
             <NavBarTab
-                label="Meu inventário"
-                to="/dashboard/inventory"
-                icon={PackageOpen}
+                label="Minha despensa"
+                to="/dashboard/pantry"
+                icon={Package}
             />
         </div>
     );
