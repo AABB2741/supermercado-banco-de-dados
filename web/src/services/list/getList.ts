@@ -16,6 +16,7 @@ export async function getList(id: number, cancelToken: CancelToken) {
             res.items[i].product = defaultProducts.find(
                 (p) => item.offlineProductId === p.id,
             );
+            console.log("Obtendo item", item);
         }
     }
 

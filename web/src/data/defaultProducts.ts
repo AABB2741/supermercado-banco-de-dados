@@ -130,3 +130,11 @@ export const defaultProducts: ProductProps[] = [
     // { id: 127, name: "Farinha" },
     // { id: 128, name: "Fermento" },
 ].sort((a, b) => (a.name > b.name ? 1 : -1));
+
+export function getDefaultProduct(id?: number) {
+    const product = defaultProducts.find((p) => p.id === id);
+
+    if (!product) throw new Error("Product not found");
+
+    return product;
+}

@@ -14,7 +14,7 @@ interface ListProviderProps {
 }
 
 interface ListProviderValue {
-    list?: ListProps;
+    list: ListProps;
     error?: ErrorCode;
     search: string;
     setList: React.Dispatch<React.SetStateAction<ListProps | undefined>>;
@@ -47,6 +47,8 @@ export function ListProvider({ children }: ListProviderProps) {
 
         return cancelToken.cancel;
     }, [id]);
+
+    if (!list) return null;
 
     return (
         <ListContext.Provider

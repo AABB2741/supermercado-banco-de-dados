@@ -9,6 +9,8 @@ import { useList } from "../../../contexts/ListProvider";
 
 import { addItem } from "../../../services/list/addItem";
 
+import { getDefaultProduct } from "../../../data/defaultProducts";
+
 interface AddItemProviderValue {
     product?: Product;
     preview?: ProductPreview;
@@ -39,8 +41,8 @@ export function AddItemRoot({ children }: AddItemProps) {
     const [product, setProduct] = useState<Product>();
     const [preview, setPreview] = useState<ProductPreview>();
 
-    const amountRef = useRef<{ amount: number }>();
-    const { list } = useList();
+    const amountRef = useRef<{ amount: number }>(null);
+    const { list, setList } = useList();
 
     async function handleAddItem() {
         try {
@@ -72,7 +74,18 @@ export function AddItemRoot({ children }: AddItemProps) {
                 isOffline,
             });
 
-            console.log("Item adicionado:", item);
+            if (isOffline) {
+                const product = getDefaultProduct(item.offlineProductId);
+                const newItem = { ...item, product };
+                setList((list) => {
+                    if (!list) throw new Error("List is not defined");
+
+                    return {
+                        ...list,
+                        items: [...(list.items ?? []), newItem],
+                    };
+                });
+            }
         } catch (err) {
             // TODO: Handle error
         }
