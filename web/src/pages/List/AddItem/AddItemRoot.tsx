@@ -66,7 +66,8 @@ export function AddItemRoot({ children }: AddItemProps) {
 
             const item = await addItem({
                 listId,
-                productId,
+                productId: !isOffline ? productId : undefined,
+                offlineProductId: isOffline ? productId : undefined,
                 amount,
                 isOffline,
             });

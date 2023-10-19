@@ -38,10 +38,11 @@ model List {
 
 // TODO: Tentar arrumar erro do productId
 model ListItem {
-    id        Int     @id @default(autoincrement())
-    checked   Boolean @default(false)
-    amount    Float   @default(1)
-    isOffline Boolean @default(false)
+    id               Int     @id @default(autoincrement())
+    checked          Boolean @default(false)
+    amount           Float   @default(1)
+    isOffline        Boolean @default(false)
+    offlineProductId Int?
 
     list   List @relation(fields: [listId], references: [id])
     listId Int
