@@ -9,7 +9,7 @@ type EditorHandle = {
     amount: number;
 };
 
-export const AddItemEditorComponent = forwardRef<EditorHandle>((_, ref) => {
+export const AddItemEditor = forwardRef<EditorHandle>((_, ref) => {
     const [amount, setAmount] = useState(1);
 
     const { product, preview } = useAddItem();

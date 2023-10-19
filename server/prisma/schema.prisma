@@ -36,6 +36,7 @@ model List {
     userId Int
 }
 
+// TODO: Tentar arrumar erro do productId
 model ListItem {
     id        Int     @id @default(autoincrement())
     checked   Boolean @default(false)
