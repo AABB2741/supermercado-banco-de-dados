@@ -1,8 +1,13 @@
 import { useState, createContext, useContext, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import z from "zod";
 
 import { AddItem } from ".";
 import { Button } from "../../../components/Button";
+
+import { useList } from "../../../contexts/ListProvider";
+
+import { addItem } from "../../../services/list/addItem";
 
 interface AddItemProviderValue {
     product?: Product;
@@ -35,11 +40,43 @@ export function AddItemRoot({ children }: AddItemProps) {
     const [preview, setPreview] = useState<ProductPreview>();
 
     const amountRef = useRef<{ amount: number }>();
+    const { list } = useList();
 
     async function handleAddItem() {
-        console.log("Enviando com a quantidade:" + amountRef.current.amount);
+        try {
+            const listId = z
+                .number()
+                .int()
+                .positive()
+                .parse(list?.id);
+            const productId = z
+                .number()
+                .int()
+                .positive()
+                .parse(product?.id);
+            const amount = z
+                .number()
+                .int()
+                .min(1)
+                .parse(amountRef.current?.amount);
+            const isOffline = z
+                .boolean()
+                .default(false)
+                .parse(product?.isOffline);
+
+            const item = await addItem({
+                listId,
+                productId,
+                amount,
+                isOffline,
+            });
+
+            console.log("Item adicionado:", item);
+        } catch (err) {
+            // TODO: Handle error
+        }
     }
-    
+
     return (
         <AddItemContext.Provider
             value={{ product, preview, setProduct, setPreview }}
