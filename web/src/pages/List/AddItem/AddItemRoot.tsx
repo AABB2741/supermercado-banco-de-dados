@@ -1,7 +1,8 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { AddItem } from ".";
+import { Button } from "../../../components/Button";
 
 interface AddItemProviderValue {
     product?: Product;
@@ -23,6 +24,7 @@ type Product = {
 
 type ProductPreview = {
     name: string;
+    price?: number;
 };
 
 const AddItemContext = createContext({} as AddItemProviderValue);
@@ -32,6 +34,12 @@ export function AddItemRoot({ children }: AddItemProps) {
     const [product, setProduct] = useState<Product>();
     const [preview, setPreview] = useState<ProductPreview>();
 
+    const amountRef = useRef<{ amount: number }>();
+
+    async function handleAddItem() {
+        console.log("Enviando com a quantidade:" + amountRef.current.amount);
+    }
+    
     return (
         <AddItemContext.Provider
             value={{ product, preview, setProduct, setPreview }}
@@ -46,6 +54,23 @@ export function AddItemRoot({ children }: AddItemProps) {
 
                     <AddItem.Search />
                     <AddItem.Preview />
+                    <AddItem.Editor ref={amountRef} />
+
+                    <div className="mt-4 flex items-center justify-end gap-2">
+                        <Dialog.Close
+                            className="px-4 font-bold"
+                            // disabled={loading}
+                        >
+                            Cancelar
+                        </Dialog.Close>
+                        <Button.Normal
+                            accent
+                            // loading={loading}
+                            onClick={handleAddItem}
+                        >
+                            Adicionar item
+                        </Button.Normal>
+                    </div>
                 </Dialog.Content>
             </Dialog.Root>
         </AddItemContext.Provider>

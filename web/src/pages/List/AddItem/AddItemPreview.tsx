@@ -13,8 +13,6 @@ export function AddItemPreview() {
     useEffect(() => {
         if (!product) return;
 
-        console.log("Procurando produto", product);
-
         if (product.isOffline) {
             const res = defaultProducts.find((p) => p.id === product.id);
 
@@ -22,7 +20,8 @@ export function AddItemPreview() {
                 setPreview(res);
             }
         }
-    }, [product, setPreview]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product]);
 
     if (!product || !preview) return null;
 
