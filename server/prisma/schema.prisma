@@ -17,9 +17,10 @@ model User {
     password  String
     createdAt DateTime @default(now())
 
-    lists    List[]
-    brands   Brand[]
-    products Product[]
+    lists      List[]
+    brands     Brand[]
+    products   Product[]
+    PantryItem PantryItem[]
 }
 
 model List {
@@ -63,8 +64,23 @@ model Product {
     brand   Brand? @relation(fields: [brandId], references: [id])
     brandId Int?
 
-    user   User @relation(fields: [userId], references: [id])
-    userId Int
+    user       User         @relation(fields: [userId], references: [id])
+    userId     Int
+    PantryItem PantryItem[]
+}
+
+model PantryItem {
+    id        Int     @id @default(autoincrement())
+    isOffline Boolean @default(false)
+    amount    Float   @default(1)
+
+    offlineProductId Int?
+
+    user User @relation(fields: [userId], references: [id])
+
+    product   Product? @relation(fields: [productId], references: [id])
+    productId Int?
+    userId    Int
 }
 
 model Recipe {
