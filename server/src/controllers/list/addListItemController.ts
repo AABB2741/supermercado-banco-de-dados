@@ -11,25 +11,20 @@ export async function addListItemController(req: Request, res: Response) {
 	const listId = z.coerce.number().int().positive().parse(req.params.id);
 
 	const bodySchema = z.object({
-		amount: z.number().int().positive().optional(),
-		productId: z.number().int().positive().optional(),
-		offlineProductId: z.number().int().positive().optional(),
-		isOffline: z.boolean().optional(),
+		productId: z.number().int().positive(),
+        amount: z.number().positive(),
+        isOffline: z.boolean()
 	});
 
-	const { amount, productId, offlineProductId, isOffline } = bodySchema.parse(
+	const { amount, productId, isOffline } = bodySchema.parse(
 		req.body
 	);
-
-	if (!productId && !offlineProductId)
-		throw new AppError("unknown_error", 400);
 
 	const item = await addListItemUseCase({
 		userId,
 		listId,
 		amount,
 		productId,
-		offlineProductId,
 		isOffline,
 	});
 

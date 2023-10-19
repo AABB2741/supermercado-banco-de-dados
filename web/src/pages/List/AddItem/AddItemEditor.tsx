@@ -1,14 +1,15 @@
-import { useState, forwardRef, useImperativeHandle, ForwardedRef } from "react";
+import { useState, forwardRef, useImperativeHandle } from "react";
 import * as Slider from "@radix-ui/react-slider";
 
 import { Input } from "../../../components/Input";
 
 import { useAddItem } from "./AddItemRoot";
 
-function AddItemEditorComponent(
-    _: unknown,
-    ref: ForwardedRef<{ amount: number }>,
-) {
+type EditorHandle = {
+    amount: number;
+};
+
+export const AddItemEditorComponent = forwardRef<EditorHandle>((_, ref) => {
     const [amount, setAmount] = useState(1);
 
     const { product, preview } = useAddItem();
@@ -48,6 +49,4 @@ function AddItemEditorComponent(
             </div>
         </div>
     );
-}
-
-export const AddItemEditor = forwardRef(AddItemEditorComponent);
+});
