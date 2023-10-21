@@ -4,7 +4,7 @@ import { editPantryItemUseCase } from "../../useCases/pantry/editPantryItemUseCa
 
 export async function editPantryItemController(req: Request, res: Response) {
 	const userId = z.number().int().positive().parse(req.userId);
-	const id = z.number().int().positive().parse(req.params.id);
+	const id = z.coerce.number().int().positive().parse(req.params.id);
 
 	const bodySchema = z.object({
 		amount: z.number().positive().optional(),
