@@ -37,7 +37,7 @@ export function ListsProvider({ children }: ListsProviderProps) {
             setLists(undefined);
         };
     }, []);
-    console.log(lists);
+
     return (
         <ListsContext.Provider value={{ lists, setLists }}>
             {children}

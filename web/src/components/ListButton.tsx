@@ -10,7 +10,6 @@ import { getDefaultProduct } from "../data/defaultProducts";
 
 export function ListButton({ id, name, color, items }: ListProps) {
     const [previewItems, setPreviewItems] = useState<string[]>();
-    console.log(items);
 
     useEffect(() => {
         if (!items) return;
@@ -18,10 +17,14 @@ export function ListButton({ id, name, color, items }: ListProps) {
         const res: string[] = [];
 
         for (const item of items) {
-            try {
-                res.push(getDefaultProduct(item.id).name);
-            } catch (err) {
-                console.error(err);
+            if (item.isOffline) {
+                try {
+                    res.push(getDefaultProduct(item.id).name);
+                } catch (err) {
+                    console.error(err);
+                }
+            } else if (item.product) {
+                res.push(item.product.name);
             }
         }
 
@@ -77,7 +80,7 @@ export function ListButton({ id, name, color, items }: ListProps) {
                             previewItems.map((item, index) =>
                                 item ? (
                                     <li
-                                        className="rounded-full bg-zinc-800 px-4 py-1"
+                                        className="rounded-full bg-gray-200 px-4 py-1 dark:bg-zinc-800"
                                         key={index}
                                     >
                                         {item}
