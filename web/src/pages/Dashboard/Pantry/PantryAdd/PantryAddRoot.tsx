@@ -5,6 +5,9 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 import { PantryAdd } from ".";
 import { Button } from "../../../../components/Button";
+
+import { addPantryItem } from "../../../../services/pantry/addPantryItem";
+
 import { ProductProps } from "../../../../@types/product-props";
 
 type Product = ProductProps & {
@@ -25,12 +28,35 @@ export function PantryAddRoot() {
     const managerRef = useRef<{ amount: number }>(null);
 
     async function handleAddItem() {
+        if (!product) return alert("Escolha um produto!");
+
         try {
+            const isOffline = z.boolean().parse(product.isOffline);
             const amount = z
                 .number()
                 .positive()
                 .parse(managerRef.current?.amount);
-            console.log(amount);
+            const offlineProductId = z
+                .number()
+                .int()
+                .positive()
+                .optional()
+                .parse(isOffline ? product.id : undefined);
+            const productId = z
+                .number()
+                .int()
+                .positive()
+                .optional()
+                .parse(!isOffline ? product.id : undefined);
+
+            addPantryItem({ isOffline, amount, offlineProductId, productId })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    // TODO: Handle error
+                    console.error(err);
+                });
         } catch (err) {
             // TODO: Handle error
         }
