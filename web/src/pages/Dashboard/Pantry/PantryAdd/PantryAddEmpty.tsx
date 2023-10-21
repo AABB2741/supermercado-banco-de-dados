@@ -1,4 +1,4 @@
-import { usePantryAdd } from "./PantryAddroot";
+import { usePantryAdd } from "./PantryAddRoot";
 
 import emptyList from "../../../../assets/empty-list.svg";
 

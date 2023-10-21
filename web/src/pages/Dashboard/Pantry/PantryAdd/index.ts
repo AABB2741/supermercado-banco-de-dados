@@ -4,7 +4,7 @@ import { PantryAddEmpty } from "./PantryAddEmpty";
 import { PantryAddManager } from "./PantryAddManager";
 import { PantryAddPreview } from "./PantryAddPreview";
 import { PantryAddSearch } from "./PantryAddSearch";
-import { PantryAddRoot } from "./PantryAddroot";
+import { PantryAddRoot } from "./PantryAddRoot";
 
 export const PantryAdd = {
     Root: PantryAddRoot,

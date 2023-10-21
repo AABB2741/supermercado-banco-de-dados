@@ -1,6 +1,11 @@
 import { Combobox } from "@headlessui/react";
 import { useMemo, useState } from "react";
+
+import { PantryAdd } from ".";
+
 import { normalize } from "../../../../utils/normalize";
+import { useProducts } from "../../../../hooks/useProducts";
+import { ShoppingCart } from "lucide-react";
 
 export function PantryAddSearch() {
     const [search, setSearch] = useState("");
@@ -9,6 +14,8 @@ export function PantryAddSearch() {
         () => normalize(search).trim().toLowerCase(),
         [search],
     );
+
+    const { localProducts } = useProducts(normalizedSearch);
 
     return (
         <Combobox>
@@ -35,6 +42,12 @@ export function PantryAddSearch() {
                         </p>
                     </Combobox.Option>
                 </div>
+                <PantryAdd.Category
+                    icon={ShoppingCart}
+                    title="Produtos básicos"
+                    products={localProducts}
+                    isOffline
+                />
             </Combobox.Options>
         </Combobox>
     );
