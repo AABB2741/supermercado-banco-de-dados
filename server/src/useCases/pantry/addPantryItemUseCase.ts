@@ -9,9 +9,33 @@ interface AddPantryItemProps {
 }
 
 export async function addPantryItemUseCase(data: AddPantryItemProps) {
-	const item = await prisma.pantryItem.create({
-		data,
+	const itemExists = await prisma.pantryItem.findFirst({
+		where: {
+			isOffline: data.isOffline,
+			offlineProductId: data.offlineProductId,
+			productId: data.productId,
+			userId: data.userId,
+		},
 	});
 
-	return item;
+	if (itemExists) {
+		const item = await prisma.pantryItem.update({
+			where: {
+				id: itemExists.id,
+			},
+			data: {
+				amount: {
+					increment: data.amount,
+				},
+			},
+		});
+
+		return item;
+	} else {
+		const item = await prisma.pantryItem.create({
+			data,
+		});
+
+		return item;
+	}
 }
