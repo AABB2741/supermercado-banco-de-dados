@@ -5,25 +5,15 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 import { PantryAdd } from ".";
 import { Button } from "../../../../components/Button";
+import { ProductProps } from "../../../../@types/product-props";
 
-type Product = {
-    id: number;
+type Product = ProductProps & {
     isOffline: boolean;
-    price?: boolean;
-};
-
-type ProductPreview = {
-    name: string;
-    price?: number;
 };
 
 interface PantryAddValue {
     product?: Product;
-    preview?: ProductPreview;
     setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
-    setPreview: React.Dispatch<
-        React.SetStateAction<ProductPreview | undefined>
-    >;
 }
 
 const PantryAddContext = createContext({} as PantryAddValue);
@@ -31,7 +21,6 @@ const PantryAddContext = createContext({} as PantryAddValue);
 export function PantryAddRoot() {
     const [open, setOpen] = useState(false);
     const [product, setProduct] = useState<Product>();
-    const [preview, setPreview] = useState<ProductPreview>();
 
     const managerRef = useRef<{ amount: number }>(null);
 
@@ -48,9 +37,7 @@ export function PantryAddRoot() {
     }
 
     return (
-        <PantryAddContext.Provider
-            value={{ product, preview, setProduct, setPreview }}
-        >
+        <PantryAddContext.Provider value={{ product, setProduct }}>
             <Dialog.Root open={open} onOpenChange={setOpen}>
                 <Dialog.Trigger asChild>
                     <button className="font-white flex items-center justify-center gap-4 rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 px-10 py-6 font-bold text-gray-100">
@@ -67,6 +54,7 @@ export function PantryAddRoot() {
 
                         <PantryAdd.Search />
                         <PantryAdd.Empty />
+                        <PantryAdd.Preview />
 
                         <div className="mt-4 flex items-center justify-end gap-2">
                             <Dialog.Close

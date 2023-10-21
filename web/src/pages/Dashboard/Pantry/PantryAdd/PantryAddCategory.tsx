@@ -22,9 +22,9 @@ export function PantryAddCategory({
 }: AddItemCategoryProps) {
     const { setProduct } = usePantryAdd();
 
-    function handleChooseItem(id: number) {
+    function handleChooseItem(props: ProductProps) {
         setProduct({
-            id,
+            ...props,
             isOffline,
         });
     }
@@ -43,7 +43,7 @@ export function PantryAddCategory({
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                         value={p.id}
                         key={p.id}
-                        onClick={() => handleChooseItem(p.id)}
+                        onClick={() => handleChooseItem(p)}
                     >
                         {isOffline ? (
                             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500 text-white">
