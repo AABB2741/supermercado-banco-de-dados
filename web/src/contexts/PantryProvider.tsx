@@ -4,16 +4,21 @@ import { PantryItem, getPantryItems } from "../services/pantry/getPantryItems";
 
 import { removePantryItem } from "../services/pantry/removePantryItem";
 
-import { PantryItemProps } from "../@types/pantry-item-props";
 import { addPantryItem } from "../services/pantry/addPantryItem";
+import {
+    EditPantryItemProps,
+    editPantryItem,
+} from "../services/pantry/editPantryItem";
 import { getDefaultProduct } from "../data/defaultProducts";
+
+import { PantryItemProps } from "../@types/pantry-item-props";
 
 interface PantryContextValue {
     items: PantryItem[];
     setItems: React.Dispatch<React.SetStateAction<PantryItem[] | undefined>>;
     addItem: (data: Omit<PantryItemProps, "id" | "userId">) => Promise<void>;
     removeItem: (id: number) => Promise<void>;
-    editItem: (data: Partial<PantryItemProps>) => Promise<PantryItemProps>;
+    editItem: (id: number, data: EditPantryItemProps) => Promise<void>;
 }
 
 interface PantryProviderProps {
@@ -67,7 +72,29 @@ export function PantryProvider({ children }: PantryProviderProps) {
         });
     }
 
-    async function editItem(data: Partial<PantryItemProps>) {}
+    async function editItem(id: number, data: EditPantryItemProps) {
+        const item = await editPantryItem(id, data);
+
+        if (item.isOffline) {
+            try {
+                const foundItem = getDefaultProduct(item.id);
+                const newItems = [...(items ?? [])];
+
+                for (const i in newItems) {
+                    const newItem = newItems[i];
+
+                    if (newItem.id === item.id) {
+                        newItems[i].product = foundItem;
+                        break;
+                    }
+                }
+
+                setItems(newItems);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
 
     useEffect(() => {
         const cancelToken = axios.CancelToken.source();

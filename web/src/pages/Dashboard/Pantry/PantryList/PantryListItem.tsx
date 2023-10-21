@@ -13,7 +13,10 @@ export function PantryListItem({ id, amount, product }: PantryItem) {
 
     const { removeItem, editItem } = usePantry();
 
-    function handleEdit() {}
+    function handleEdit() {
+        // FIXME: Ver pq tá dando errado
+        // editItem(id, { amount: editAmount });
+    }
 
     return (
         <li className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900">
