@@ -7,14 +7,14 @@ import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 
-import { Dashboard } from "../pages/Dashboard";
+import { ForYou } from "../pages/ForYou";
 import { ListsProvider } from "../contexts/ListsProvider";
 import { Lists } from "../pages/Dashboard/Lists";
 
 import { ListProvider } from "../contexts/ListProvider";
 import { List } from "../pages/List";
 
-import { Pantry } from "../pages/Pantry";
+import { Pantry } from "../pages/Dashboard/Pantry";
 
 export const router = createBrowserRouter([
     {
@@ -40,8 +40,8 @@ export const router = createBrowserRouter([
         element: <DashboardRoutes />,
         children: [
             {
-                path: "/dashboard/",
-                element: <Dashboard />,
+                path: "/dashboard",
+                element: <ForYou />,
             },
             {
                 path: "/dashboard/lists",

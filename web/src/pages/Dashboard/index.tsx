@@ -5,5 +5,5 @@ export function Dashboard() {
         document.title = "Painel - RPB Shopping";
     }, []);
 
-    return <h1>For you</h1>;
+    return <h1>Dashboard</h1>;
 }
