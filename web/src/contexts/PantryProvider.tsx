@@ -37,7 +37,11 @@ export function PantryProvider({ children }: PantryProviderProps) {
 
     if (!items) return null;
 
-    return <div className="p-8">{children}</div>;
+    return (
+        <PantryContext.Provider value={{ items, setItems }}>
+            {children}
+        </PantryContext.Provider>
+    );
 }
 
 export const usePantry = () => useContext(PantryContext);

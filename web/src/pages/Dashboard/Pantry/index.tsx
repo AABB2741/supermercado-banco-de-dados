@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 
 import { PantryProvider } from "../../../contexts/PantryProvider";
+
 import { PantryAdd } from "./PantryAdd";
+import { PantryList } from "./PantryList";
 
 export function Pantry() {
     useEffect(() => {
@@ -9,11 +11,12 @@ export function Pantry() {
     }, []);
 
     return (
-        <div>
+        <div className="p-8">
             <PantryProvider>
                 <div className="flex justify-center">
                     <PantryAdd.Root />
                 </div>
+                <PantryList.Root />
             </PantryProvider>
         </div>
     );
