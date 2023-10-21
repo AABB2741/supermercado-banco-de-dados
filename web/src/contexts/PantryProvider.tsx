@@ -12,7 +12,8 @@ interface PantryContextValue {
     items: PantryItem[];
     setItems: React.Dispatch<React.SetStateAction<PantryItem[] | undefined>>;
     addItem: (data: Omit<PantryItemProps, "id" | "userId">) => Promise<void>;
-    removeItem: (id: number) => Promise<PantryItemProps>;
+    removeItem: (id: number) => Promise<void>;
+    editItem: (data: Partial<PantryItemProps>) => Promise<PantryItemProps>;
 }
 
 interface PantryProviderProps {
@@ -64,9 +65,9 @@ export function PantryProvider({ children }: PantryProviderProps) {
 
             return newItems;
         });
-
-        return removedItem;
     }
+
+    async function editItem(data: Partial<PantryItemProps>) {}
 
     useEffect(() => {
         const cancelToken = axios.CancelToken.source();
@@ -88,7 +89,7 @@ export function PantryProvider({ children }: PantryProviderProps) {
 
     return (
         <PantryContext.Provider
-            value={{ items, setItems, addItem, removeItem }}
+            value={{ items, setItems, addItem, removeItem, editItem }}
         >
             {children}
         </PantryContext.Provider>
