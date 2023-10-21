@@ -1,11 +1,13 @@
 import { ChevronUp, LucideProps } from "lucide-react";
 
-import { PantryItemProps } from "../../../../@types/pantry-item-props";
+import { PantryList } from ".";
+
+import { PantryItem } from "../../../../services/pantry/getPantryItems";
 
 interface PantryListCategoryProps {
     icon: React.ElementType<LucideProps>;
     title: string;
-    items: PantryItemProps[];
+    items: PantryItem[];
 }
 
 export function PantryListCategory({
@@ -25,7 +27,9 @@ export function PantryListCategory({
                 </button>
             </div>
             <ul className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {JSON.stringify(items)}
+                {items.map((item) => (
+                    <PantryList.Item {...item} key={item.id} />
+                ))}
             </ul>
         </div>
     );

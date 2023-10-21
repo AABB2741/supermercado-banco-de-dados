@@ -1,13 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { PantryItemProps } from "../@types/pantry-item-props";
 import axios from "axios";
-import { getPantryItems } from "../services/pantry/getPantryItems";
+import { PantryItem, getPantryItems } from "../services/pantry/getPantryItems";
 
 interface PantryContextValue {
-    items: PantryItemProps[];
-    setItems: React.Dispatch<
-        React.SetStateAction<PantryItemProps[] | undefined>
-    >;
+    items: PantryItem[];
+    setItems: React.Dispatch<React.SetStateAction<PantryItem[] | undefined>>;
 }
 
 interface PantryProviderProps {
@@ -17,7 +14,7 @@ interface PantryProviderProps {
 const PantryContext = createContext({} as PantryContextValue);
 
 export function PantryProvider({ children }: PantryProviderProps) {
-    const [items, setItems] = useState<PantryItemProps[]>();
+    const [items, setItems] = useState<PantryItem[]>();
 
     useEffect(() => {
         const cancelToken = axios.CancelToken.source();
