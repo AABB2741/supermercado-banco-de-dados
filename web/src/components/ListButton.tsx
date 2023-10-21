@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle, MoreVertical, Trash } from "lucide-react";
 import * as Menubar from "@radix-ui/react-menubar";
@@ -5,8 +6,28 @@ import * as Menubar from "@radix-ui/react-menubar";
 import thumbnail from "../assets/list-banner.jpg";
 
 import { ListProps } from "../@types/list-props";
+import { getDefaultProduct } from "../data/defaultProducts";
 
-export function ListButton({ id, name, color }: ListProps) {
+export function ListButton({ id, name, color, items }: ListProps) {
+    const [previewItems, setPreviewItems] = useState<string[]>();
+    console.log(items);
+
+    useEffect(() => {
+        if (!items) return;
+
+        const res: string[] = [];
+
+        for (const item of items) {
+            try {
+                res.push(getDefaultProduct(item.id).name);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        setPreviewItems(res);
+    }, [items]);
+
     return (
         <div className="rounded-xl bg-gray-100 p-4 shadow-md dark:border dark:border-zinc-700 dark:bg-zinc-900">
             {/* Top */}
@@ -49,12 +70,20 @@ export function ListButton({ id, name, color }: ListProps) {
                         style={{ backgroundColor: color }}
                     />
                 </div>
-                <div>
+                <div className="flex-1 overflow-hidden">
                     <p className="font-featured text-xl font-bold">{name}</p>
-                    <ul className="list-disc text-sm">
-                        <li>Produto 1</li>
-                        <li>Produto 2</li>
-                        <li>Produto 3</li>
+                    <ul className="mt-2 flex items-center gap-2 overflow-hidden whitespace-nowrap text-xs">
+                        {previewItems &&
+                            previewItems.map((item, index) =>
+                                item ? (
+                                    <li
+                                        className="rounded-full bg-zinc-800 px-4 py-1"
+                                        key={index}
+                                    >
+                                        {item}
+                                    </li>
+                                ) : null,
+                            )}
                     </ul>
                 </div>
             </Link>
