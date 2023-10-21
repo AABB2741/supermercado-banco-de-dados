@@ -5,10 +5,13 @@ import { PantryItem, getPantryItems } from "../services/pantry/getPantryItems";
 import { removePantryItem } from "../services/pantry/removePantryItem";
 
 import { PantryItemProps } from "../@types/pantry-item-props";
+import { addPantryItem } from "../services/pantry/addPantryItem";
+import { getDefaultProduct } from "../data/defaultProducts";
 
 interface PantryContextValue {
     items: PantryItem[];
     setItems: React.Dispatch<React.SetStateAction<PantryItem[] | undefined>>;
+    addItem: (data: Omit<PantryItemProps, "id" | "userId">) => Promise<void>;
     removeItem: (id: number) => Promise<PantryItemProps>;
 }
 
@@ -20,6 +23,31 @@ const PantryContext = createContext({} as PantryContextValue);
 
 export function PantryProvider({ children }: PantryProviderProps) {
     const [items, setItems] = useState<PantryItem[]>();
+
+    async function addItem(data: Omit<PantryItemProps, "id" | "userId">) {
+        if (!items) return;
+
+        const item = await addPantryItem(data);
+        const newItems = [...items];
+
+        const index = newItems.findIndex((p) => p.id === item.id);
+
+        if (item.isOffline) {
+            if (index !== -1) {
+                newItems[index] = {
+                    ...item,
+                    product: getDefaultProduct(item.offlineProductId),
+                };
+                setItems(newItems);
+            } else {
+                newItems.push({
+                    ...item,
+                    product: getDefaultProduct(item.offlineProductId),
+                });
+                setItems(newItems);
+            }
+        }
+    }
 
     async function removeItem(id: number) {
         const removedItem = await removePantryItem(id);
@@ -59,7 +87,9 @@ export function PantryProvider({ children }: PantryProviderProps) {
     if (!items) return null;
 
     return (
-        <PantryContext.Provider value={{ items, setItems, removeItem }}>
+        <PantryContext.Provider
+            value={{ items, setItems, addItem, removeItem }}
+        >
             {children}
         </PantryContext.Provider>
     );

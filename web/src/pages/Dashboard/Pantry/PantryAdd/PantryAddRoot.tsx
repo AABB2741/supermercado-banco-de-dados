@@ -6,9 +6,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { PantryAdd } from ".";
 import { Button } from "../../../../components/Button";
 
-import { addPantryItem } from "../../../../services/pantry/addPantryItem";
-
 import { ProductProps } from "../../../../@types/product-props";
+import { usePantry } from "../../../../contexts/PantryProvider";
 
 type Product = ProductProps & {
     isOffline: boolean;
@@ -25,6 +24,7 @@ export function PantryAddRoot() {
     const [open, setOpen] = useState(false);
     const [product, setProduct] = useState<Product>();
 
+    const { addItem } = usePantry();
     const managerRef = useRef<{ amount: number }>(null);
 
     async function handleAddItem() {
@@ -49,14 +49,7 @@ export function PantryAddRoot() {
                 .optional()
                 .parse(!isOffline ? product.id : undefined);
 
-            addPantryItem({ isOffline, amount, offlineProductId, productId })
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    // TODO: Handle error
-                    console.error(err);
-                });
+            addItem({ isOffline, amount, offlineProductId, productId });
         } catch (err) {
             // TODO: Handle error
         }
