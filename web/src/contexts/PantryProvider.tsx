@@ -10,13 +10,13 @@ interface PantryContextValue {
     >;
 }
 
-interface PantryItemRootProps {
+interface PantryProviderProps {
     children?: React.ReactNode;
 }
 
 const PantryContext = createContext({} as PantryContextValue);
 
-export function PantryItemRoot({ children }: PantryItemRootProps) {
+export function PantryProvider({ children }: PantryProviderProps) {
     const [items, setItems] = useState<PantryItemProps[]>();
 
     useEffect(() => {
