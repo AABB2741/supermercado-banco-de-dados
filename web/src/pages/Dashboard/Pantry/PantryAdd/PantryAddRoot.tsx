@@ -55,6 +55,7 @@ export function PantryAddRoot() {
                         <PantryAdd.Search />
                         <PantryAdd.Empty />
                         <PantryAdd.Preview />
+                        <PantryAdd.Manager ref={managerRef} />
 
                         <div className="mt-4 flex items-center justify-end gap-2">
                             <Dialog.Close
