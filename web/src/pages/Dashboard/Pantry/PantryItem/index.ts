@@ -1,6 +1,7 @@
 import { PantryItemAdd } from "./PantryItemAdd";
 import { PantryItemAddEmpty } from "./PantryItemAddEmpty";
 import { PantryItemAddManager } from "./PantryItemAddManager";
+import { PantryItemAddPreview } from "./PantryItemAddPreview";
 import { PantryItemAlert } from "./PantryItemAlert";
 import { PantryItemCategory } from "./PantryItemCategory";
 import { PantryItemRoot } from "./PantryItemRoot";
@@ -13,5 +14,6 @@ export const PantryItem = {
     Add: PantryItemAdd,
     AddEmpty: PantryItemAddEmpty,
     AddManager: PantryItemAddManager,
+    AddPreview: PantryItemAddPreview,
     Search: PantryItemSearch,
 };

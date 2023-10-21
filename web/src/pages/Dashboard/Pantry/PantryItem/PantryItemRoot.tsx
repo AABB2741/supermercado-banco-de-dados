@@ -22,9 +22,15 @@ export function PantryItemRoot({ children }: PantryItemRootProps) {
     useEffect(() => {
         const cancelToken = axios.CancelToken.source();
 
-        getPantryItems(cancelToken.token).then((res) => {
-            setItems(res);
-        });
+        getPantryItems(cancelToken.token)
+            .then((res) => {
+                setItems(res);
+            })
+            .catch((err) => {
+                if (!axios.isCancel(err)) {
+                    // TODO: Handle error
+                }
+            });
 
         return cancelToken.cancel;
     }, []);
