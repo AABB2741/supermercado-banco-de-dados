@@ -106,10 +106,10 @@ export function List() {
                         },
                     ]}
                 />
-                <div className="mt-8 flex items-center justify-between gap-4">
+                <div className="mt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
                     <input
                         type="text"
-                        className="min-w-0 max-w-[500px] flex-1 rounded-full bg-white px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
+                        className="w-full min-w-0 max-w-[500px] flex-1 rounded-full bg-white px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
                         placeholder="Pesquisar itens"
                         value={src}
                         onChange={(e) => setSrc(e.currentTarget.value)}
