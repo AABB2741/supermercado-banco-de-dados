@@ -9,7 +9,12 @@ export function Pantry() {
 
     return (
         <div>
-            <PantryItem.Root></PantryItem.Root>
+            <PantryItem.Root>
+                <PantryItem.Alert />
+                <div className="flex justify-center">
+                    <PantryItem.Add />
+                </div>
+            </PantryItem.Root>
         </div>
     );
 }
