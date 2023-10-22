@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { CheckCircle, MoreVertical, Trash } from "lucide-react";
 import * as Menubar from "@radix-ui/react-menubar";
 
+import { useLists } from "../contexts/ListsProvider";
+
 import thumbnail from "../assets/list-banner.jpg";
 
 import { ListProps } from "../@types/list-props";
@@ -10,6 +12,8 @@ import { getDefaultProduct } from "../data/defaultProducts";
 
 export function ListButton({ id, name, color, items, _count }: ListProps) {
     const [previewItems, setPreviewItems] = useState<string[]>();
+
+    const { deleteList } = useLists();
 
     useEffect(() => {
         if (!items) return;
@@ -51,7 +55,10 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
                                 align="start"
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
-                                <Menubar.Item className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-600 hover:text-gray-100">
+                                <Menubar.Item
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-600 hover:text-gray-100"
+                                    onClick={() => deleteList(id)}
+                                >
                                     <Trash size={12} />
                                     <span className="text-sm">Excluir</span>
                                 </Menubar.Item>
