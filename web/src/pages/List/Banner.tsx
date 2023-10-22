@@ -21,6 +21,10 @@ export function Banner() {
                 : 0,
         [list],
     );
+    const expandedButton = useMemo(
+        () => checkedCount === list._count.items,
+        [list, checkedCount],
+    );
 
     if (!list) return null;
 
@@ -84,9 +88,13 @@ export function Banner() {
                         <Settings size={32} />
                     </button>
                     <button
-                        className="aspect-square rounded-full p-4 text-white"
+                        className="flex items-center gap-4 rounded-full p-4 text-white transition-all data-[expanded=true]:px-6 data-[expanded=true]:py-4"
                         style={{ backgroundColor: list.color }}
+                        data-expanded={expandedButton}
                     >
+                        {expandedButton && (
+                            <span>Clique aqui para marcar como concluído</span>
+                        )}
                         <Check />
                     </button>
                 </div>
