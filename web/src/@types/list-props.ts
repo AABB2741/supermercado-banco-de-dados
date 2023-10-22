@@ -14,7 +14,7 @@ export type ListProps = {
     user?: UserProps;
     userId: number;
 
-    _count?: {
+    _count: {
         items: number;
     };
 };

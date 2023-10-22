@@ -12,6 +12,7 @@ export async function getListUseCase({ userId, listId }: GetListProps) {
 			userId,
 		},
 		include: {
+			_count: true,
 			user: true,
 			items: {
 				include: {

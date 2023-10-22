@@ -18,7 +18,6 @@ model User {
     createdAt DateTime @default(now())
 
     lists      List[]
-    brands     Brand[]
     products   Product[]
     PantryItem PantryItem[]
 }
@@ -61,8 +60,7 @@ model Product {
 
     list ListItem[]
 
-    brand   Brand? @relation(fields: [brandId], references: [id])
-    brandId Int?
+    brand String?
 
     user       User         @relation(fields: [userId], references: [id])
     userId     Int
@@ -88,14 +86,4 @@ model Recipe {
     name        String
     description String?
     content     String
-}
-
-model Brand {
-    id Int @id @default(autoincrement())
-
-    user   User @relation(fields: [userId], references: [id])
-    userId Int
-
-    name     String
-    products Product[]
 }

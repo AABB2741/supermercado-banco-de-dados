@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Check, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Settings } from "lucide-react";
@@ -9,6 +10,17 @@ import avatar from "../../assets/avatar.png";
 
 export function Banner() {
     const { list } = useList();
+
+    const checkedCount = useMemo(
+        () =>
+            list.items
+                ? list.items.reduce(
+                      (prev, cur) => prev + (cur.checked ? 1 : 0),
+                      0,
+                  )
+                : 0,
+        [list],
+    );
 
     if (!list) return null;
 
@@ -61,7 +73,7 @@ export function Banner() {
                         {/* List data */}
                         <span className="text-xl text-green-400">R$890,33</span>
                         <span className="text-xl text-yellow-400">
-                            14/38 itens
+                            {checkedCount}/{list._count.items} itens
                         </span>
                     </div>
                 </div>

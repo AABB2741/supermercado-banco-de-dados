@@ -1,6 +1,6 @@
 Criar um sistema de compras online de mercado
 
-[ ] Usuário monta lista de itens baseado em marcas e produtos
+[X] Usuário monta lista de itens baseado em marcas e produtos
 [X] Os produtos na lista terão quantidade e preço
 [X] Usuário pode ter controle de estoque de consumo do que tem na despensa, geladeira
 [ ] A partir da 3ª compra, o sistema pode determinar a cada quanto tempo um produto é consumido pelo usuário, para ter uma estimativa de compra.
