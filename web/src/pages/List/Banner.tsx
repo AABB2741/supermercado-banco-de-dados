@@ -44,9 +44,9 @@ export function Banner() {
             </div>
 
             {/* Bottom */}
-            <div className="flex justify-between bg-gradient-to-t from-black to-transparent p-10">
+            <div className="flex justify-between gap-4 bg-gradient-to-t from-black to-transparent p-10">
                 {/* Left */}
-                <div>
+                <div className="flex-1">
                     <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/50 px-6 py-2 text-yellow-400">
                         <Clock color="currentColor" size={20} />
                         <span className="text-lg font-bold">
