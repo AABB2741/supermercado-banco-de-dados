@@ -7,7 +7,7 @@ export async function getListsUseCase(userId: number) {
 		},
 		include: {
 			items: {
-				take: 2,
+				take: 3,
 				select: {
 					id: true,
 					isOffline: true,
@@ -20,6 +20,7 @@ export async function getListsUseCase(userId: number) {
 					},
 				},
 			},
+			_count: true,
 		},
 	});
 

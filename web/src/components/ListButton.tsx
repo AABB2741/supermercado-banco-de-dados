@@ -8,7 +8,7 @@ import thumbnail from "../assets/list-banner.jpg";
 import { ListProps } from "../@types/list-props";
 import { getDefaultProduct } from "../data/defaultProducts";
 
-export function ListButton({ id, name, color, items }: ListProps) {
+export function ListButton({ id, name, color, items, _count }: ListProps) {
     const [previewItems, setPreviewItems] = useState<string[]>();
 
     useEffect(() => {
@@ -19,9 +19,9 @@ export function ListButton({ id, name, color, items }: ListProps) {
         for (const item of items) {
             if (item.isOffline) {
                 try {
-                    res.push(getDefaultProduct(item.id).name);
-                } catch (err) {
-                    console.error(err);
+                    res.push(getDefaultProduct(item.offlineProductId).name);
+                } catch (_) {
+                    // console.error(err);
                 }
             } else if (item.product) {
                 res.push(item.product.name);
@@ -75,19 +75,24 @@ export function ListButton({ id, name, color, items }: ListProps) {
                 </div>
                 <div className="flex-1 overflow-hidden">
                     <p className="font-featured text-xl font-bold">{name}</p>
-                    <ul className="mt-2 flex items-center gap-2 overflow-hidden whitespace-nowrap text-xs">
-                        {previewItems &&
-                            previewItems.map((item, index) =>
-                                item ? (
-                                    <li
-                                        className="rounded-full bg-gray-200 px-4 py-1 dark:bg-zinc-800"
-                                        key={index}
-                                    >
-                                        {item}
-                                    </li>
-                                ) : null,
-                            )}
-                    </ul>
+                    <div className="mt-2 flex items-center gap-2 whitespace-nowrap text-xs">
+                        <ul className="flex flex-1 items-center gap-2 overflow-hidden rounded-full">
+                            {previewItems &&
+                                previewItems.map((item, index) =>
+                                    item ? (
+                                        <li
+                                            className="rounded-full bg-gray-200 px-4 py-1 dark:bg-zinc-800"
+                                            key={index}
+                                        >
+                                            {item}
+                                        </li>
+                                    ) : null,
+                                )}
+                        </ul>
+                        {_count && _count.items - 3 > 0 && (
+                            <span>+{_count.items - 3}</span>
+                        )}
+                    </div>
                 </div>
             </Link>
         </div>

@@ -13,4 +13,8 @@ export type ListProps = {
 
     user?: UserProps;
     userId: number;
+
+    _count?: {
+        items: number;
+    };
 };
