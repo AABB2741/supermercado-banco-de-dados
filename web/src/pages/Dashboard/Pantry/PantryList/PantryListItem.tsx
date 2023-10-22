@@ -14,8 +14,7 @@ export function PantryListItem({ id, amount, product }: PantryItem) {
     const { removeItem, editItem } = usePantry();
 
     function handleEdit() {
-        // FIXME: Ver pq tá dando errado
-        // editItem(id, { amount: editAmount });
+        editItem(id, { amount: editAmount });
     }
 
     return (
@@ -99,7 +98,7 @@ export function PantryListItem({ id, amount, product }: PantryItem) {
                                     // loading={loading}
                                     onClick={handleEdit}
                                 >
-                                    Adicionar item
+                                    Editar item
                                 </Button.Normal>
                             </div>
                         </Dialog.Content>

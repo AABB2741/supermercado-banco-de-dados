@@ -73,18 +73,20 @@ export function PantryProvider({ children }: PantryProviderProps) {
     }
 
     async function editItem(id: number, data: EditPantryItemProps) {
+        console.log("id", id);
+        console.log("data", data);
         const item = await editPantryItem(id, data);
 
         if (item.isOffline) {
             try {
-                const foundItem = getDefaultProduct(item.id);
+                const foundItem = getDefaultProduct(item.offlineProductId);
                 const newItems = [...(items ?? [])];
 
                 for (const i in newItems) {
                     const newItem = newItems[i];
 
                     if (newItem.id === item.id) {
-                        newItems[i].product = foundItem;
+                        newItems[i] = { ...item, product: foundItem };
                         break;
                     }
                 }
