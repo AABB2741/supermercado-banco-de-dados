@@ -1,0 +1,9 @@
+Para rodar o site, devem ser feitos os seguintes passos:
+
+Na pasta /server:
+1. Rodar o comando npm install
+
+Na pasta /web:
+1. Rodar o comando npm install
+2. Rodar o comando npm run dev
+3. Abrir o site em um navegador, na url http://localhost:5173

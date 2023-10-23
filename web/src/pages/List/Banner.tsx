@@ -11,22 +11,17 @@ import avatar from "../../assets/avatar.png";
 export function Banner() {
     const { list } = useList();
 
+    if (!list || !list.items) return null;
+
     const checkedCount = useMemo(
         () =>
-            list.items
-                ? list.items.reduce(
-                      (prev, cur) => prev + (cur.checked ? 1 : 0),
-                      0,
-                  )
-                : 0,
+            list.items?.reduce((prev, cur) => prev + (cur.checked ? 1 : 0), 0),
         [list],
     );
     const expandedButton = useMemo(
-        () => checkedCount === list._count.items,
+        () => checkedCount === list.items?.length,
         [list, checkedCount],
     );
-
-    if (!list) return null;
 
     return (
         <div
@@ -77,7 +72,7 @@ export function Banner() {
                         {/* List data */}
                         <span className="text-xl text-green-400">R$890,33</span>
                         <span className="text-xl text-yellow-400">
-                            {checkedCount}/{list._count.items} itens
+                            {checkedCount}/{list.items.length} itens
                         </span>
                     </div>
                 </div>
@@ -90,9 +85,9 @@ export function Banner() {
                     <button
                         className="flex items-center gap-4 rounded-full p-4 text-white transition-all data-[expanded=true]:px-6 data-[expanded=true]:py-4"
                         style={{ backgroundColor: list.color }}
-                        data-expanded={expandedButton}
+                        data-expanded={expandedButton && checkedCount}
                     >
-                        {expandedButton && (
+                        {expandedButton && checkedCount && (
                             <span>Clique aqui para marcar como concluído</span>
                         )}
                         <Check />

@@ -3,10 +3,10 @@ import { useEffect } from "react";
 export function useDebounce(
     callback: () => void,
     delay: number,
-    dependencies: unknown[],
+    deps: React.DependencyList,
 ) {
     useEffect(() => {
         const timeout = setTimeout(callback, delay);
         return () => clearTimeout(timeout);
-    }, [...dependencies]);
+    }, [...deps]);
 }
