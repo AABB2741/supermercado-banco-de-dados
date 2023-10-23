@@ -7,6 +7,7 @@ export async function getRecommendedProductsUseCase(search: string = "") {
 				contains: search,
 			},
 		},
+		take: 3,
 	});
 
 	return products;

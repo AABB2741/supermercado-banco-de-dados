@@ -87,7 +87,7 @@ export function Banner() {
                         style={{ backgroundColor: list.color }}
                         data-expanded={expandedButton && checkedCount}
                     >
-                        {expandedButton && checkedCount && (
+                        {expandedButton && !!checkedCount && (
                             <span>Clique aqui para marcar como concluído</span>
                         )}
                         <Check />

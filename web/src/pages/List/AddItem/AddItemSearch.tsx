@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Combobox } from "@headlessui/react";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Sparkles } from "lucide-react";
 
 import { AddItem } from ".";
 
@@ -18,7 +18,8 @@ export function AddItemSearch() {
     );
 
     const { list } = useList();
-    const { localProducts } = useProducts(normalizedSearch);
+    const { localProducts, recommendedProducts } =
+        useProducts(normalizedSearch);
 
     if (!list) return null;
 
@@ -52,6 +53,13 @@ export function AddItemSearch() {
                         </p>
                     </Combobox.Option>
                 </div>
+
+                <AddItem.Category
+                    icon={Sparkles}
+                    title="Recomendado para você"
+                    products={recommendedProducts}
+                    isOffline
+                />
 
                 <AddItem.Category
                     icon={ShoppingCart}
