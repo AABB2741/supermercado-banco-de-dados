@@ -55,24 +55,19 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
                                 align="start"
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
-                                <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-green-500 outline-none hover:bg-green-500 hover:text-gray-100"
-                                    onClick={() => deleteList(id)}
-                                >
+                                <Menubar.Item className="flex cursor-pointer items-center gap-2 px-3 py-1 text-green-500 outline-none hover:bg-green-500 hover:text-gray-100">
                                     <Check size={12} />
                                     <span className="text-sm">
                                         Marcar como concluído
                                     </span>
                                 </Menubar.Item>
-                                <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-950"
-                                    onClick={() => deleteList(id)}
-                                >
+                                <Menubar.Item className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-950">
                                     <Copy size={12} />
                                     <span className="text-sm">
                                         Duplicar lista
                                     </span>
                                 </Menubar.Item>
+                                <Menubar.Separator className="h-[1px] bg-gray-300 dark:bg-zinc-800" />
                                 <Menubar.Item
                                     className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-600 outline-none hover:bg-red-600 hover:text-gray-100"
                                     onClick={() => deleteList(id)}
