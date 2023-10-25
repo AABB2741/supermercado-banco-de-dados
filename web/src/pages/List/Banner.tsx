@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Check, Clock } from "lucide-react";
+import { Check, Clock, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Settings } from "lucide-react";
 
@@ -9,17 +9,13 @@ import listBanner from "../../assets/list-banner.jpg";
 import avatar from "../../assets/avatar.png";
 
 export function Banner() {
-    const { list } = useList();
+    const { list, toggle } = useList();
 
     const checkedCount = useMemo(
         () =>
             list.items?.reduce((prev, cur) => prev + (cur.checked ? 1 : 0), 0),
         [list],
     );
-
-    async function handleCheckList() {
-        // TODO: handle check
-    }
 
     if (!list || !list.items) return null;
 
@@ -42,16 +38,22 @@ export function Banner() {
             <div className="flex justify-between gap-4 bg-gradient-to-t from-black to-transparent p-10">
                 {/* Left */}
                 <div className="flex-1">
-                    <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/50 px-6 py-2 text-yellow-400">
+                    <div
+                        className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/50 px-6 py-2 text-yellow-400 data-[checked=true]:hidden"
+                        data-checked={list.checked}
+                    >
                         <Clock color="currentColor" size={20} />
                         <span className="text-lg font-bold">
                             Vence em 28/01/2005
                         </span>
                     </div>
-                    {/* <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/50 px-6 py-2 text-green-400">
+                    <div
+                        className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/50 px-6 py-2 text-green-400 data-[checked=false]:hidden"
+                        data-checked={list.checked}
+                    >
                         <Check color="currentColor" size={20} />
                         <span className="text-lg font-bold">Concluída</span>
-                    </div> */}
+                    </div>
                     <h1 className="mt-4 line-clamp-2 break-words font-featured text-6xl font-bold">
                         {list.name}
                     </h1>
@@ -85,8 +87,9 @@ export function Banner() {
                     <button
                         className="flex items-center gap-4 rounded-full p-4 text-white transition-all data-[expanded=true]:py-4"
                         style={{ backgroundColor: list.color }}
+                        onClick={toggle}
                     >
-                        <Check />
+                        {list.checked ? <X /> : <Check />}
                     </button>
                 </div>
             </div>

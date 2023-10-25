@@ -84,7 +84,7 @@ export function ListButton({
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 outline-none hover:bg-gray-200 data-[checked=false]:text-green-500 data-[checked=true]:text-orange-500"
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 outline-none hover:bg-gray-200 data-[checked=false]:text-green-500 data-[checked=true]:text-orange-500 dark:hover:bg-zinc-950"
                                     onClick={() => toggle(id)}
                                     data-checked={checked}
                                 >

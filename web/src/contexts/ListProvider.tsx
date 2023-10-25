@@ -8,6 +8,7 @@ import { ErrorCode } from "../errors/AppError";
 import axios from "axios";
 
 import { ListProps } from "../@types/list-props";
+import { toggleList } from "../services/list/toggleList";
 
 interface ListProviderProps {
     children: React.ReactNode;
@@ -19,6 +20,7 @@ interface ListProviderValue {
     search: string;
     setList: React.Dispatch<React.SetStateAction<ListProps | undefined>>;
     setSearch: React.Dispatch<React.SetStateAction<string>>;
+    toggle: () => Promise<void>;
 }
 
 const ListContext = createContext({} as ListProviderValue);
@@ -48,11 +50,18 @@ export function ListProvider({ children }: ListProviderProps) {
         return cancelToken.cancel;
     }, [id]);
 
+    async function toggle() {
+        if (!list) return;
+
+        const { checked } = await toggleList(list.id);
+        setList({ ...list, checked });
+    }
+
     if (!list) return null;
 
     return (
         <ListContext.Provider
-            value={{ error, list, search, setList, setSearch }}
+            value={{ error, list, search, setList, setSearch, toggle }}
         >
             {children}
         </ListContext.Provider>
