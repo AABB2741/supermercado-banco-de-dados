@@ -11,8 +11,6 @@ import avatar from "../../assets/avatar.png";
 export function Banner() {
     const { list } = useList();
 
-    if (!list || !list.items) return null;
-
     const checkedCount = useMemo(
         () =>
             list.items?.reduce((prev, cur) => prev + (cur.checked ? 1 : 0), 0),
@@ -22,6 +20,8 @@ export function Banner() {
         () => checkedCount === list.items?.length,
         [list, checkedCount],
     );
+
+    if (!list || !list.items) return null;
 
     return (
         <div
@@ -70,7 +70,7 @@ export function Banner() {
                         </div>
 
                         {/* List data */}
-                        <span className="text-xl text-green-400">R$890,33</span>
+                        <span className="text-xl text-green-400">R$0,00</span>
                         <span className="text-xl text-yellow-400">
                             {checkedCount}/{list.items.length} itens
                         </span>
