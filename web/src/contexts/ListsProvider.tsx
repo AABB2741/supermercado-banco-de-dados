@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { getLists } from "../services/list/getLists";
 import { deleteList as removeList } from "../services/list/deleteList";
-import { checkList as markList } from "../services/list/checkList";
+import { toggleList } from "../services/list/toggleList";
 
 import { ListProps } from "../@types/list-props";
 
@@ -15,10 +15,20 @@ interface ListsProviderValue {
     lists?: ListProps[];
     setLists: React.Dispatch<React.SetStateAction<ListProps[] | undefined>>;
     deleteList: (id: number) => Promise<void>;
-    checkList: (id: number) => Promise<void>;
+    toggle: (id: number) => Promise<void>;
 }
 
 const ListsContext = createContext({} as ListsProviderValue);
+
+function sortList(a: ListProps, b: ListProps) {
+    if (a.checked && !b.checked) {
+        return 1;
+    } else if (!a.checked && b.checked) {
+        return -1;
+    }
+
+    return a.name > b.name ? 1 : -1;
+}
 
 export function ListsProvider({ children }: ListsProviderProps) {
     const [lists, setLists] = useState<ListProps[]>();
@@ -59,14 +69,14 @@ export function ListsProvider({ children }: ListsProviderProps) {
         }
     }
 
-    async function checkList(id: number) {
-        const list = await markList(id);
+    async function toggle(id: number) {
+        const list = await toggleList(id);
 
         const newLists = [...(lists ?? [])];
 
         for (const i in newLists) {
             if (newLists[i].id === list.id) {
-                newLists[i] = { ...list };
+                newLists[i] = list;
                 break;
             }
         }
@@ -76,7 +86,12 @@ export function ListsProvider({ children }: ListsProviderProps) {
 
     return (
         <ListsContext.Provider
-            value={{ lists, setLists, deleteList, checkList }}
+            value={{
+                lists: lists?.sort(sortList),
+                setLists,
+                deleteList,
+                toggle,
+            }}
         >
             {children}
         </ListsContext.Provider>

@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, CheckCircle, Copy, MoreVertical, Trash } from "lucide-react";
+import {
+    Check,
+    CheckCircle,
+    Clock,
+    Copy,
+    MoreVertical,
+    Trash,
+} from "lucide-react";
 import * as Menubar from "@radix-ui/react-menubar";
 
 import { useLists } from "../contexts/ListsProvider";
@@ -20,7 +27,7 @@ export function ListButton({
 }: ListProps) {
     const [previewItems, setPreviewItems] = useState<string[]>();
 
-    const { deleteList, checkList } = useLists();
+    const { deleteList, toggle } = useLists();
 
     useEffect(() => {
         if (!items) return;
@@ -48,7 +55,7 @@ export function ListButton({
             <div className="mb-2 flex items-center justify-between">
                 <div className="flex items-center">
                     <div
-                        className="flex items-center gap-3 text-green-400 data-[checked=false]:hidden"
+                        className="flex items-center gap-3 text-green-500 data-[checked=false]:hidden"
                         data-checked={checked}
                     >
                         <CheckCircle color="currentColor" size={12} />
@@ -57,7 +64,12 @@ export function ListButton({
                         </span>
                     </div>
 
-                    <span>0/{_count.items}</span>
+                    <span
+                        className="text-sm font-bold data-[checked=true]:hidden"
+                        data-checked={checked}
+                    >
+                        {_count.items} itens
+                    </span>
                 </div>
                 <Menubar.Root>
                     <Menubar.Menu>
@@ -72,12 +84,19 @@ export function ListButton({
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-green-500 outline-none hover:bg-green-500 hover:text-gray-100"
-                                    onClick={() => checkList(id)}
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 outline-none hover:bg-gray-200 data-[checked=false]:text-green-500 data-[checked=true]:text-orange-500"
+                                    onClick={() => toggle(id)}
+                                    data-checked={checked}
                                 >
-                                    <Check size={12} />
+                                    {checked ? (
+                                        <Clock size={12} />
+                                    ) : (
+                                        <Check size={12} />
+                                    )}
                                     <span className="text-sm">
-                                        Marcar como concluído
+                                        {checked
+                                            ? "Marcar como pendente"
+                                            : "Marcar como concluído"}
                                     </span>
                                 </Menubar.Item>
                                 <Menubar.Item className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-950">
@@ -88,7 +107,7 @@ export function ListButton({
                                 </Menubar.Item>
                                 <Menubar.Separator className="h-[1px] bg-gray-300 dark:bg-zinc-800" />
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-600 outline-none hover:bg-red-600 hover:text-gray-100"
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-500 outline-none hover:bg-red-500 hover:text-gray-100"
                                     onClick={() => deleteList(id)}
                                 >
                                     <Trash size={12} />
