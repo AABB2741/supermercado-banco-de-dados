@@ -2,8 +2,8 @@ import { prisma } from "../../prisma";
 
 interface AddPantryItemProps {
 	isOffline: boolean;
-	productId?: number;
-	offlineProductId?: number;
+	productId?: number | null;
+	offlineProductId?: number | null;
 	userId: number;
 	amount: number;
 }
