@@ -11,6 +11,8 @@ import { addItem } from "../../../services/list/addItem";
 
 import { getDefaultProduct } from "../../../data/defaultProducts";
 
+import { AddItemSearchRef } from "./AddItemSearch";
+
 interface AddItemProviderValue {
     product?: Product;
     preview?: ProductPreview;
@@ -42,7 +44,7 @@ export function AddItemRoot({ children }: AddItemProps) {
     const [product, setProduct] = useState<Product>();
     const [preview, setPreview] = useState<ProductPreview>();
 
-    const searchRef = useRef<{ clearSearch: () => void }>(null);
+    const searchRef = useRef<AddItemSearchRef>(null);
     const amountRef = useRef<{ amount: number }>(null);
     const { list, setList } = useList();
 
@@ -98,6 +100,7 @@ export function AddItemRoot({ children }: AddItemProps) {
         } finally {
             setLoading(false);
             searchRef.current?.clearSearch();
+            searchRef.current?.searchRef.current?.focus();
         }
     }
 
