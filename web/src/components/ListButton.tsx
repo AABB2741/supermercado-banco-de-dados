@@ -56,7 +56,7 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-green-600 outline-none hover:bg-green-600 hover:text-gray-100"
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-green-500 outline-none hover:bg-green-500 hover:text-gray-100"
                                     onClick={() => deleteList(id)}
                                 >
                                     <Check size={12} />
@@ -65,7 +65,7 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
                                     </span>
                                 </Menubar.Item>
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-300"
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-300 dark:text-white dark:hover:bg-zinc-950"
                                     onClick={() => deleteList(id)}
                                 >
                                     <Copy size={12} />
