@@ -17,6 +17,7 @@ import { Banner } from "./Banner";
 import { Filter } from "../../components/Filter";
 import { AddItem } from "./AddItem";
 import { ListItem } from "./ListItem";
+import { Suggestions } from "./Suggestions";
 
 import { useList } from "../../contexts/ListProvider";
 import { useDebounce } from "../../hooks/useDebounce";
@@ -48,6 +49,7 @@ export function List() {
     return (
         <div>
             <Banner />
+            <Suggestions />
             <section>
                 <Filter
                     title="Filtrar produtos"
