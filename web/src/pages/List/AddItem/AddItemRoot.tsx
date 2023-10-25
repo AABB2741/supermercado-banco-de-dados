@@ -12,6 +12,7 @@ import { addItem } from "../../../services/list/addItem";
 import { getDefaultProduct } from "../../../data/defaultProducts";
 
 import { AddItemSearchRef } from "./AddItemSearch";
+import { getProduct } from "../../../services/products/getProduct";
 
 interface AddItemProviderValue {
     product?: Product;
@@ -82,6 +83,17 @@ export function AddItemRoot({ children }: AddItemProps) {
 
             if (isOffline) {
                 const product = getDefaultProduct(item.offlineProductId);
+                const newItem = { ...item, product };
+                setList((list) => {
+                    if (!list) throw new Error("List is not defined");
+
+                    return {
+                        ...list,
+                        items: [...(list.items ?? []), newItem],
+                    };
+                });
+            } else if (productId) {
+                const product = await getProduct(productId);
                 const newItem = { ...item, product };
                 setList((list) => {
                     if (!list) throw new Error("List is not defined");

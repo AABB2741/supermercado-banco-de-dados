@@ -1,0 +1,16 @@
+CREATE TABLE User {
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(256),
+    password VARCHAR(256),
+    createdAt DATETIME DEFAULT NOW(),
+}
+
+CREATE TABLE List {
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    color VARCHAR(7),
+    due INTEGER,
+    createdAt DATETIME DEFAULT NOW(),
+    checked BOOLEAN DEFAULT 0,
+}
