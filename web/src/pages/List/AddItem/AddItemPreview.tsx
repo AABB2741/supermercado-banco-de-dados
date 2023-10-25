@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useAddItem } from "./AddItemRoot";
 
-// import { getProduct } from "../../../services/products/getProduct";
+import { getProduct } from "../../../services/products/getProduct";
 import { defaultProducts } from "../../../data/defaultProducts";
 
 import banner from "../../../assets/list-banner.jpg";
@@ -19,6 +19,10 @@ export function AddItemPreview() {
             if (res) {
                 setPreview(res);
             }
+        } else {
+            getProduct(product.id).then((product) => {
+                setPreview(product);
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product]);

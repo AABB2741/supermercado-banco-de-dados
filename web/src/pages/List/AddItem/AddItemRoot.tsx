@@ -31,7 +31,7 @@ type Product = {
     isOffline: boolean;
 };
 
-type ProductPreview = {
+export type ProductPreview = {
     name: string;
     price?: number;
 };
