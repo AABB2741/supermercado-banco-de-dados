@@ -7,9 +7,7 @@ export async function getRecommendedProductsController(
 	req: Request,
 	res: Response
 ) {
-	const search = z.string().optional().parse(req.params.search);
-
-	const publicProducts = await getRecommendedProductsUseCase(search);
+	const publicProducts = await getRecommendedProductsUseCase();
 	res.json({
 		public: publicProducts,
 		suggested: [],
