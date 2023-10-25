@@ -1,4 +1,5 @@
-import { ChevronUp, LucideProps } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, ChevronUp, LucideProps } from "lucide-react";
 
 import { ListItem } from ".";
 import { ListItemProps } from "../../../@types/list-item-props";
@@ -14,6 +15,8 @@ export function ListItemCategory({
     title,
     items,
 }: ListItemCategoryProps) {
+    const [open, setOpen] = useState(true);
+
     if (items.length === 0) return null;
 
     return (
@@ -23,11 +26,14 @@ export function ListItemCategory({
                     <Icon size={18} />
                     <h2 className="text-xl font-bold">{title}</h2>
                 </div>
-                <button>
-                    <ChevronUp size={18} />
+                <button onClick={() => setOpen((open) => !open)}>
+                    {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                 </button>
             </div>
-            <ul className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul
+                className="mb-8 grid grid-cols-1 gap-4 data-[open=false]:hidden sm:grid-cols-2 lg:grid-cols-3"
+                data-open={open}
+            >
                 {items
                     .sort((a, b) => (a.checked > b.checked ? 1 : -1))
                     .map((i) => (
