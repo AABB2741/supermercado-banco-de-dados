@@ -65,7 +65,7 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
                                     </span>
                                 </Menubar.Item>
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-300 dark:text-white dark:hover:bg-zinc-950"
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-950"
                                     onClick={() => deleteList(id)}
                                 >
                                     <Copy size={12} />
