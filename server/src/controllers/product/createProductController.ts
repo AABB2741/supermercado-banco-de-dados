@@ -7,7 +7,7 @@ export async function createProductController(req: Request, res: Response) {
 	const userId = z.number().int().positive().parse(req.userId);
 
 	const bodySchema = z.object({
-		name: z.string(),
+		name: z.string().trim(),
 		price: z.number().positive().optional(),
 		dueTime: z.number().int().positive().optional(),
 		brand: z.string().max(100).nonempty().optional(),
