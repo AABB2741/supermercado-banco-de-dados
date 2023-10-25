@@ -19,6 +19,7 @@ export async function checkListUseCase(id: number) {
 					amount: true,
 					offlineProductId: true,
 					productId: true,
+					checked: true,
 				},
 			},
 		},
@@ -26,12 +27,14 @@ export async function checkListUseCase(id: number) {
 
 	// Adiciona todos os itens da lista à despensa
 	for (const item of items) {
-		await addPantryItemUseCase({ userId: user.id, ...item });
-		console.log(
-			`Adicionando x${item.amount} de ${
-				item.offlineProductId ?? item.productId
-			} para ${user.name}`
-		);
+		if (item.checked) {
+			await addPantryItemUseCase({ userId: user.id, ...item });
+			console.log(
+				`Adicionando x${item.amount} de ${
+					item.offlineProductId ?? item.productId
+				} para ${user.name}`
+			);
+		}
 	}
 
 	return list;

@@ -16,10 +16,10 @@ export function Banner() {
             list.items?.reduce((prev, cur) => prev + (cur.checked ? 1 : 0), 0),
         [list],
     );
-    const expandedButton = useMemo(
-        () => checkedCount === list.items?.length,
-        [list, checkedCount],
-    );
+
+    async function handleCheckList() {
+        // TODO: handle check
+    }
 
     if (!list || !list.items) return null;
 
@@ -83,13 +83,9 @@ export function Banner() {
                         <Settings size={32} />
                     </button>
                     <button
-                        className="flex items-center gap-4 rounded-full p-4 text-white transition-all data-[expanded=true]:px-6 data-[expanded=true]:py-4"
+                        className="flex items-center gap-4 rounded-full p-4 text-white transition-all data-[expanded=true]:py-4"
                         style={{ backgroundColor: list.color }}
-                        data-expanded={expandedButton && checkedCount}
                     >
-                        {expandedButton && !!checkedCount && (
-                            <span>Clique aqui para marcar como concluído</span>
-                        )}
                         <Check />
                     </button>
                 </div>

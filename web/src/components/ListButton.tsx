@@ -10,7 +10,14 @@ import thumbnail from "../assets/list-banner.jpg";
 import { ListProps } from "../@types/list-props";
 import { getDefaultProduct } from "../data/defaultProducts";
 
-export function ListButton({ id, name, color, items, _count }: ListProps) {
+export function ListButton({
+    id,
+    checked,
+    name,
+    color,
+    items,
+    _count,
+}: ListProps) {
     const [previewItems, setPreviewItems] = useState<string[]>();
 
     const { deleteList, checkList } = useLists();
@@ -39,9 +46,18 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
         <div className="rounded-xl bg-gray-100 p-4 shadow-md dark:border dark:border-zinc-700 dark:bg-zinc-900">
             {/* Top */}
             <div className="mb-2 flex items-center justify-between">
-                <div className="flex items-center gap-3 text-green-400">
-                    <CheckCircle color="currentColor" size={12} />
-                    <span className="text-sm font-bold">Compra concluída</span>
+                <div className="flex items-center">
+                    <div
+                        className="flex items-center gap-3 text-green-400 data-[checked=false]:hidden"
+                        data-checked={checked}
+                    >
+                        <CheckCircle color="currentColor" size={12} />
+                        <span className="text-sm font-bold">
+                            Compra concluída
+                        </span>
+                    </div>
+
+                    <span>0/{_count.items}</span>
                 </div>
                 <Menubar.Root>
                     <Menubar.Menu>
