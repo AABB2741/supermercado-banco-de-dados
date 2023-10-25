@@ -50,7 +50,7 @@ export function ListButton({
     }, [items]);
 
     return (
-        <div className="rounded-xl bg-gray-100 p-4 shadow-md dark:border dark:border-zinc-700 dark:bg-zinc-900">
+        <div className="rounded-xl bg-white p-4 shadow-md dark:border dark:border-zinc-700 dark:bg-zinc-900">
             {/* Top */}
             <div className="mb-2 flex items-center justify-between">
                 <div className="flex items-center">
