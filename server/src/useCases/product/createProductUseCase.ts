@@ -5,7 +5,7 @@ interface CreateProductProps {
 	name: string;
 	price?: number;
 	dueTime?: number;
-	brandId?: number;
+	brand?: string;
 }
 
 export async function createProductUseCase(data: CreateProductProps) {

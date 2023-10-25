@@ -7,7 +7,7 @@ type RecommendedProduct = {
 };
 
 export async function getRecommendedProducts(search: string) {
-    const recommendedProducts = await api.get(
+    const recommendedProducts = await api.get<RecommendedProduct[]>(
         "/products/recommended/" + encodeURI(search),
     );
 }

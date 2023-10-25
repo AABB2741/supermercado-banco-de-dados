@@ -13,7 +13,11 @@ export async function getListUseCase({ userId, listId }: GetListProps) {
 		},
 		include: {
 			_count: true,
-			user: true,
+			user: {
+				select: {
+					name: true,
+				},
+			},
 			items: {
 				include: {
 					product: true,

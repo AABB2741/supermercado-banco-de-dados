@@ -10,7 +10,7 @@ export async function createProductController(req: Request, res: Response) {
 		name: z.string(),
 		price: z.number().positive().optional(),
 		dueTime: z.number().int().positive().optional(),
-		brandId: z.number().int().positive().optional(),
+		brand: z.string().max(100).nonempty().optional(),
 	});
 
 	const data = bodySchema.parse(req.body);

@@ -38,14 +38,18 @@ const AddItemContext = createContext({} as AddItemProviderValue);
 
 export function AddItemRoot({ children }: AddItemProps) {
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState<Product>();
     const [preview, setPreview] = useState<ProductPreview>();
 
+    const searchRef = useRef<{ clearSearch: () => void }>(null);
     const amountRef = useRef<{ amount: number }>(null);
     const { list, setList } = useList();
 
     async function handleAddItem() {
         try {
+            setLoading(true);
+
             const listId = z
                 .number()
                 .int()
@@ -86,8 +90,14 @@ export function AddItemRoot({ children }: AddItemProps) {
                     };
                 });
             }
+
+            setProduct(undefined);
+            setPreview(undefined);
         } catch (err) {
             // TODO: Handle error
+        } finally {
+            setLoading(false);
+            searchRef.current?.clearSearch();
         }
     }
 
@@ -95,7 +105,10 @@ export function AddItemRoot({ children }: AddItemProps) {
         <AddItemContext.Provider
             value={{ product, preview, setProduct, setPreview }}
         >
-            <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Root
+                open={open}
+                onOpenChange={(openStatus) => !loading && setOpen(openStatus)}
+            >
                 <Dialog.Trigger asChild>{children}</Dialog.Trigger>
                 <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 bg-black/25" />
                 <Dialog.Content className="bottom fixed left-1/2 top-1/2 max-h-[calc(100vh-48px)] w-[calc(100vw-48px)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-gray-300 bg-gray-200 p-6 shadow-lg outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-100">
@@ -103,7 +116,7 @@ export function AddItemRoot({ children }: AddItemProps) {
                         Adicionar item
                     </Dialog.Title>
 
-                    <AddItem.Search />
+                    <AddItem.Search disabled={loading} ref={searchRef} />
                     <AddItem.Preview />
                     <AddItem.Editor ref={amountRef} />
                     <AddItem.Empty />
@@ -111,13 +124,13 @@ export function AddItemRoot({ children }: AddItemProps) {
                     <div className="mt-4 flex items-center justify-end gap-2">
                         <Dialog.Close
                             className="px-4 font-bold"
-                            // disabled={loading}
+                            disabled={loading}
                         >
                             Cancelar
                         </Dialog.Close>
                         <Button.Normal
                             accent
-                            // loading={loading}
+                            loading={loading}
                             onClick={handleAddItem}
                         >
                             Adicionar item

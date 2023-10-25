@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, forwardRef, useImperativeHandle } from "react";
 import { Combobox } from "@headlessui/react";
 import { ShoppingCart, Sparkles } from "lucide-react";
 
@@ -9,7 +9,14 @@ import { useList } from "../../../contexts/ListProvider";
 
 import { normalize } from "../../../utils/normalize";
 
-export function AddItemSearch() {
+interface AddItemSearchProps {
+    disabled?: boolean;
+}
+
+export const AddItemSearch = forwardRef<
+    { clearSearch: () => void },
+    AddItemSearchProps
+>(({ disabled }, ref) => {
     const [search, setSearch] = useState("");
 
     const normalizedSearch = useMemo(
@@ -21,15 +28,24 @@ export function AddItemSearch() {
     const { localProducts, recommendedProducts } =
         useProducts(normalizedSearch);
 
+    function clearSearch() {
+        setSearch("");
+    }
+
+    useImperativeHandle(ref, () => ({
+        clearSearch,
+    }));
+
     if (!list) return null;
 
     return (
         <Combobox>
             <Combobox.Input
-                className="block w-full min-w-0 rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-none outline-none ring-0 transition-shadow focus:shadow-input focus:ring-0 focus:ring-transparent dark:border-zinc-700 dark:bg-zinc-900"
+                className="block w-full min-w-0 rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-none outline-none ring-0 transition-shadow read-only:pointer-events-none focus:shadow-input focus:ring-0 focus:ring-transparent dark:border-zinc-700 dark:bg-zinc-900"
                 placeholder="Desinfetante, carne moída..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                readOnly={disabled}
             />
             <Combobox.Options className="absolute top-[107px] z-10 mt-2 max-h-[calc(100%-139px)] w-[calc(100%-48px)] overflow-y-auto rounded-lg border border-gray-300 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
                 <div
@@ -70,4 +86,4 @@ export function AddItemSearch() {
             </Combobox.Options>
         </Combobox>
     );
-}
+});

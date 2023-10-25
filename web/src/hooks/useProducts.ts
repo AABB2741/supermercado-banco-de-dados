@@ -32,7 +32,10 @@ export function useProducts(search: string) {
         [search],
     );
 
-    const recommendedProducts: ProductProps[] = [...defaultProducts];
+    const recommendedProducts: ProductProps[] = [...defaultProducts].slice(
+        0,
+        3,
+    );
 
     return {
         localProducts,

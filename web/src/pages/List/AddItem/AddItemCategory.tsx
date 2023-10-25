@@ -1,4 +1,5 @@
-import { LucideProps } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, ChevronUp, LucideProps } from "lucide-react";
 import { Combobox } from "@headlessui/react";
 
 import { useList } from "../../../contexts/ListProvider";
@@ -21,6 +22,8 @@ export function AddItemCategory({
     products,
     isOffline,
 }: AddItemCategoryProps) {
+    const [open, setOpen] = useState(true);
+
     const { list } = useList();
     const { setProduct } = useAddItem();
 
@@ -35,11 +38,14 @@ export function AddItemCategory({
 
     return (
         <div>
-            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
+            <div className="space-between flex items-center gap-2 bg-gray-100 px-4 py-2 dark:bg-zinc-800">
                 <Icon size={12} />
-                <span className="text-xs">{title}</span>
+                <span className="flex-1 text-xs">{title}</span>
+                <button onClick={() => setOpen((open) => !open)}>
+                    {open ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                </button>
             </div>
-            <div className="p-2">
+            <div className="p-2 data-[closed=true]:hidden" data-closed={!open}>
                 {products?.map((p) => (
                     <Combobox.Option
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
