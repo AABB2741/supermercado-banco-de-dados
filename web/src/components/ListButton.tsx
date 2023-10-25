@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle, MoreVertical, Trash } from "lucide-react";
+import { Check, CheckCircle, Copy, MoreVertical, Trash } from "lucide-react";
 import * as Menubar from "@radix-ui/react-menubar";
 
 import { useLists } from "../contexts/ListsProvider";
@@ -56,7 +56,25 @@ export function ListButton({ id, name, color, items, _count }: ListProps) {
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-600 hover:text-gray-100"
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-green-600 outline-none hover:bg-green-600 hover:text-gray-100"
+                                    onClick={() => deleteList(id)}
+                                >
+                                    <Check size={12} />
+                                    <span className="text-sm">
+                                        Marcar como concluído
+                                    </span>
+                                </Menubar.Item>
+                                <Menubar.Item
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-300"
+                                    onClick={() => deleteList(id)}
+                                >
+                                    <Copy size={12} />
+                                    <span className="text-sm">
+                                        Duplicar lista
+                                    </span>
+                                </Menubar.Item>
+                                <Menubar.Item
+                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-600 outline-none hover:bg-red-600 hover:text-gray-100"
                                     onClick={() => deleteList(id)}
                                 >
                                     <Trash size={12} />
