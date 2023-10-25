@@ -48,7 +48,7 @@ export function List() {
     return (
         <div>
             <Banner />
-            <section className="p-8">
+            <section>
                 <Filter
                     title="Filtrar produtos"
                     value={filter}
@@ -106,7 +106,7 @@ export function List() {
                         },
                     ]}
                 />
-                <div className="mt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
+                <div className="mt-8 flex flex-col items-center justify-between gap-4 p-4 md:flex-row md:p-6 lg:p-10">
                     <input
                         type="text"
                         className="w-full min-w-0 max-w-[500px] flex-1 rounded-full bg-white px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
@@ -125,7 +125,7 @@ export function List() {
                     </AddItem.Root>
                 </div>
             </section>
-            <section className="px-8 pb-8">
+            <section className="px-4 pb-4 md:px-6 md:pb-6 lg:px-10 lg:pb-10">
                 <ListItem.Root />
             </section>
         </div>
