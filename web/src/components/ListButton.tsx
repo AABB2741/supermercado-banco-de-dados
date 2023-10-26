@@ -84,7 +84,7 @@ export function ListButton({
                                 className="max-h-[--radix-menubar-content-available-height] max-w-[--radix-menubar-content-available-width] overflow-hidden rounded-md border border-gray-300 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:text-gray-100"
                             >
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 outline-none hover:bg-gray-200 data-[checked=false]:text-green-500 data-[checked=true]:text-orange-500 dark:hover:bg-zinc-950"
+                                    className="flex cursor-pointer items-center gap-2 whitespace-nowrap px-3 py-1 outline-none hover:bg-gray-200 data-[checked=false]:text-green-500 data-[checked=true]:text-orange-500 dark:hover:bg-zinc-950"
                                     onClick={() => toggle(id)}
                                     data-checked={checked}
                                 >
@@ -99,7 +99,7 @@ export function ListButton({
                                             : "Marcar como concluído"}
                                     </span>
                                 </Menubar.Item>
-                                <Menubar.Item className="flex cursor-pointer items-center gap-2 px-3 py-1 text-black outline-none hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-950">
+                                <Menubar.Item className="flex cursor-pointer items-center gap-2 whitespace-nowrap px-3 py-1 text-black outline-none hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-950">
                                     <Copy size={12} />
                                     <span className="text-sm">
                                         Duplicar lista
@@ -107,7 +107,7 @@ export function ListButton({
                                 </Menubar.Item>
                                 <Menubar.Separator className="h-[1px] bg-gray-300 dark:bg-zinc-800" />
                                 <Menubar.Item
-                                    className="flex cursor-pointer items-center gap-2 px-3 py-1 text-red-500 outline-none hover:bg-red-500 hover:text-gray-100"
+                                    className="flex cursor-pointer items-center gap-2 whitespace-nowrap px-3 py-1 text-red-500 outline-none hover:bg-red-500 hover:text-gray-100"
                                     onClick={() => deleteList(id)}
                                 >
                                     <Trash size={12} />

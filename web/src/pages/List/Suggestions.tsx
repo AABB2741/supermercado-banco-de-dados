@@ -5,8 +5,8 @@ export function Suggestions() {
     const [open, setOpen] = useState(true);
 
     return (
-        <div className="mx-4 mt-4 rounded-xl border-2 border-gray-400 px-6 py-4 dark:border-zinc-600 md:mx-6 md:mt-6 lg:mx-10 lg:mt-10">
-            <div className="flex items-center justify-between">
+        <div className="mx-4 mt-4 rounded-xl border-2 border-gray-400 dark:border-zinc-600 md:mx-6 md:mt-6 lg:mx-10 lg:mt-10">
+            <div className="flex items-center justify-between px-6 py-4">
                 <div className="flex items-center gap-4">
                     <Sparkles size={18} />
                     <span className="font-bold">
@@ -18,7 +18,7 @@ export function Suggestions() {
                 </button>
             </div>
             <div
-                className="mt-4 items-center gap-4 data-[open=true]:flex data-[open=false]:hidden"
+                className="items-center gap-4 overflow-auto px-6 pb-4 data-[open=true]:flex data-[open=false]:hidden"
                 data-open={open}
             >
                 <button className="flex items-center gap-2 rounded-full bg-gray-300 px-5 py-1 dark:bg-zinc-900">

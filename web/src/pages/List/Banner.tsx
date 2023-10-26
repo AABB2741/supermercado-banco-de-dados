@@ -52,7 +52,9 @@ export function Banner() {
                         data-checked={list.checked}
                     >
                         <Check color="currentColor" size={20} />
-                        <span className="text-lg font-bold">Concluída</span>
+                        <span className="whitespace-nowrap text-sm font-bold md:text-lg">
+                            Concluída
+                        </span>
                     </div>
                     <h1 className="mt-4 line-clamp-2 break-words font-featured text-3xl font-bold md:text-4xl lg:text-6xl">
                         {list.name}
