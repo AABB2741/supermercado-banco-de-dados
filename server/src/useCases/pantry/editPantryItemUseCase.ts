@@ -2,7 +2,10 @@ import { PantryItem } from "@prisma/client";
 
 import { prisma } from "../../prisma";
 
-type EditPantryItemProps = PantryItem;
+type EditPantryItemProps = {
+	id: number;
+	userId: number;
+} & Partial<Omit<PantryItem, "productId">>;
 
 export async function editPantryItemUseCase({
 	id,

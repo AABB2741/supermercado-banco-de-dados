@@ -6,7 +6,7 @@ import { AppError } from "../../errors/AppError";
 
 type AddListItemProps = {
 	userId: number;
-} & Omit<ListItem, "id">;
+} & Omit<ListItem, "id" | "checked">;
 
 export async function addListItemUseCase({
 	userId,
