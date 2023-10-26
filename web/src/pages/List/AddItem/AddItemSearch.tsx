@@ -48,10 +48,7 @@ export const AddItemSearch = forwardRef<AddItemSearchRef, AddItemSearchProps>(
 
         async function handleChooseCustomItem(name: string) {
             const item = await createProduct(name);
-            setProduct({
-                id: item.id,
-                isOffline: false,
-            });
+            setProduct(item);
         }
 
         useImperativeHandle(ref, () => ({
