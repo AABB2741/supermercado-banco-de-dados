@@ -79,17 +79,26 @@ export function Footer() {
             </div>
             <ul className="mt-8 flex items-center justify-center gap-4">
                 <li>
-                    <a href="#">
+                    <a
+                        href="https://github.com/AABB2741/supermercado-banco-de-dados"
+                        target="_blank"
+                    >
                         <Github />
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a
+                        href="https://www.linkedin.com/in/mário-santos-825a771b9/"
+                        target="_blank"
+                    >
                         <Linkedin />
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a
+                        href="https://www.instagram.com/mariodsyb/"
+                        target="_blank"
+                    >
                         <Instagram />
                     </a>
                 </li>
