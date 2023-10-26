@@ -3,7 +3,7 @@ import { api } from "../../api/api";
 
 interface AddItemProps {
     listId: number;
-    productId?: number;
+    productId: number;
     amount: number;
 }
 

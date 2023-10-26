@@ -1,6 +1,11 @@
-import { useState, createContext, useContext, useRef } from "react";
+import {
+    useCallback,
+    useState,
+    createContext,
+    useContext,
+    useRef,
+} from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import z from "zod";
 
 import { AddItem } from ".";
 import { Button } from "../../../components/Button";
@@ -9,28 +14,17 @@ import { useList } from "../../../contexts/ListProvider";
 
 import { addItem } from "../../../services/list/addItem";
 
-import { getDefaultProduct } from "../../../data/defaultProducts";
-
 import { AddItemSearchRef } from "./AddItemSearch";
-import { getProduct } from "../../../services/products/getProduct";
+import { ProductProps } from "../../../@types/product-props";
 
 interface AddItemProviderValue {
-    product?: Product;
-    preview?: ProductPreview;
-    setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
-    setPreview: React.Dispatch<
-        React.SetStateAction<ProductPreview | undefined>
-    >;
+    product?: ProductProps;
+    setProduct: React.Dispatch<React.SetStateAction<ProductProps | undefined>>;
 }
 
 interface AddItemProps {
     children: React.ReactNode;
 }
-
-type Product = {
-    id: number;
-    isOffline: boolean;
-};
 
 export type ProductPreview = {
     name: string;
@@ -42,84 +36,29 @@ const AddItemContext = createContext({} as AddItemProviderValue);
 export function AddItemRoot({ children }: AddItemProps) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [product, setProduct] = useState<Product>();
-    const [preview, setPreview] = useState<ProductPreview>();
+    const [product, setProduct] = useState<ProductProps>();
 
     const searchRef = useRef<AddItemSearchRef>(null);
     const amountRef = useRef<{ amount: number }>(null);
+
     const { list, setList } = useList();
 
-    async function handleAddItem() {
-        try {
-            setLoading(true);
+    const handleAddItem = useCallback(() => {
+        if (!product || !amountRef.current) return;
 
-            const listId = z
-                .number()
-                .int()
-                .positive()
-                .parse(list?.id);
-            const productId = z
-                .number()
-                .int()
-                .positive()
-                .parse(product?.id);
-            const amount = z
-                .number()
-                .int()
-                .min(1)
-                .parse(amountRef.current?.amount);
-            const isOffline = z
-                .boolean()
-                .default(false)
-                .parse(product?.isOffline);
-
-            const item = await addItem({
-                listId,
-                productId: !isOffline ? productId : undefined,
-                offlineProductId: isOffline ? productId : undefined,
-                amount,
-                isOffline,
-            });
-
-            if (isOffline) {
-                const product = getDefaultProduct(item.offlineProductId);
-                const newItem = { ...item, product };
-                setList((list) => {
-                    if (!list) throw new Error("List is not defined");
-
-                    return {
-                        ...list,
-                        items: [...(list.items ?? []), newItem],
-                    };
-                });
-            } else if (productId) {
-                const product = await getProduct(productId);
-                const newItem = { ...item, product };
-                setList((list) => {
-                    if (!list) throw new Error("List is not defined");
-
-                    return {
-                        ...list,
-                        items: [...(list.items ?? []), newItem],
-                    };
-                });
-            }
-
-            setProduct(undefined);
-            setPreview(undefined);
-        } catch (err) {
-            // TODO: Handle error
-        } finally {
-            setLoading(false);
-            searchRef.current?.clearSearch();
-            searchRef.current?.searchRef.current?.focus();
-        }
-    }
+        addItem({
+            productId: product.id,
+            listId: list.id,
+            amount: amountRef.current.amount,
+        }).then((res) => {
+            const index = list.items.findIndex(
+                (i) => i.productId === product.id,
+            );
+        });
+    }, [product, list.items]);
 
     return (
-        <AddItemContext.Provider
-            value={{ product, preview, setProduct, setPreview }}
-        >
+        <AddItemContext.Provider value={{ product, setProduct }}>
             <Dialog.Root
                 open={open}
                 onOpenChange={(openStatus) => !loading && setOpen(openStatus)}
