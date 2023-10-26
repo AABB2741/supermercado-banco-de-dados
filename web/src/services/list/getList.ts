@@ -7,6 +7,5 @@ import { ListProps } from "../../@types/list-props";
 export async function getList(id: number, cancelToken: CancelToken) {
     const list = await api.get<ListProps>("/lists/" + id, { cancelToken });
     const res = list.data;
-
     return res;
 }

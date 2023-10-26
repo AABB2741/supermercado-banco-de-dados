@@ -9,18 +9,16 @@ import { ProductProps } from "../../../@types/product-props";
 
 import banner from "../../../assets/list-banner.jpg";
 
-interface AddItemCategoryProps {
+type AddItemCategoryProps = {
     icon: React.ElementType<LucideProps>;
     title: string;
     products: ProductProps[];
-    isOffline: boolean;
-}
+};
 
 export function AddItemCategory({
     icon: Icon,
     title,
     products,
-    isOffline,
 }: AddItemCategoryProps) {
     const [open, setOpen] = useState(true);
 
@@ -29,11 +27,8 @@ export function AddItemCategory({
 
     if (!list || products.length === 0) return null;
 
-    function handleChooseItem(id: number) {
-        setProduct({
-            id,
-            isOffline,
-        });
+    function handleChooseItem(data: ProductProps) {
+        setProduct(data);
     }
 
     return (
@@ -51,20 +46,9 @@ export function AddItemCategory({
                         className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
                         value={p.id}
                         key={p.id}
-                        onClick={() => handleChooseItem(p.id)}
+                        onClick={() => handleChooseItem(p)}
                     >
-                        {isOffline ? (
-                            <span
-                                className="flex h-8 w-8 items-center justify-center rounded-lg text-white"
-                                style={{
-                                    backgroundColor: list.color ?? "#1e90ff",
-                                }}
-                            >
-                                {p.name[0]}
-                            </span>
-                        ) : (
-                            <img src={banner} className="h-8 w-8 rounded-lg" />
-                        )}
+                        <img src={banner} className="h-8 w-8 rounded-lg" />
                         <div className="flex-1 overflow-x-hidden">
                             <p
                                 className="flex-1 break-all data-[has-brand=false]:line-clamp-2 data-[has-brand=true]:overflow-x-hidden data-[has-brand=true]:text-ellipsis data-[has-brand=true]:whitespace-nowrap"
@@ -73,7 +57,7 @@ export function AddItemCategory({
                                 {p.name}
                             </p>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                {p.brand?.name}
+                                {p.brand}
                             </p>
                         </div>
                         {p.price && (

@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useState } from "react";
+import { useDebounce } from "./useDebounce";
 
-import { defaultProducts } from "../data/defaultProducts";
 import { normalize } from "../utils/normalize";
 
 import { ProductProps } from "../@types/product-props";
+import { getProducts } from "../services/products/getProducts";
 
 function sort(a: ProductProps, b: ProductProps, search: string) {
     if (
@@ -23,22 +24,20 @@ function sort(a: ProductProps, b: ProductProps, search: string) {
 
 // TODO: Adicionar userProducts (produtos personalizados)
 export function useProducts(search: string) {
-    const localProducts = useMemo(
-        () =>
-            defaultProducts
-                .filter((p) => normalize(p.name).toLowerCase().includes(search))
-                .sort((a, b) => sort(a, b, search))
-                .slice(0, 5),
+    const [products, setProducts] = useState<{
+        basic: ProductProps[];
+        suggested: ProductProps[];
+    }>({ basic: [], suggested: [] });
+
+    useDebounce(
+        () => {
+            getProducts(search).then((res) => {
+                setProducts(res);
+            });
+        },
+        1000,
         [search],
     );
 
-    const recommendedProducts: ProductProps[] = [...defaultProducts].slice(
-        0,
-        3,
-    );
-
-    return {
-        localProducts,
-        recommendedProducts,
-    };
+    return products;
 }

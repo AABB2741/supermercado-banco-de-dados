@@ -38,8 +38,7 @@ export const AddItemSearch = forwardRef<AddItemSearchRef, AddItemSearchProps>(
         );
 
         const { list } = useList();
-        const { localProducts, recommendedProducts } =
-            useProducts(normalizedSearch);
+        const { basic, suggested } = useProducts(normalizedSearch);
 
         const searchRef = useRef<HTMLInputElement>(null);
 
@@ -102,15 +101,13 @@ export const AddItemSearch = forwardRef<AddItemSearchRef, AddItemSearchProps>(
                     <AddItem.Category
                         icon={Sparkles}
                         title="Recomendado para você"
-                        products={recommendedProducts}
-                        isOffline
+                        products={suggested}
                     />
 
                     <AddItem.Category
                         icon={ShoppingCart}
                         title="Produtos básicos"
-                        products={localProducts}
-                        isOffline
+                        products={basic}
                     />
                 </Combobox.Options>
             </Combobox>
