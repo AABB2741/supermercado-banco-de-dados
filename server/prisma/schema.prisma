@@ -39,25 +39,22 @@ model List {
 
 // TODO: Tentar arrumar erro do productId
 model ListItem {
-    id               Int     @id @default(autoincrement())
-    checked          Boolean @default(false)
-    amount           Float   @default(1)
-    isOffline        Boolean @default(false)
-    offlineProductId Int?
+    id      Int     @id @default(autoincrement())
+    checked Boolean @default(false)
+    amount  Float   @default(1)
 
     list   List @relation(fields: [listId], references: [id])
     listId Int
 
-    product   Product? @relation(fields: [productId], references: [id])
-    productId Int?
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
 }
 
 model Product {
-    id        Int     @id @default(autoincrement())
-    name      String
-    price     Float   @default(0)
-    dueTime   Int?
-    isOffline Boolean @default(false)
+    id      Int    @id @default(autoincrement())
+    name    String
+    price   Float  @default(0)
+    dueTime Int?
 
     list ListItem[]
 
@@ -69,26 +66,14 @@ model Product {
 }
 
 model PantryItem {
-    id        Int     @id @default(autoincrement())
-    isOffline Boolean @default(false)
-    amount    Float   @default(1)
-
-    offlineProductId Int?
+    id     Int   @id @default(autoincrement())
+    amount Float @default(1)
 
     user User @relation(fields: [userId], references: [id])
 
-    product   Product? @relation(fields: [productId], references: [id])
-    productId Int?
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
     userId    Int
-
-    PantryHistory PantryHistory[]
-}
-
-model PantryHistory {
-    id Int @id @default(autoincrement())
-
-    pantryItem   PantryItem @relation(fields: [pantryItemId], references: [id])
-    pantryItemId Int
 }
 
 model Recipe {

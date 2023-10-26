@@ -8,24 +8,15 @@ export async function addPantryItemController(req: Request, res: Response) {
 	const userId = z.number().int().positive().parse(req.userId);
 
 	const bodySchema = z.object({
-		isOffline: z.boolean(),
-		productId: z.number().int().positive().optional(),
-		offlineProductId: z.number().int().positive().optional(),
+		productId: z.number().int().positive(),
 		amount: z.number().positive(),
 	});
 
-	const { isOffline, productId, offlineProductId, amount } = bodySchema.parse(
-		req.body
-	);
-
-	if (isOffline && !offlineProductId) throw new AppError("bad_request", 400);
-	if (!isOffline && !productId) throw new AppError("bad_request", 400);
+	const { productId, amount } = bodySchema.parse(req.body);
 
 	const pantryItem = await addPantryItemUseCase({
 		userId,
-		isOffline,
 		productId,
-		offlineProductId,
 		amount,
 	});
 

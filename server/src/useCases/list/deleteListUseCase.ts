@@ -1,9 +1,9 @@
 import { prisma } from "../../prisma";
 
-interface DeleteListProps {
+type DeleteListProps = {
 	id: number;
 	userId: number;
-}
+};
 
 export async function deleteListUseCase({ id, userId }: DeleteListProps) {
 	const isValid = await prisma.list.findUniqueOrThrow({

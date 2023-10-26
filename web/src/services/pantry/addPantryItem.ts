@@ -4,8 +4,6 @@ import { PantryItemProps } from "../../@types/pantry-item-props";
 
 interface AddPantryItemProps {
     amount: number;
-    isOffline: boolean;
-    offlineProductId?: number;
     productId?: number;
 }
 

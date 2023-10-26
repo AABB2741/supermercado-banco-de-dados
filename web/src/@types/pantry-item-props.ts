@@ -1,10 +1,11 @@
+import { ProductProps } from "./product-props";
+
 export type PantryItemProps = {
     id: number;
-    isOffline: boolean;
     amount: number;
 
-    offlineProductId?: number;
-    productId?: number;
+    productId: number;
+    product: ProductProps;
 
     userId: number;
 };

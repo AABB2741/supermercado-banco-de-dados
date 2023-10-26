@@ -1,18 +1,12 @@
+import { PantryItem } from "@prisma/client";
+
 import { prisma } from "../../prisma";
 
-interface AddPantryItemProps {
-	isOffline: boolean;
-	productId?: number | null;
-	offlineProductId?: number | null;
-	userId: number;
-	amount: number;
-}
+type AddPantryItemProps = Omit<PantryItem, "id">;
 
 export async function addPantryItemUseCase(data: AddPantryItemProps) {
 	const itemExists = await prisma.pantryItem.findFirst({
 		where: {
-			isOffline: data.isOffline,
-			offlineProductId: data.offlineProductId,
 			productId: data.productId,
 			userId: data.userId,
 		},

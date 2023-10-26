@@ -1,14 +1,12 @@
-import { AppError } from "../../errors/AppError";
+import { ListItem } from "@prisma/client";
+
 import { prisma } from "../../prisma";
 
-interface AddListItemProps {
-	amount?: number;
-	isOffline?: boolean;
-	listId: number;
-	productId?: number;
-	offlineProductId?: number;
+import { AppError } from "../../errors/AppError";
+
+type AddListItemProps = {
 	userId: number;
-}
+} & Omit<ListItem, "id">;
 
 export async function addListItemUseCase({
 	userId,
@@ -17,7 +15,7 @@ export async function addListItemUseCase({
 }: AddListItemProps) {
 	// This code checks if the user is owner of the list that is receiving a item
 	try {
-		const isUserOwner = await prisma.list.findUniqueOrThrow({
+		await prisma.list.findUniqueOrThrow({
 			where: {
 				userId,
 				id: listId,

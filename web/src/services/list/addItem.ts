@@ -4,9 +4,7 @@ import { api } from "../../api/api";
 interface AddItemProps {
     listId: number;
     productId?: number;
-    offlineProductId?: number;
     amount: number;
-    isOffline?: boolean;
 }
 
 export async function addItem({ listId, ...props }: AddItemProps) {

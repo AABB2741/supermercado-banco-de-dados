@@ -1,4 +1,3 @@
-import { BrandProps } from "./brand-props";
 import { ListProps } from "./list-props";
 import { UserProps } from "./user-props";
 
@@ -10,8 +9,7 @@ export type ProductProps = {
 
     lists?: ListProps[];
 
-    brand?: BrandProps;
-    brandId?: number;
+    brand?: string;
 
     user?: UserProps;
     userId?: number;

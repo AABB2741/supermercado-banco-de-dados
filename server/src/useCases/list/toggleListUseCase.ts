@@ -24,9 +24,7 @@ export async function toggleListUseCase(id: number) {
 			items: {
 				select: {
 					id: true,
-					isOffline: true,
 					amount: true,
-					offlineProductId: true,
 					productId: true,
 					checked: true,
 				},
@@ -42,15 +40,8 @@ export async function toggleListUseCase(id: number) {
 				await addPantryItemUseCase({
 					userId: user.id,
 					amount: item.amount,
-					isOffline: item.isOffline,
-					offlineProductId: item.offlineProductId,
 					productId: item.productId,
 				});
-				console.log(
-					`Adicionando x${item.amount} de ${
-						item.offlineProductId ?? item.productId
-					} para ${user.name}`
-				);
 			}
 		}
 	}

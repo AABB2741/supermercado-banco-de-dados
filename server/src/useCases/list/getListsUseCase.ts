@@ -10,8 +10,6 @@ export async function getListsUseCase(userId: number) {
 				take: 3,
 				select: {
 					id: true,
-					isOffline: true,
-					offlineProductId: true,
 					product: {
 						select: {
 							id: true,

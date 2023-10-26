@@ -9,7 +9,7 @@ export type ListProps = {
     createdAt: Date;
     checked: boolean;
 
-    items?: ListItemProps[];
+    items: ListItemProps[];
 
     user?: UserProps;
     userId: number;

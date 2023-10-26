@@ -3,7 +3,6 @@ import { api } from "../../api/api";
 type RecommendedProduct = {
     id: number;
     name: string;
-    isOffline: boolean;
 };
 
 export async function getRecommendedProducts(search: string) {

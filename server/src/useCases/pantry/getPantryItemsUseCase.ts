@@ -9,5 +9,6 @@ export async function getPantryItemsUseCase(userId: number) {
 			product: true,
 		},
 	});
+
 	return pantryItems;
 }
