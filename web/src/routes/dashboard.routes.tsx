@@ -5,7 +5,7 @@ import { NavBar } from "../components/NavBar";
 
 export function DashboardRoutes() {
     return (
-        <div>
+        <div className="min-h-screen">
             <Header />
             <NavBar />
             <div className="mt-8">

@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import { AuthRoutes } from "./auth.routes";
 import { DashboardRoutes } from "./dashboard.routes";
 
+import { Footer } from "../components/Footer";
+
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
@@ -37,7 +39,12 @@ export const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardRoutes />,
+        element: (
+            <>
+                <DashboardRoutes />
+                <Footer />
+            </>
+        ),
         children: [
             {
                 path: "/dashboard",
@@ -62,6 +69,7 @@ export const router = createBrowserRouter([
         element: (
             <ListProvider>
                 <List />
+                <Footer />
             </ListProvider>
         ),
     },
