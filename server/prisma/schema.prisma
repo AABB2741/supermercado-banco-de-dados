@@ -29,6 +29,7 @@ model List {
     due       DateTime?
     createdAt DateTime  @default(now())
     checked   Boolean   @default(false)
+    checkedAt DateTime?
 
     items ListItem[]
 

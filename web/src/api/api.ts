@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const api = axios.create({
-    baseURL: "http://192.168.0.179:8000",
+    baseURL: "http://10.20.115.51:8000",
 });
 
 // Pega o token a cada requisição

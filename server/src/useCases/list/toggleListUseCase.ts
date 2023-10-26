@@ -14,6 +14,7 @@ export async function toggleListUseCase(id: number) {
 	const { user, items, ...list } = await prisma.list.update({
 		data: {
 			checked: !checked,
+			checkedAt: new Date(),
 		},
 		where: {
 			id,
