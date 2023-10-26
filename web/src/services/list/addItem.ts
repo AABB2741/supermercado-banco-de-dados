@@ -1,5 +1,6 @@
-import { ListItemProps } from "../../@types/list-item-props";
 import { api } from "../../api/api";
+
+import { ListProps } from "../../@types/list-props";
 
 interface AddItemProps {
     listId: number;
@@ -8,10 +9,7 @@ interface AddItemProps {
 }
 
 export async function addItem({ listId, ...props }: AddItemProps) {
-    const { data } = await api.post<ListItemProps>(
-        "/lists/add/" + listId,
-        props,
-    );
+    const { data } = await api.post<ListProps>("/lists/add/" + listId, props);
 
     return data;
 }

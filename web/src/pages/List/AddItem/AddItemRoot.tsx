@@ -51,9 +51,7 @@ export function AddItemRoot({ children }: AddItemProps) {
             listId: list.id,
             amount: amountRef.current.amount,
         }).then((res) => {
-            const index = list.items.findIndex(
-                (i) => i.productId === product.id,
-            );
+            setList(res);
         });
     }, [product, list.items]);
 

@@ -17,12 +17,12 @@ export async function addListItemController(req: Request, res: Response) {
 
 	const { amount, productId } = bodySchema.parse(req.body);
 
-	const item = await addListItemUseCase({
+	const list = await addListItemUseCase({
 		userId,
 		listId,
 		amount,
 		productId,
 	});
 
-	res.json(item);
+	res.json(list);
 }

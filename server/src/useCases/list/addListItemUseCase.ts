@@ -25,12 +25,15 @@ export async function addListItemUseCase({
 		throw new AppError("unauthorized", 401);
 	}
 
-	const listItem = await prisma.listItem.create({
+	const list = await prisma.listItem.create({
 		data: {
 			...data,
 			listId,
 		},
+		select: {
+			list: true,
+		},
 	});
 
-	return listItem;
+	return list;
 }
