@@ -3,7 +3,7 @@ import { Github, Instagram, Linkedin } from "lucide-react";
 export function Footer() {
     return (
         <footer className="bg-blue-300 bg-gradient-to-br p-10 dark:from-slate-900 dark:via-blue-950 dark:to-slate-900">
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 text-sm leading-relaxed md:text-base lg:grid-cols-3">
                 <div>
                     <h2 className="mb-4 text-lg font-bold">
                         Sobre o RPB Shopping
