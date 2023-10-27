@@ -15,6 +15,8 @@ export function PantryListCategory({
     title,
     items,
 }: PantryListCategoryProps) {
+    if (items.length === 0) return null;
+
     return (
         <div>
             <div className="flex items-center justify-between">

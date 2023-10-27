@@ -8,6 +8,7 @@ export function PantryListRoot() {
 
     return (
         <div>
+            <PantryList.Empty />
             <PantryList.Category
                 icon={ShoppingBag}
                 title="Todos os produtos"
