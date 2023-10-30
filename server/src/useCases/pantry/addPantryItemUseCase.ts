@@ -24,6 +24,14 @@ export async function addPantryItemUseCase(data: AddPantryItemProps) {
 			},
 		});
 
+		await prisma.pantryHistory.create({
+			data: {
+				amount: item.amount,
+				productId: item.productId,
+				userId: data.userId,
+			},
+		});
+
 		return item;
 	} else {
 		const item = await prisma.pantryItem.create({

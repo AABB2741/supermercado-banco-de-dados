@@ -1,14 +1,15 @@
+import { useState } from "react";
 import { PenLine, X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
 import { usePantry } from "../../../../contexts/PantryProvider";
-import { PantryItem } from "../../../../services/pantry/getPantryItems";
 import { Input } from "../../../../components/Input";
-import { useState } from "react";
 import { Button } from "../../../../components/Button";
 
-export function PantryListItem({ id, amount, product }: PantryItem) {
+import { PantryItemProps } from "../../../../@types/pantry-item-props";
+
+export function PantryListItem({ id, amount, product }: PantryItemProps) {
     const [editAmount, setEditAmount] = useState(amount);
 
     const { removeItem, editItem } = usePantry();
