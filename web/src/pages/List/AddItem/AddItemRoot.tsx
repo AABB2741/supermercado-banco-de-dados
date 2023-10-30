@@ -12,8 +12,6 @@ import { Button } from "../../../components/Button";
 
 import { useList } from "../../../contexts/ListProvider";
 
-import { addItem } from "../../../services/list/addItem";
-
 import { AddItemSearchRef } from "./AddItemSearch";
 import { ProductProps } from "../../../@types/product-props";
 
@@ -41,7 +39,7 @@ export function AddItemRoot({ children }: AddItemProps) {
     const searchRef = useRef<AddItemSearchRef>(null);
     const amountRef = useRef<{ amount: number }>(null);
 
-    const { list, setList } = useList();
+    const { list, addItem } = useList();
 
     const handleAddItem = useCallback(() => {
         if (!product || !amountRef.current) return;
@@ -50,10 +48,8 @@ export function AddItemRoot({ children }: AddItemProps) {
             productId: product.id,
             listId: list.id,
             amount: amountRef.current.amount,
-        }).then((res) => {
-            setList(res);
         });
-    }, [product, list.items]);
+    }, [product, list]);
 
     return (
         <AddItemContext.Provider value={{ product, setProduct }}>

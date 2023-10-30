@@ -1,11 +1,12 @@
+import axios from "axios";
 import { useEffect, useMemo, useState, createContext, useContext } from "react";
 import { useParams } from "react-router-dom";
 import z from "zod";
 
 import { getList } from "../services/list/getList";
+import { addItem as addListItem, AddItemProps } from "../services/list/addItem";
 
 import { ErrorCode } from "../errors/AppError";
-import axios from "axios";
 
 import { ListProps } from "../@types/list-props";
 import { toggleList } from "../services/list/toggleList";
@@ -20,6 +21,7 @@ interface ListProviderValue {
     search: string;
     setList: React.Dispatch<React.SetStateAction<ListProps | undefined>>;
     setSearch: React.Dispatch<React.SetStateAction<string>>;
+    addItem: (props: AddItemProps) => Promise<void>;
     toggle: () => Promise<void>;
 }
 
@@ -50,6 +52,12 @@ export function ListProvider({ children }: ListProviderProps) {
         return cancelToken.cancel;
     }, [id]);
 
+    async function addItem(props: AddItemProps) {
+        const res = await addListItem(props);
+        setList(res);
+        console.log(res);
+    }
+
     async function toggle() {
         if (!list) return;
 
@@ -61,7 +69,7 @@ export function ListProvider({ children }: ListProviderProps) {
 
     return (
         <ListContext.Provider
-            value={{ error, list, search, setList, setSearch, toggle }}
+            value={{ error, list, search, setList, setSearch, addItem, toggle }}
         >
             {children}
         </ListContext.Provider>

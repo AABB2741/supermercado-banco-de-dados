@@ -2,7 +2,7 @@ import { api } from "../../api/api";
 
 import { ListProps } from "../../@types/list-props";
 
-interface AddItemProps {
+export interface AddItemProps {
     listId: number;
     productId: number;
     amount: number;

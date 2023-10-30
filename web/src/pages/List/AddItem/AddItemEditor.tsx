@@ -12,13 +12,13 @@ type EditorHandle = {
 export const AddItemEditor = forwardRef<EditorHandle>((_, ref) => {
     const [amount, setAmount] = useState(1);
 
-    const { product, preview } = useAddItem();
+    const { product } = useAddItem();
 
     useImperativeHandle(ref, () => ({
         amount,
     }));
 
-    if (!product || !preview) return null;
+    if (!product) return null;
 
     return (
         <div>
@@ -43,7 +43,7 @@ export const AddItemEditor = forwardRef<EditorHandle>((_, ref) => {
                     onChange={(e) => setAmount(parseInt(e.target.value))}
                     min={1}
                 />
-                {preview.price && (
+                {product.price && (
                     <span className="font-bold text-red-500">R$</span>
                 )}
             </div>
