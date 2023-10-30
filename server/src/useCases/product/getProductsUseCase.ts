@@ -2,7 +2,9 @@ import { prisma } from "../../prisma";
 
 import { normalize } from "../../utils/normalize";
 
-export async function getProductsUseCase(search: string = "") {
+import { getSuggestedProductsUseCase } from "./getSuggestedProductsUseCase";
+
+export async function getProductsUseCase(userId: number, search: string = "") {
 	const products = await prisma.product.findMany({
 		where: {
 			name: {
@@ -10,6 +12,8 @@ export async function getProductsUseCase(search: string = "") {
 			},
 		},
 	});
+
+	const suggested = await getSuggestedProductsUseCase(userId);
 
 	return {
 		basic: products,
