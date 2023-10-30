@@ -15,7 +15,6 @@ import { useLists } from "../contexts/ListsProvider";
 import thumbnail from "../assets/list-banner.jpg";
 
 import { ListProps } from "../@types/list-props";
-import { getDefaultProduct } from "../data/defaultProducts";
 
 export function ListButton({
     id,
@@ -31,22 +30,7 @@ export function ListButton({
 
     useEffect(() => {
         if (!items) return;
-
-        const res: string[] = [];
-
-        for (const item of items) {
-            if (item.isOffline) {
-                try {
-                    res.push(getDefaultProduct(item.offlineProductId).name);
-                } catch (_) {
-                    // console.error(err);
-                }
-            } else if (item.product) {
-                res.push(item.product.name);
-            }
-        }
-
-        setPreviewItems(res);
+        setPreviewItems(items.map((i) => i.product.name));
     }, [items]);
 
     return (
