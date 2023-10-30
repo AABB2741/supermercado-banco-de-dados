@@ -18,6 +18,9 @@ export async function editPantryItemUseCase({
 			userId,
 		},
 		data,
+		include: {
+			product: true,
+		},
 	});
 
 	await prisma.pantryHistory.create({
