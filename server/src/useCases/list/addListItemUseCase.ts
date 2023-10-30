@@ -25,24 +25,58 @@ export async function addListItemUseCase({
 		throw new AppError("unauthorized", 401);
 	}
 
-	const res = await prisma.listItem.create({
-		data: {
-			...data,
+	// Verificando se o item já está adicionado na lista
+	const item = await prisma.listItem.findFirst({
+		where: {
+			productId: data.productId,
 			listId,
-		},
-		select: {
-			list: {
-				include: {
-					items: {
-						include: {
-							product: true,
-						},
-					},
-					user: true,
-				},
-			},
 		},
 	});
 
-	return res.list;
+	if (item) {
+		const res = await prisma.listItem.update({
+			where: {
+				id: item.id,
+			},
+			data: {
+				amount: {
+					increment: data.amount,
+				},
+			},
+			select: {
+				list: {
+					include: {
+						items: {
+							include: {
+								product: true,
+							},
+						},
+						user: true,
+					},
+				},
+			},
+		});
+		return res.list;
+	} else {
+		const res = await prisma.listItem.create({
+			data: {
+				...data,
+				listId,
+			},
+			select: {
+				list: {
+					include: {
+						items: {
+							include: {
+								product: true,
+							},
+						},
+						user: true,
+					},
+				},
+			},
+		});
+
+		return res.list;
+	}
 }
