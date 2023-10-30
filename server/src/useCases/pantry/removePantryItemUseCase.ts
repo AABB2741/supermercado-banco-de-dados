@@ -10,5 +10,13 @@ export async function removePantryItemUseCase(where: RemovePantryItemProps) {
 		where,
 	});
 
+	await prisma.pantryHistory.create({
+		data: {
+			amount: 0,
+			productId: removedItem.productId,
+			userId: removedItem.userId,
+		},
+	});
+
 	return removedItem;
 }

@@ -38,6 +38,14 @@ export async function addPantryItemUseCase(data: AddPantryItemProps) {
 			data,
 		});
 
+		await prisma.pantryHistory.create({
+			data: {
+				amount: item.amount,
+				productId: item.productId,
+				userId: data.userId,
+			},
+		});
+
 		return item;
 	}
 }

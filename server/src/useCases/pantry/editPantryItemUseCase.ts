@@ -20,5 +20,13 @@ export async function editPantryItemUseCase({
 		data,
 	});
 
+	await prisma.pantryHistory.create({
+		data: {
+			userId,
+			productId: editedItem.productId,
+			amount: editedItem.amount,
+		},
+	});
+
 	return editedItem;
 }
