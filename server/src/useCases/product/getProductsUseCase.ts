@@ -10,7 +10,12 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 			name: {
 				contains: normalize(search).toLowerCase(),
 			},
+			public: true,
 		},
+		orderBy: {
+			name: "asc",
+		},
+		take: 10,
 	});
 
 	const suggested = await getSuggestedProductsUseCase(userId);
