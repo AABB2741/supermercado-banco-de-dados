@@ -79,6 +79,7 @@ export function SignUp() {
                     label="Nome de usuário"
                     placeholder="Digite qualquer nome"
                     type="email"
+                    disabled={loading}
                     nextFocus={emailRef}
                     ref={nameRef}
                     autoFocus
@@ -87,6 +88,7 @@ export function SignUp() {
                     label="Endereço de e-mail"
                     placeholder="seuemail@exemplo.com"
                     type="email"
+                    disabled={loading}
                     nextFocus={passwordRef}
                     ref={emailRef}
                 />
@@ -94,6 +96,7 @@ export function SignUp() {
                     label="Senha"
                     placeholder="Insira sua senha"
                     type="password"
+                    disabled={loading}
                     nextFocus={passwordConfirmRef}
                     ref={passwordRef}
                 />
@@ -101,6 +104,7 @@ export function SignUp() {
                     label="Confirmar senha"
                     placeholder="Insira sua senha novamente"
                     type="password"
+                    disabled={loading}
                     nextFocus={submitRef}
                     ref={passwordConfirmRef}
                 />
@@ -113,7 +117,13 @@ export function SignUp() {
                 >
                     Criar sua conta
                 </Button.Normal>
-                <Button.Link to="../">Já tenho uma conta</Button.Link>
+                <Button.Link
+                    to="../"
+                    className="data-[disabled=true]:pointer-events-none"
+                    data-disabled={loading}
+                >
+                    Já tenho uma conta
+                </Button.Link>
             </form>
         </div>
     );
