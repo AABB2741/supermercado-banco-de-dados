@@ -44,7 +44,7 @@ export function Banner() {
                     >
                         <Clock color="currentColor" size={20} />
                         <span className="whitespace-nowrap text-sm font-bold md:text-lg">
-                            Vence em 28/01/2005
+                            Pendente
                         </span>
                     </div>
                     <div

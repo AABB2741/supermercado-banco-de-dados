@@ -2,7 +2,7 @@ import { Github, Instagram, Linkedin } from "lucide-react";
 
 export function Footer() {
     return (
-        <footer className="bg-blue-300 bg-gradient-to-br p-10 dark:from-slate-900 dark:via-blue-950 dark:to-slate-900">
+        <footer className="border-t border-gray-400 bg-blue-300 bg-gradient-to-br p-10 dark:border-slate-700 dark:from-slate-900 dark:via-blue-950 dark:to-slate-900">
             <div className="grid gap-8 text-sm leading-relaxed md:text-base lg:grid-cols-3">
                 <div>
                     <h2 className="mb-4 text-lg font-bold">

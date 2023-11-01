@@ -27,7 +27,7 @@ export function Header() {
     }
 
     return (
-        <header className="flex items-center justify-between p-4">
+        <header className="flex items-center justify-between border-b border-gray-400 p-4 dark:border-zinc-700">
             <p className="text-lg font-bold">
                 {user?.name
                     ? `Boas vindas, ${user.name}! 👋`
