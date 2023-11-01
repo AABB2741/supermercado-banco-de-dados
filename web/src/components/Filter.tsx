@@ -1,4 +1,7 @@
-import { LucideProps } from "lucide-react";
+import { LucideProps, ChevronLeft, ChevronRight } from "lucide-react";
+
+import { Carousel } from "./Carousel";
+import { useState } from "react";
 
 type FilterOption = {
     label: string;
@@ -15,6 +18,8 @@ interface FilterProps {
 }
 
 export function Filter({ title, value, options, onValueChange }: FilterProps) {
+    const [slide, setSlide] = useState(0);
+
     return (
         <div>
             {title && (
@@ -22,6 +27,18 @@ export function Filter({ title, value, options, onValueChange }: FilterProps) {
                     {title}
                 </p>
             )}
+            <Carousel.Root slide={slide} onSlideChange={setSlide}>
+                <Carousel.Prev>
+                    <ChevronLeft />
+                </Carousel.Prev>
+                <Carousel.Next>
+                    <ChevronRight />
+                </Carousel.Next>
+
+                <Carousel.Slide value={0}>Slide 0</Carousel.Slide>
+                <Carousel.Slide value={1}>Slide 1</Carousel.Slide>
+                <Carousel.Slide value={2}>Slide 2</Carousel.Slide>
+            </Carousel.Root>
             <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-8 md:px-6 lg:px-10">
                 {options.map((o) => (
                     <button
