@@ -10,7 +10,6 @@ import { signUp } from "../services/auth/signUp";
 import { setUser } from "../redux/slices/userSlice";
 
 import { AppError } from "../errors/AppError";
-import { wait } from "../utils/wait";
 
 export function SignUp() {
     const [error, setError] = useState<string>();
@@ -45,7 +44,6 @@ export function SignUp() {
             if (password !== passwordConfirm)
                 throw new AppError("passwords_not_match");
 
-            await wait(3000);
             const user = await signUp({ email, name, password });
             dispatch(setUser(user));
             navigate("/dashboard/");
@@ -66,7 +64,7 @@ export function SignUp() {
     useEffect(() => {
         document.title = "Cadastro - RPB Shopping";
     }, []);
-
+    console.log(loading);
     return (
         <div>
             <h1 className="text-4xl font-bold">Criar conta</h1>
@@ -117,11 +115,7 @@ export function SignUp() {
                 >
                     Criar sua conta
                 </Button.Normal>
-                <Button.Link
-                    to="../"
-                    className="data-[disabled=true]:pointer-events-none"
-                    data-disabled={loading}
-                >
+                <Button.Link to="../" disabled={loading}>
                     Já tenho uma conta
                 </Button.Link>
             </form>
