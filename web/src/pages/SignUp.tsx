@@ -64,7 +64,7 @@ export function SignUp() {
     useEffect(() => {
         document.title = "Cadastro - RPB Shopping";
     }, []);
-    console.log(loading);
+
     return (
         <div>
             <h1 className="text-4xl font-bold">Criar conta</h1>

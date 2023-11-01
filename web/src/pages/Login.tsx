@@ -98,7 +98,7 @@ export function Login() {
                 >
                     Fazer login
                 </Button.Normal>
-                <Button.Link to="./signup">
+                <Button.Link to="./signup" disabled={loading}>
                     Ainda não tenho uma conta
                 </Button.Link>
             </form>

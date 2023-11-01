@@ -45,8 +45,8 @@ export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
             >
                 {checked && <Check size={14} />}
             </button>
-            <div>
-                <p>{product.name}</p>
+            <div className="flex-1 overflow-hidden">
+                <p className="overflow-hidden text-ellipsis">{product.name}</p>
                 <p className="flex items-center gap-2 text-sm text-gray-600 dark:text-zinc-400">
                     <span>x{amount}</span>
                     <span className="font-medium text-green-400">
