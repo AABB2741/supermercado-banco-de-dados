@@ -6,22 +6,24 @@ import { defaultProducts } from "./data/defaultProducts";
 
 /** Esta função deve ser executada toda vez que o banco de dados for zerado. Ele contém algumas informações padrões necessárias, como o usuário RPB Shopping e produtos para listas de compras */
 export async function setup() {
-	const user = {
+	// Criação de usuário padrão
+	const defaultUser = {
 		name: "RPB Shopping",
 		email: "default@rpbshopping.com",
 		password: SHA256("rpb-shopping-default-user-password").toString(),
 	};
 
-	await prisma.user.create({
-		data: user,
+	const user = await prisma.user.create({
+		data: defaultUser,
 	});
 
+	// Inserção de produtos padrão
 	await prisma.$transaction(
 		defaultProducts.map((p) =>
 			prisma.product.create({
 				data: {
 					name: p,
-					userId: 1,
+					userId: user.id,
 					public: true,
 				},
 			})

@@ -77,6 +77,7 @@ export function Login() {
                     ref={emailRef}
                     nextFocus={passwordRef}
                     autoFocus
+                    disabled={loading}
                 />
                 <Input
                     label="Senha"
@@ -84,6 +85,7 @@ export function Login() {
                     type="password"
                     ref={passwordRef}
                     nextFocus={submitRef}
+                    disabled={loading}
                 />
                 {error && (
                     <p className="my-2 text-center text-sm text-red-400">
