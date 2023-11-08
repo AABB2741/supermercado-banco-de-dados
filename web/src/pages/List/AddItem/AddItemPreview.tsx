@@ -82,6 +82,7 @@ export function AddItemPreview() {
                                     </Field.Label>
                                     <Field.Input
                                         type="number"
+                                        min={0}
                                         placeholder={
                                             product.price?.toString() ?? "0.00"
                                         }
