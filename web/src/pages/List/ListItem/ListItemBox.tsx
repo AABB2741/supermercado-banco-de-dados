@@ -7,9 +7,11 @@ import { editItem } from "../../../services/list/editItem";
 import { ListItemProps } from "../../../@types/list-item-props";
 
 export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
-    const { setList } = useList();
+    const { list, setList } = useList();
 
     async function handleCheckItem() {
+        if (list.checked) return;
+
         const item = await editItem({ id, checked: !checked });
         setList((list) => {
             if (!list) return list;
@@ -42,6 +44,7 @@ export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
                 className="flex h-5 w-5 items-center justify-center rounded-md border border-gray-300 p-1 data-[checked=true]:border-none data-[checked=true]:bg-sky-500 data-[checked=true]:text-white dark:border-zinc-700"
                 data-checked={checked}
                 onClick={handleCheckItem}
+                disabled={list.checked}
             >
                 {checked && <Check size={14} />}
             </button>

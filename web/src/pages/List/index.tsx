@@ -120,6 +120,12 @@ export function List() {
                         <button
                             className="flex items-center gap-2 font-bold"
                             style={{ color: list.color }}
+                            disabled={list.checked}
+                            title={
+                                list.checked
+                                    ? "Desmarque essa lista para adicionar mais itens"
+                                    : undefined
+                            }
                         >
                             <Plus size={16} />
                             <span>Adicionar item</span>

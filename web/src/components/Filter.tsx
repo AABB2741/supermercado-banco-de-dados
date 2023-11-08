@@ -1,6 +1,5 @@
-import { LucideProps, ChevronLeft, ChevronRight } from "lucide-react";
+import { LucideProps } from "lucide-react";
 
-import { Carousel } from "./Carousel";
 import { useState } from "react";
 
 type FilterOption = {
@@ -18,8 +17,6 @@ interface FilterProps {
 }
 
 export function Filter({ title, value, options, onValueChange }: FilterProps) {
-    const [slide, setSlide] = useState(0);
-
     return (
         <div>
             {title && (
@@ -27,26 +24,6 @@ export function Filter({ title, value, options, onValueChange }: FilterProps) {
                     {title}
                 </p>
             )}
-            <Carousel.Root slide={slide} onSlideChange={setSlide}>
-                <Carousel.Prev>
-                    <ChevronLeft />
-                </Carousel.Prev>
-                <Carousel.Next>
-                    <ChevronRight />
-                </Carousel.Next>
-
-                <Carousel.Slide value={0}>Slide 0</Carousel.Slide>
-                <Carousel.Slide value={1}>Slide 1</Carousel.Slide>
-                <Carousel.Slide value={2}>Slide 2</Carousel.Slide>
-                <Carousel.Slide value={3}>Slide 3</Carousel.Slide>
-                <Carousel.Slide value={4}>Slide 4</Carousel.Slide>
-                <Carousel.Slide value={5}>Slide 5</Carousel.Slide>
-                <Carousel.Slide value={6}>Slide 6</Carousel.Slide>
-                <Carousel.Slide value={7}>Slide 7</Carousel.Slide>
-                <Carousel.Slide value={8}>Slide 8</Carousel.Slide>
-                <Carousel.Slide value={9}>Slide 9</Carousel.Slide>
-                <Carousel.Slide value={10}>Slide 10</Carousel.Slide>
-            </Carousel.Root>
             <div className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-8 md:px-6 lg:px-10">
                 {options.map((o) => (
                     <button
