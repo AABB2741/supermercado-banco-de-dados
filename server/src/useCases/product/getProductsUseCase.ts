@@ -32,6 +32,6 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 
 	return {
 		basic: products,
-		suggested: products,
+		suggested: products.slice(0, 3),
 	};
 }

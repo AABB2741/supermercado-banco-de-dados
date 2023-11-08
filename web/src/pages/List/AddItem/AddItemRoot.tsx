@@ -49,6 +49,8 @@ export function AddItemRoot({ children }: AddItemProps) {
             listId: list.id,
             amount: amountRef.current.amount,
         });
+
+        setProduct(undefined);
     }, [product, list]);
 
     return (

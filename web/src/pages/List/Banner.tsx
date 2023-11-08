@@ -75,7 +75,16 @@ export function Banner() {
 
                         {/* List data */}
                         <span className="hidden text-xl text-green-400 md:block">
-                            R$0,00
+                            R$
+                            {list.items
+                                .reduce(
+                                    (acc, cur) =>
+                                        acc +
+                                        (cur.product.price ?? 0) * cur.amount,
+                                    0,
+                                )
+                                .toFixed(2)
+                                .replace(".", ",")}
                         </span>
                         <span className="hidden text-xl text-yellow-400 md:block">
                             {checkedCount}/{list.items.length} itens
@@ -87,7 +96,16 @@ export function Banner() {
                 <div className="flex w-full items-center justify-between self-end md:w-auto">
                     <div className="flex flex-1 gap-4 md:hidden">
                         <span className="text-md font-bold text-green-400 md:block">
-                            R$0,00
+                            R$
+                            {list.items
+                                .reduce(
+                                    (acc, cur) =>
+                                        acc +
+                                        (cur.product.price ?? 0) * cur.amount,
+                                    0,
+                                )
+                                .toFixed(2)
+                                .replace(".", ",")}
                         </span>
                         <span className="text-md font-bold text-yellow-400 md:block">
                             {checkedCount}/{list.items.length} itens

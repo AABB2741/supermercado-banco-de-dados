@@ -55,7 +55,6 @@ export function ListProvider({ children }: ListProviderProps) {
     async function addItem(props: AddItemProps) {
         const res = await addListItem(props);
         setList(res);
-        console.log(res);
     }
 
     async function toggle() {

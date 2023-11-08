@@ -5,10 +5,12 @@ import { useAddItem } from "./AddItemRoot";
 import { Field } from "../../../components/Field";
 
 import { editProduct } from "../../../services/products/editProduct";
+import { useList } from "../../../contexts/ListProvider";
 
 import banner from "../../../assets/list-banner.jpg";
 
 export function AddItemPreview() {
+    const { list, setList } = useList();
     const { product, setProduct } = useAddItem();
     const [brand, setBrand] = useState<string>();
     const [price, setPrice] = useState<number>();
@@ -26,6 +28,20 @@ export function AddItemPreview() {
 
         console.log("Depois", response);
         setProduct(response);
+
+        const newItems = [...list.items];
+        for (const i in newItems) {
+            if (newItems[i].productId === product.id) {
+                newItems[i].productId = response.id;
+                newItems[i].product = { ...response };
+                break;
+            }
+        }
+
+        setList({
+            ...list,
+            items: newItems,
+        });
     }
 
     return (
@@ -40,7 +56,9 @@ export function AddItemPreview() {
                             <Field.Root>
                                 <Field.Content>
                                     <Field.Label>
-                                        <span className="text-xs">Marca</span>
+                                        <span className="text-xs font-medium">
+                                            Marca
+                                        </span>
                                     </Field.Label>
                                     <Field.Input
                                         type="text"
@@ -51,13 +69,16 @@ export function AddItemPreview() {
                                         onChange={(e) =>
                                             setBrand(e.target.value)
                                         }
+                                        onBlur={handleEditProduct}
                                     />
                                 </Field.Content>
                             </Field.Root>
                             <Field.Root>
                                 <Field.Content>
                                     <Field.Label>
-                                        <span className="text-xs">R$</span>
+                                        <span className="text-xs font-medium">
+                                            R$
+                                        </span>
                                     </Field.Label>
                                     <Field.Input
                                         type="number"
@@ -68,6 +89,7 @@ export function AddItemPreview() {
                                         onChange={(e) =>
                                             setPrice(parseFloat(e.target.value))
                                         }
+                                        onBlur={handleEditProduct}
                                     />
                                 </Field.Content>
                             </Field.Root>
