@@ -1,4 +1,5 @@
 import { useAddItem } from "./AddItemRoot";
+import { Field } from "../../../components/Field";
 
 import banner from "../../../assets/list-banner.jpg";
 
@@ -25,6 +26,16 @@ export function AddItemPreview() {
                             {product.price.toFixed(2).replace(".", ",")}
                         </p>
                     )} */}
+                    <div className="flex items-center">
+                        <Field.Root>
+                            <Field.Content>
+                                <Field.Label>
+                                    <span className="text-xs">R$</span>
+                                </Field.Label>
+                                <Field.Input />
+                            </Field.Content>
+                        </Field.Root>
+                    </div>
                 </div>
             </div>
         </>
