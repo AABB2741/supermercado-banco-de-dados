@@ -41,14 +41,10 @@ export function PantryProvider({ children }: PantryProviderProps) {
         const item = await addPantryItem(data);
 
         const newItems = [...items];
+        const index = newItems.findIndex((i) => i.productId === item.productId);
 
-        if (newItems.findIndex((i) => i.productId === item.productId) !== -1) {
-            for (const i in newItems) {
-                if (newItems[i].productId === item.productId) {
-                    newItems[i].amount += item.amount;
-                    break;
-                }
-            }
+        if (index !== -1) {
+            newItems[index] = item;
         } else {
             newItems.push(item);
         }
