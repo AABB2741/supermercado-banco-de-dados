@@ -43,8 +43,13 @@ export const AddItemEditor = forwardRef<EditorHandle>((_, ref) => {
                     onChange={(e) => setAmount(parseInt(e.target.value))}
                     min={1}
                 />
-                {product.price && (
-                    <span className="font-bold text-red-500">R$</span>
+                {product.price ? (
+                    <span className="font-bold text-red-500">
+                        R$
+                        {(product.price * amount).toFixed(2).replace(".", ",")}
+                    </span>
+                ) : (
+                    <span className="font-bold text-red-500">R$0,00</span>
                 )}
             </div>
         </div>

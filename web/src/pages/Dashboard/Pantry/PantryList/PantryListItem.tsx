@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PenLine, X } from "lucide-react";
+import { PenLine, SpaceIcon, X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
@@ -17,7 +17,7 @@ export function PantryListItem({ id, amount, product }: PantryItemProps) {
     function handleEdit() {
         editItem(id, { amount: editAmount });
     }
-
+    console.log(product);
     return (
         <li className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900">
             <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-500">
@@ -25,9 +25,10 @@ export function PantryListItem({ id, amount, product }: PantryItemProps) {
             </span>
             <div className="flex-1">
                 <p>{product.name}</p>
-                <p className="flex items-center gap-2 text-sm text-gray-600 dark:text-zinc-400">
+                <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-zinc-400">
+                    {product.brand && <span>{product.brand}</span>}
                     <span>x{amount}</span>
-                </p>
+                </div>
             </div>
             <div className="flex items-center gap-2">
                 <Dialog.Root>
