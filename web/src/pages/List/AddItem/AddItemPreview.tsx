@@ -1,13 +1,17 @@
+import { useEffect, useState } from "react";
+
 import { useAddItem } from "./AddItemRoot";
 import { Field } from "../../../components/Field";
 
 import banner from "../../../assets/list-banner.jpg";
+import { Save } from "lucide-react";
 
 export function AddItemPreview() {
     const { product } = useAddItem();
+    const [brand, setBrand] = useState<string>();
 
     if (!product) return null;
-
+    console.log(product);
     return (
         <>
             <p className="mt-4 text-lg font-bold">Sobre este produto</p>
@@ -26,15 +30,40 @@ export function AddItemPreview() {
                             {product.price.toFixed(2).replace(".", ",")}
                         </p>
                     )} */}
-                    <div className="flex items-center">
-                        <Field.Root>
-                            <Field.Content>
-                                <Field.Label>
-                                    <span className="text-xs">R$</span>
-                                </Field.Label>
-                                <Field.Input />
-                            </Field.Content>
-                        </Field.Root>
+                    <div className="mt-1 flex items-center gap-4">
+                        <div className="flex items-center gap-4">
+                            <Field.Root>
+                                <Field.Content>
+                                    <Field.Label>
+                                        <span className="text-xs">Marca</span>
+                                    </Field.Label>
+                                    <Field.Input
+                                        type="text"
+                                        placeholder={
+                                            product.brand ?? "Genérico"
+                                        }
+                                        value={brand ?? product.brand}
+                                        onChange={(e) =>
+                                            setBrand(e.target.value)
+                                        }
+                                    />
+                                </Field.Content>
+                            </Field.Root>
+                            <Field.Root>
+                                <Field.Content>
+                                    <Field.Label>
+                                        <span className="text-xs">R$</span>
+                                    </Field.Label>
+                                    <Field.Input
+                                        type="number"
+                                        placeholder="0.00"
+                                    />
+                                </Field.Content>
+                            </Field.Root>
+                        </div>
+                        <button>
+                            <Save size={16} />
+                        </button>
                     </div>
                 </div>
             </div>
