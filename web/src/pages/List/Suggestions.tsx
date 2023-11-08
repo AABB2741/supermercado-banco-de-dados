@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Plus, Sparkles } from "lucide-react";
 
+import { useList } from "../../contexts/ListProvider";
+
 export function Suggestions() {
     const [open, setOpen] = useState(true);
+
+    const { list } = useList();
+
+    if (list.checked) return null;
 
     return (
         <div className="mx-4 mt-4 rounded-xl border-2 border-gray-400 dark:border-zinc-600 md:mx-6 md:mt-6 lg:mx-10 lg:mt-10">

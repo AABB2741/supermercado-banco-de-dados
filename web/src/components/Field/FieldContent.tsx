@@ -4,7 +4,7 @@ type FieldContentProps = {
 
 export function FieldContent({ children }: FieldContentProps) {
     return (
-        <div className="flex items-stretch rounded-md border dark:border-zinc-700 dark:bg-zinc-900">
+        <div className="flex items-stretch rounded-md border border-gray-300 bg-white dark:border-zinc-700 dark:bg-zinc-900">
             {children}
         </div>
     );

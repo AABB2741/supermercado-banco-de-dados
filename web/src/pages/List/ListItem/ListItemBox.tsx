@@ -51,6 +51,7 @@ export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
             <div className="flex-1 overflow-hidden">
                 <p className="overflow-hidden text-ellipsis">{product.name}</p>
                 <p className="flex items-center gap-2 text-sm text-gray-600 dark:text-zinc-400">
+                    {product.brand && <span>{product.brand}</span>}
                     <span>x{amount}</span>
                     <span className="font-medium text-green-400">
                         R$
