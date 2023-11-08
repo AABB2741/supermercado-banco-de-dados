@@ -35,6 +35,8 @@ export async function editProductUseCase({
 			},
 			data,
 		});
+
+		return product;
 	} else {
 		// Caso o usuário NÃO seja o dono do produto, será criado um novo com o mesmo nome e outros atributos
 		const product = await prisma.product.create({
