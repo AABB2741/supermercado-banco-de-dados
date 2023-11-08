@@ -17,7 +17,9 @@ interface PantryContextValue {
     setItems: React.Dispatch<
         React.SetStateAction<PantryItemProps[] | undefined>
     >;
-    addItem: (data: Omit<PantryItemProps, "id" | "userId">) => Promise<void>;
+    addItem: (
+        data: Omit<PantryItemProps, "id" | "userId" | "product">,
+    ) => Promise<void>;
     removeItem: (id: number) => Promise<void>;
     editItem: (id: number, data: EditPantryItemProps) => Promise<void>;
 }
@@ -31,11 +33,25 @@ const PantryContext = createContext({} as PantryContextValue);
 export function PantryProvider({ children }: PantryProviderProps) {
     const [items, setItems] = useState<PantryItemProps[]>();
 
-    async function addItem(data: Omit<PantryItemProps, "id" | "userId">) {
+    async function addItem(
+        data: Omit<PantryItemProps, "id" | "userId" | "product">,
+    ) {
         if (!items) return;
 
         const item = await addPantryItem(data);
-        const newItems = [...items, item];
+
+        const newItems = [...items];
+
+        if (newItems.findIndex((i) => i.productId === item.productId) !== -1) {
+            for (const i in newItems) {
+                if (newItems[i].productId === item.productId) {
+                    newItems[i].amount += item.amount;
+                    break;
+                }
+            }
+        } else {
+            newItems.push(item);
+        }
 
         setItems(newItems);
     }

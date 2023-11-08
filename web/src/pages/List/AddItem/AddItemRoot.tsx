@@ -1,10 +1,4 @@
-import {
-    useCallback,
-    useState,
-    createContext,
-    useContext,
-    useRef,
-} from "react";
+import { useState, createContext, useContext, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { AddItem } from ".";
@@ -41,17 +35,19 @@ export function AddItemRoot({ children }: AddItemProps) {
 
     const { list, addItem } = useList();
 
-    const handleAddItem = useCallback(() => {
+    async function handleAddItem() {
         if (!product || !amountRef.current) return;
 
-        addItem({
+        setLoading(true);
+        await addItem({
             productId: product.id,
             listId: list.id,
             amount: amountRef.current.amount,
         });
 
         setProduct(undefined);
-    }, [product, list]);
+        setLoading(false);
+    }
 
     return (
         <AddItemContext.Provider value={{ product, setProduct }}>

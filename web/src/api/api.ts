@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const api = axios.create({
-    baseURL: "http://10.20.115.36:8000",
+    baseURL: "http://172.17.0.211:8000", // https://rpb-shopping-deploy-4d6olwj6u-marios-projects-0da4102f.vercel.app
 });
 
 // Pega o token a cada requisição

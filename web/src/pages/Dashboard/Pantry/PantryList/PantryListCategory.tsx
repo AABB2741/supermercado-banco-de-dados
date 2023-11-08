@@ -2,12 +2,12 @@ import { ChevronUp, LucideProps } from "lucide-react";
 
 import { PantryList } from ".";
 
-import { PantryItem } from "../../../../services/pantry/getPantryItems";
+import { PantryItemProps } from "../../../../@types/pantry-item-props";
 
 interface PantryListCategoryProps {
     icon: React.ElementType<LucideProps>;
     title: string;
-    items: PantryItem[];
+    items: PantryItemProps[];
 }
 
 export function PantryListCategory({

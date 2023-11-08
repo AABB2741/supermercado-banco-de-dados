@@ -10,6 +10,17 @@ export async function toggleListUseCase(id: number) {
 			checked: true,
 		},
 	});
+	// Desmarca todos os itens da lista
+	if (checked) {
+		await prisma.listItem.updateMany({
+			where: {
+				listId: id,
+			},
+			data: {
+				checked: false,
+			},
+		});
+	}
 	// Atualiza o estado da lista para concluído
 	const { user, items, ...list } = await prisma.list.update({
 		data: {
@@ -20,16 +31,18 @@ export async function toggleListUseCase(id: number) {
 			id,
 		},
 		include: {
-			user: true,
-			items: {
+			_count: true,
+			user: {
 				select: {
+					name: true,
 					id: true,
-					amount: true,
-					productId: true,
-					checked: true,
 				},
 			},
-			_count: true,
+			items: {
+				include: {
+					product: true,
+				},
+			},
 		},
 	});
 
@@ -46,5 +59,5 @@ export async function toggleListUseCase(id: number) {
 		}
 	}
 
-	return list;
+	return { ...list, items };
 }

@@ -31,25 +31,12 @@ export function PantryAddRoot() {
         if (!product) return alert("Escolha um produto!");
 
         try {
-            const isOffline = z.boolean().parse(product.isOffline);
             const amount = z
                 .number()
                 .positive()
                 .parse(managerRef.current?.amount);
-            const offlineProductId = z
-                .number()
-                .int()
-                .positive()
-                .optional()
-                .parse(isOffline ? product.id : undefined);
-            const productId = z
-                .number()
-                .int()
-                .positive()
-                .optional()
-                .parse(!isOffline ? product.id : undefined);
 
-            addItem({ isOffline, amount, offlineProductId, productId });
+            addItem({ amount, productId: product.id });
         } catch (err) {
             // TODO: Handle error
         }

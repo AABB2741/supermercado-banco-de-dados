@@ -60,7 +60,7 @@ export function PantryAddCategory({
                                 {p.name}
                             </p>
                             <p className="text-xs text-gray-600 dark:text-zinc-400">
-                                {p.brand?.name}
+                                {p.brand}
                             </p>
                         </div>
                         {p.price && (

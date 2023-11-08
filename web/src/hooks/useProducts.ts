@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useDebounce } from "./useDebounce";
 
-import { normalize } from "../utils/normalize";
-
 import { ProductProps } from "../@types/product-props";
 import { getProducts } from "../services/products/getProducts";
 

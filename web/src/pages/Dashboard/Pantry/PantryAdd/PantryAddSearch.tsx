@@ -15,7 +15,7 @@ export function PantryAddSearch() {
         [search],
     );
 
-    const { localProducts } = useProducts(normalizedSearch);
+    const { basic } = useProducts(normalizedSearch);
 
     return (
         <Combobox>
@@ -45,7 +45,7 @@ export function PantryAddSearch() {
                 <PantryAdd.Category
                     icon={ShoppingCart}
                     title="Produtos básicos"
-                    products={localProducts}
+                    products={basic}
                     isOffline
                 />
             </Combobox.Options>

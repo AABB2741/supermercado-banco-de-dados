@@ -1,7 +1,5 @@
 import { LucideProps } from "lucide-react";
 
-import { useState } from "react";
-
 type FilterOption = {
     label: string;
     icon: React.ElementType<LucideProps>;

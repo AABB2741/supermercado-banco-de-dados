@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PenLine, SpaceIcon, X } from "lucide-react";
+import { PenLine, X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Slider from "@radix-ui/react-slider";
 
@@ -17,6 +17,8 @@ export function PantryListItem({ id, amount, product }: PantryItemProps) {
     function handleEdit() {
         editItem(id, { amount: editAmount });
     }
+
+    if (!product) return null;
 
     return (
         <li className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900">

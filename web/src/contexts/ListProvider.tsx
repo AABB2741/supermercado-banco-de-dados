@@ -6,8 +6,6 @@ import z from "zod";
 import { getList } from "../services/list/getList";
 import { addItem as addListItem, AddItemProps } from "../services/list/addItem";
 
-import { ErrorCode } from "../errors/AppError";
-
 import { ListProps } from "../@types/list-props";
 import { toggleList } from "../services/list/toggleList";
 
@@ -17,7 +15,6 @@ interface ListProviderProps {
 
 interface ListProviderValue {
     list: ListProps;
-    error?: ErrorCode;
     search: string;
     setList: React.Dispatch<React.SetStateAction<ListProps | undefined>>;
     setSearch: React.Dispatch<React.SetStateAction<string>>;
@@ -29,7 +26,6 @@ const ListContext = createContext({} as ListProviderValue);
 
 export function ListProvider({ children }: ListProviderProps) {
     const [list, setList] = useState<ListProps>();
-    const [error, setError] = useState<ErrorCode>();
     const [search, setSearch] = useState("");
 
     const params = useParams();
@@ -60,15 +56,16 @@ export function ListProvider({ children }: ListProviderProps) {
     async function toggle() {
         if (!list) return;
 
-        const { checked } = await toggleList(list.id);
-        setList({ ...list, checked });
+        const newList = await toggleList(list.id);
+        console.log(newList);
+        setList(newList);
     }
 
     if (!list) return null;
 
     return (
         <ListContext.Provider
-            value={{ error, list, search, setList, setSearch, addItem, toggle }}
+            value={{ list, search, setList, setSearch, addItem, toggle }}
         >
             {children}
         </ListContext.Provider>
