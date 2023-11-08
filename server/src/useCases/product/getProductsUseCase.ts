@@ -28,10 +28,13 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 		take: 10,
 	});
 
-	const suggested = await getSuggestedProductsUseCase(userId);
+	const suggested = await getSuggestedProductsUseCase(
+		userId,
+		normalize(search).toLowerCase()
+	);
 
 	return {
 		basic: products,
-		suggested: products.slice(0, 3),
+		suggested,
 	};
 }

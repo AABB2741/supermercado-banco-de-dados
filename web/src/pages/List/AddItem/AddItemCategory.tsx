@@ -60,7 +60,7 @@ export function AddItemCategory({
                                 {p.brand}
                             </p>
                         </div>
-                        {p.price && (
+                        {typeof p.price === "number" && p.price !== 0 && (
                             <span className="text-sm text-green-500">
                                 R${p.price.toFixed(2).replace(".", ",")}
                             </span>

@@ -1,14 +1,32 @@
 import { prisma } from "../../prisma";
 
-export async function getSuggestedProductsUseCase(userId: number) {
+export async function getSuggestedProductsUseCase(
+	userId: number,
+	search: string = ""
+) {
 	// Pega todos os produtos que o usuário já comprou/usou
-	const products = await prisma.pantryHistory.findMany({
+	const products = await prisma.product.findMany({
 		where: {
-			userId,
+			OR: [
+				{
+					name: {
+						contains: search,
+					},
+					public: true,
+				},
+				{
+					name: {
+						contains: search,
+					},
+					userId,
+				},
+			],
 		},
-		select: {
-			id: true,
-			createdAt: true,
+		orderBy: {
+			name: "asc",
 		},
+		take: 3,
 	});
+
+	return products;
 }
