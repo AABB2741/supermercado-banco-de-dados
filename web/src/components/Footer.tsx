@@ -52,8 +52,8 @@ export function Footer() {
                     <div className="[&>*]:mb-4 [&>ul]:ml-4 [&>ul]:list-disc">
                         <p>
                             O sistema do RPB Shopping está dividido em duas
-                            partes: Frontend (website) e Backend (API para
-                            gerenciamento de dados).
+                            partes: Frontend (website) e Backend (API RESTful
+                            para gerenciamento de dados).
                         </p>
                         <p>Tecnologias do frontend:</p>
                         <ul>
@@ -68,6 +68,25 @@ export function Footer() {
                             <li>ExpressJS</li>
                             <li>Prisma</li>
                         </ul>
+                        <p>
+                            A API está sendo hospedada em{" "}
+                            <a
+                                className="text-blue-800 underline dark:text-sky-400"
+                                href="https://vercel.com"
+                                target="_blank"
+                            >
+                                Vercel
+                            </a>{" "}
+                            e o site está sendo hospedado na{" "}
+                            <a
+                                className="text-blue-800 underline dark:text-sky-400"
+                                href="https://www.hostinger.com.br"
+                                target="_blank"
+                            >
+                                Hostinger
+                            </a>
+                            .
+                        </p>
                     </div>
                 </div>
             </div>
@@ -76,6 +95,7 @@ export function Footer() {
                     Copyright &copy; RPB Company {new Date().getFullYear()}
                 </span>
                 <span>RPB Shopping Versão 1.0.0</span>
+                <span>Desenvolvido com ❤️ por Mário.</span>
             </div>
             <ul className="mt-8 flex items-center justify-center gap-4">
                 <li>
