@@ -11,7 +11,9 @@ import { ProductProps } from "../../../@types/product-props";
 
 interface AddItemProviderValue {
     product?: ProductProps;
+    disabled: boolean;
     setProduct: React.Dispatch<React.SetStateAction<ProductProps | undefined>>;
+    setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface AddItemProps {
@@ -28,6 +30,7 @@ const AddItemContext = createContext({} as AddItemProviderValue);
 export function AddItemRoot({ children }: AddItemProps) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [disabled, setDisabled] = useState(false); // Usado para bloquear interações do usuário, como por exemplo quando o input de marca ou preço estão focados
     const [product, setProduct] = useState<ProductProps>();
 
     const searchRef = useRef<AddItemSearchRef>(null);
@@ -50,10 +53,14 @@ export function AddItemRoot({ children }: AddItemProps) {
     }
 
     return (
-        <AddItemContext.Provider value={{ product, setProduct }}>
+        <AddItemContext.Provider
+            value={{ product, disabled, setProduct, setDisabled }}
+        >
             <Dialog.Root
                 open={open}
-                onOpenChange={(openStatus) => !loading && setOpen(openStatus)}
+                onOpenChange={(openStatus) =>
+                    !loading && !disabled && setOpen(openStatus)
+                }
             >
                 <Dialog.Trigger asChild>{children}</Dialog.Trigger>
                 <Dialog.Overlay className="fixed bottom-0 left-0 right-0 top-0 bg-black/25" />
@@ -70,12 +77,13 @@ export function AddItemRoot({ children }: AddItemProps) {
                     <div className="mt-4 flex items-center justify-end gap-2">
                         <Dialog.Close
                             className="px-4 font-bold"
-                            disabled={loading}
+                            disabled={loading || disabled}
                         >
                             Cancelar
                         </Dialog.Close>
                         <Button.Normal
                             accent
+                            disabled={disabled}
                             loading={loading}
                             onClick={handleAddItem}
                         >

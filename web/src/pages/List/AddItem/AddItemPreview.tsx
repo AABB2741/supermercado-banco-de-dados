@@ -1,25 +1,44 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Save } from "lucide-react";
 
 import { useAddItem } from "./AddItemRoot";
+import { useList } from "../../../contexts/ListProvider";
+import { useActiveElement } from "../../../hooks/useActiveElement";
+
 import { Field } from "../../../components/Field";
 
 import { editProduct } from "../../../services/products/editProduct";
-import { useList } from "../../../contexts/ListProvider";
 
 import banner from "../../../assets/list-banner.jpg";
 
 export function AddItemPreview() {
-    const { list, setList } = useList();
-    const { product, setProduct } = useAddItem();
+    const { list, loading, setList } = useList();
+    const { product, setProduct, setDisabled } = useAddItem();
+
+    const [editLoading, setEditLoading] = useState(false);
     const [brand, setBrand] = useState<string>();
     const [price, setPrice] = useState<number>();
+
+    const brandRef = useRef<HTMLInputElement>(null);
+    const priceRef = useRef<HTMLInputElement>(null);
+
+    const { activeElement } = useActiveElement();
+
+    const disabled =
+        activeElement === brandRef.current ||
+        activeElement === priceRef.current ||
+        editLoading;
+
+    useEffect(() => {
+        setDisabled(disabled);
+    }, [disabled, setDisabled]);
 
     if (!product) return null;
 
     async function handleEditProduct() {
         if (!product) return;
 
+        setEditLoading(true);
         console.log("Antes", product);
         const response = await editProduct(product.id, {
             brand,
@@ -42,6 +61,9 @@ export function AddItemPreview() {
             ...list,
             items: newItems,
         });
+        setBrand(undefined);
+        setPrice(undefined);
+        setEditLoading(false);
     }
 
     return (
@@ -61,6 +83,7 @@ export function AddItemPreview() {
                                         </span>
                                     </Field.Label>
                                     <Field.Input
+                                        disabled={loading}
                                         type="text"
                                         placeholder={
                                             product.brand ?? "Genérico"
@@ -70,6 +93,7 @@ export function AddItemPreview() {
                                             setBrand(e.target.value)
                                         }
                                         onBlur={handleEditProduct}
+                                        ref={brandRef}
                                     />
                                 </Field.Content>
                             </Field.Root>
@@ -81,6 +105,7 @@ export function AddItemPreview() {
                                         </span>
                                     </Field.Label>
                                     <Field.Input
+                                        disabled={loading}
                                         type="number"
                                         min={0}
                                         placeholder={
@@ -91,6 +116,7 @@ export function AddItemPreview() {
                                             setPrice(parseFloat(e.target.value))
                                         }
                                         onBlur={handleEditProduct}
+                                        ref={priceRef}
                                     />
                                 </Field.Content>
                             </Field.Root>
