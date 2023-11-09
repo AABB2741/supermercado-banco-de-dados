@@ -49,6 +49,7 @@ export function PantryProvider({ children }: PantryProviderProps) {
             newItems.push(item);
         }
 
+        console.log("Setando novos itens", newItems);
         setItems(newItems);
     }
 

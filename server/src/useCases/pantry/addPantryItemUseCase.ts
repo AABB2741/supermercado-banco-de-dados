@@ -22,6 +22,9 @@ export async function addPantryItemUseCase(data: AddPantryItemProps) {
 					increment: data.amount,
 				},
 			},
+			include: {
+				product: true,
+			},
 		});
 
 		await prisma.pantryHistory.create({
@@ -36,6 +39,9 @@ export async function addPantryItemUseCase(data: AddPantryItemProps) {
 	} else {
 		const item = await prisma.pantryItem.create({
 			data,
+			include: {
+				product: true,
+			},
 		});
 
 		await prisma.pantryHistory.create({
