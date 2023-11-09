@@ -16,6 +16,7 @@ interface ListProviderProps {
 interface ListProviderValue {
     list: ListProps;
     search: string;
+    loading: boolean;
     setList: React.Dispatch<React.SetStateAction<ListProps | undefined>>;
     setSearch: React.Dispatch<React.SetStateAction<string>>;
     addItem: (props: AddItemProps) => Promise<void>;
@@ -26,6 +27,7 @@ const ListContext = createContext({} as ListProviderValue);
 
 export function ListProvider({ children }: ListProviderProps) {
     const [list, setList] = useState<ListProps>();
+    const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
 
     const params = useParams();
@@ -56,16 +58,25 @@ export function ListProvider({ children }: ListProviderProps) {
     async function toggle() {
         if (!list) return;
 
+        setLoading(true);
         const newList = await toggleList(list.id);
-        console.log(newList);
         setList(newList);
+        setLoading(false);
     }
 
     if (!list) return null;
 
     return (
         <ListContext.Provider
-            value={{ list, search, setList, setSearch, addItem, toggle }}
+            value={{
+                list,
+                search,
+                loading,
+                setList,
+                setSearch,
+                addItem,
+                toggle,
+            }}
         >
             {children}
         </ListContext.Provider>

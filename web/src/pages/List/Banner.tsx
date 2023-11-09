@@ -9,7 +9,7 @@ import listBanner from "../../assets/list-banner.jpg";
 import avatar from "../../assets/avatar.png";
 
 export function Banner() {
-    const { list, toggle } = useList();
+    const { list, loading, toggle } = useList();
 
     const checkedCount = useMemo(
         () =>
@@ -117,9 +117,10 @@ export function Banner() {
                             {/* 32px */}
                         </button>
                         <button
-                            className="flex items-center gap-4 rounded-full p-4 text-white transition-all data-[expanded=true]:py-4"
+                            className="flex items-center gap-4 rounded-full p-4 text-white transition-all disabled:opacity-50 data-[expanded=true]:py-4"
                             style={{ backgroundColor: list.color }}
                             onClick={toggle}
+                            disabled={loading}
                         >
                             {list.checked ? <X /> : <Check />}
                         </button>
