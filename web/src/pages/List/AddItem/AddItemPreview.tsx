@@ -39,13 +39,12 @@ export function AddItemPreview() {
         if (!product) return;
 
         setEditLoading(true);
-        console.log("Antes", product);
+        
         const response = await editProduct(product.id, {
             brand,
             price,
         });
 
-        console.log("Depois", response);
         setProduct(response);
 
         const newItems = [...list.items];

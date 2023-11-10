@@ -26,22 +26,6 @@ export function PantryAddSearch() {
                 onChange={(e) => setSearch(e.target.value)}
             />
             <Combobox.Options className="absolute top-[107px] z-10 mt-2 max-h-[calc(100%-139px)] w-[calc(100%-48px)] overflow-y-auto rounded-lg border border-gray-300 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
-                <div
-                    className="p-2 data-[empty=true]:hidden"
-                    data-empty={!normalizedSearch}
-                >
-                    <Combobox.Option
-                        className="flex cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-2 hover:bg-sky-200 dark:hover:bg-sky-800"
-                        value={0}
-                    >
-                        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500 text-white">
-                            {normalizedSearch[0]}
-                        </span>
-                        <p className="line-clamp-2 flex-1 break-all">
-                            {search.trim()}
-                        </p>
-                    </Combobox.Option>
-                </div>
                 <PantryAdd.Category
                     icon={ShoppingCart}
                     title="Produtos básicos"
