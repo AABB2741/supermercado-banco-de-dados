@@ -6,7 +6,7 @@ import {
     useImperativeHandle,
 } from "react";
 import { Combobox } from "@headlessui/react";
-import { ShoppingCart, Sparkles } from "lucide-react";
+import { PencilLine, ShoppingCart, Sparkles } from "lucide-react";
 
 import { AddItem } from ".";
 
@@ -38,7 +38,7 @@ export const AddItemSearch = forwardRef<AddItemSearchRef, AddItemSearchProps>(
         );
 
         const { list } = useList();
-        const { basic, suggested } = useProducts(normalizedSearch);
+        const { basic, custom, suggested } = useProducts(normalizedSearch);
 
         const searchRef = useRef<HTMLInputElement>(null);
 
@@ -105,6 +105,11 @@ export const AddItemSearch = forwardRef<AddItemSearchRef, AddItemSearchProps>(
                         icon={ShoppingCart}
                         title="Produtos básicos"
                         products={basic}
+                    />
+                    <AddItem.Category
+                        icon={PencilLine}
+                        title="Produtos que você compra"
+                        products={custom}
                     />
                 </Combobox.Options>
             </Combobox>
