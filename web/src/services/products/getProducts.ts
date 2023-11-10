@@ -22,13 +22,15 @@ function sort(a: ProductProps, b: ProductProps, search: string) {
 
 export async function getProducts(search: string) {
     const {
-        data: { basic, suggested },
+        data: { basic, custom, suggested },
     } = await api.get<{
         basic: ProductProps[];
+        custom: ProductProps[];
         suggested: ProductProps[];
     }>("/products/get/" + encodeURI(search));
     return {
         basic: basic.sort((a, b) => sort(a, b, search)),
+        custom: custom.sort((a, b) => sort(a, b, search)),
         suggested: suggested.sort((a, b) => sort(a, b, search)),
     };
 }

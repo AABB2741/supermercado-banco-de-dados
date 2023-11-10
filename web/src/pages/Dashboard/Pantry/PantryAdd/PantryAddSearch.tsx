@@ -5,7 +5,7 @@ import { PantryAdd } from ".";
 
 import { normalize } from "../../../../utils/normalize";
 import { useProducts } from "../../../../hooks/useProducts";
-import { ShoppingCart } from "lucide-react";
+import { PencilLine, ShoppingCart } from "lucide-react";
 
 export function PantryAddSearch() {
     const [search, setSearch] = useState("");
@@ -15,7 +15,7 @@ export function PantryAddSearch() {
         [search],
     );
 
-    const { basic } = useProducts(normalizedSearch);
+    const { basic, custom } = useProducts(normalizedSearch);
 
     return (
         <Combobox>
@@ -30,6 +30,12 @@ export function PantryAddSearch() {
                     icon={ShoppingCart}
                     title="Produtos básicos"
                     products={basic}
+                    isOffline
+                />
+                <PantryAdd.Category
+                    icon={PencilLine}
+                    title="Produtos que você usa"
+                    products={custom}
                     isOffline
                 />
             </Combobox.Options>

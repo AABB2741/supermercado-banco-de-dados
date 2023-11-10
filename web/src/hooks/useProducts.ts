@@ -8,8 +8,9 @@ import { getProducts } from "../services/products/getProducts";
 export function useProducts(search: string) {
     const [products, setProducts] = useState<{
         basic: ProductProps[];
+        custom: ProductProps[];
         suggested: ProductProps[];
-    }>({ basic: [], suggested: [] });
+    }>({ basic: [], custom: [], suggested: [] });
 
     useDebounce(
         () => {
