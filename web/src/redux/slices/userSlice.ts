@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { UserProps } from "../../@types/user-props";
 
 const initialState: { user: UserProps | null } = {
-    user: null,
+    user: JSON.parse(localStorage.getItem("user") ?? "null"),
 };
 
 const userSlice = createSlice({
@@ -15,6 +15,7 @@ const userSlice = createSlice({
             state.user = action.payload;
         },
         logOut: (state) => {
+            localStorage.removeItem("user");
             Cookies.remove("token");
             state.user = null;
         },

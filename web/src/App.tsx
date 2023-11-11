@@ -11,7 +11,6 @@ export function App() {
         settings: { theme },
     } = useAppSelector((state) => state.settings);
 
-    // Carrega o tema do app salvo no localStorage
     useEffect(() => {
         if (theme === "dark") {
             document.body.classList.add("dark");
@@ -19,8 +18,6 @@ export function App() {
             document.body.classList.remove("dark");
         }
     }, [theme]);
-
-    // Verifica o token salvo nos Cookies
 
     return (
         <main className="min-h-screen bg-gray-200 dark:bg-zinc-800 dark:text-gray-100">

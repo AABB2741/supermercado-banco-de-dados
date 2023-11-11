@@ -39,6 +39,7 @@ export function Login() {
                 email,
                 password,
             });
+            console.log(user);
             dispatch(setUser(user));
             navigate("/dashboard/");
         } catch (err) {
