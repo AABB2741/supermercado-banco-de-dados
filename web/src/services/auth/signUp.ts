@@ -33,7 +33,6 @@ export async function signUp(props: SignUpProps) {
         "/auth/signup",
         credentials,
     );
-    localStorage.setItem("user", JSON.stringify(data));
     Cookies.set("token", data.token);
     return data;
 }
