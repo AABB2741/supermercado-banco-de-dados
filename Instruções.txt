@@ -1,9 +1,37 @@
-Para rodar o site, devem ser feitos os seguintes passos:
+===+ Observações +===
 
-Na pasta /server:
-1. Rodar o comando npm install
+Ao separar os grupos, o Gale me colocou sozinho. Com isso, ele me deu a possibilidade de escolher a linguagem e framework que eu quiser para desenvolver o projeto. Com isso, escolhi desenvolver o projeto com React e NodeJS. Isso significa que o projeto está separado em duas partes: Cliente Web e API.
 
-Na pasta /web:
-1. Rodar o comando npm install
-2. Rodar o comando npm run dev
-3. Abrir o site em um navegador, na url http://localhost:5173
+O link do site pronto pode ser acessado em: https://shopping.rpbcompany.com.br/
+
+No entanto, se quiser acessar o site localmente, serão necessários algumas etapas adicionais:
+
+===+ Instuções +===
+
+1. Primeiro, instale o NodeJS: https://nodejs.org/en
+2. Após o download do NodeJS, é recomendável reiniciar o computador.
+3. Acesse a pasta "web" e "api" que estão nesta pasta onde esse arquivo Instruções.txt está através do prompt de comando
+4. Em ambas as pastas, execute o comando "npm install"
+5. Na pasta "web", execute o comando "npm run dev". O site agora pode ser acessado em http://localhost:5173/
+6. Na pasta "api", existem algumas etapas adicionais:
+    A. Execute o comando "npx prisma migrate deploy"
+    B. Após o término, execute "npx prisma generate"
+    C. Então "npx ts-node src/seed.ts"
+    D. Por fim, execute o comando "npm run dev". Se a mensagem "🚀 HTTP Server running at localhost:8000" aparecer, significa que está funcionando.
+
+Observação: No projeto local, está sendo usado o banco de dados sqlite, que é salvo em um arquivo e não precisa ser hospedado, então o Xampp, por exemplo, não é necessário.
+
+Também é possível acessar o site através de outros dispositivos pela LAN, como um outro computador ou celular desde que estejam conectados à mesma rede. Para fazer isso, siga os seguintes passos:
+
+1. Encerre o servidor Web, usando as teclas CTRL + C no prompt de comando que está executando o servidor Web
+2. Execute o comando "npm run dev -- --host"
+3. Aparecerão alguns endereços IPs "Network" que o site pode ser acessado. Veja qual dos endereços funciona. Você pode testá-los pelo navegador do celular, inserindo na URL o endereço IP (não se esqueça do ":5173" ao final)
+4. Sabendo qual dos endereços funciona, abra o arquivo "web/src/api/api.ts" em um editor de texto
+5. Altere o endereço de "localhost" para o IP que funciona (não apague o ":8000" no final). No meu caso, ficou assim: baseURL: "http://192.168.0.166:8000"
+6. Salve o arquivo
+
+===+ Explicações +===
+
+Pode ser confuso o que cada coisa do projeto faz, e aqui faço uma explicação superficial:
+
+1. O cliente Web faz a comunicação com uma API para fazer o CRUD dos dados. Dessa forma, é possível armazenar todas as informações para vários usuários diferentes.
