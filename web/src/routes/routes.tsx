@@ -9,7 +9,7 @@ import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 
-import { ForYou } from "../pages/ForYou";
+import { Recipes } from "../pages/Recipes";
 import { ListsProvider } from "../contexts/ListsProvider";
 import { Lists } from "../pages/Dashboard/Lists";
 
@@ -47,8 +47,12 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "/dashboard",
-                element: <ForYou />,
+                path: "/dashboard/",
+                element: <Recipes />,
+            },
+            {
+                path: "/dashboard/recipes",
+                element: <Recipes />,
             },
             {
                 path: "/dashboard/lists",
