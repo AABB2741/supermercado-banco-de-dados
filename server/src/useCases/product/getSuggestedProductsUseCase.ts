@@ -76,7 +76,9 @@ export async function getSuggestedProductsUseCase(
 
 		for (const i in group.history) {
 			if (i == "0") {
-				purchaseHistory.push(group.history[i].createdAt);
+				const createdDate = new Date(group.history[i].createdAt);
+				createdDate.setHours(0, 0, 0, 0);
+				purchaseHistory.push(createdDate);
 				continue;
 			}
 
@@ -85,10 +87,13 @@ export async function getSuggestedProductsUseCase(
 
 			// Esse IF verifica se o item foi comprado (se foi adicionado uma quantia)
 			if (curr.amount - prev.amount > 0) {
-				purchaseHistory.push(curr.createdAt);
+				const currentDate = new Date(curr.createdAt);
+				currentDate.setHours(0, 0, 0, 0);
+				purchaseHistory.push(currentDate);
 			}
 		}
 
+		console.log(purchaseHistory);
 		// Diferenças entre os tempos de compra
 		const purchaseDiff = [];
 
@@ -111,46 +116,35 @@ export async function getSuggestedProductsUseCase(
 		groupedHistory[g].purchaseAvgInterval = purchaseAvgInterval;
 	}
 
-	groupedHistory.forEach((group) => {
-		const lastPurchase = new Date(
-			group.purchaseHistory?.[group.purchaseHistory.length - 1] ??
-				new Date()
-		);
-		const nextPurchase = new Date(
-			new Date(
-				group.purchaseHistory?.[group.purchaseHistory.length - 1] ??
-					new Date()
-			).getTime() + (group.purchaseAvgInterval ?? 0)
-		);
-		console.log(
-			`Último ${group.product.name} foi comprado em ${lastPurchase
-				.getDate()
-				.toString()
-				.padStart(2, "0")}/${(lastPurchase.getMonth() + 1)
-				.toString()
-				.padStart(2, "0")}/${lastPurchase.getFullYear()}`
-		);
-		console.log(
-			`Próximo ${group.product.name} será comprado em ${nextPurchase
-				.getDate()
-				.toString()
-				.padStart(2, "0")}/${(nextPurchase.getMonth() + 1)
-				.toString()
-				.padStart(
-					2,
-					"0"
-				)}/${nextPurchase.getFullYear()} ${nextPurchase}`
-		);
-	});
-
 	const res = groupedHistory.filter(
-		(group) =>
-			group.history.length >= 3 &&
-			new Date().getTime() >=
-				new Date(
-					group.history[group.history.length - 1].createdAt
-				).getTime() +
-					(group.purchaseAvgInterval ?? 0)
+		(group) => {
+			const date = new Date();
+			date.setHours(0, 0, 0, 0);
+			const time = date;
+
+			const lastPurchase =
+				group.purchaseHistory?.[group.purchaseHistory.length - 1] ??
+				new Date();
+			const nextPurchase = new Date(
+				lastPurchase.getTime() + (group.purchaseAvgInterval ?? 0)
+			);
+			nextPurchase.setHours(0, 0, 0, 0);
+
+			console.log("Verificando se", time, ">=", nextPurchase);
+
+			return (
+				group.purchaseHistory &&
+				group.purchaseHistory?.length > 3 &&
+				time.getTime() >= nextPurchase.getTime()
+			);
+		}
+		// (group) =>
+		// 	group.history.length >= 3 &&
+		// 	new Date().getTime() >=
+		// 		new Date(
+		// 			group.history[group.history.length - 1].createdAt
+		// 		).getTime() +
+		// 			(group.purchaseAvgInterval ?? 0)
 	);
 
 	console.log("Resultado", res);
