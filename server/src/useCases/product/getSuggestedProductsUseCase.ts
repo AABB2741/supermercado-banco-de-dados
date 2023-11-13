@@ -14,6 +14,7 @@ type GroupProps = {
 		amount: number;
 		createdAt: Date;
 	}[];
+	purchaseHistory?: Date[];
 	purchaseAvgInterval?: number; // Intervalo médio de tempo para comprar um certo produo
 };
 
@@ -105,16 +106,40 @@ export async function getSuggestedProductsUseCase(
 			(prev, curr, index) => (prev + curr) / (index === 0 ? 1 : 2),
 			0
 		);
+
+		groupedHistory[g].purchaseHistory = purchaseHistory;
 		groupedHistory[g].purchaseAvgInterval = purchaseAvgInterval;
 	}
 
 	groupedHistory.forEach((group) => {
+		const lastPurchase = new Date(
+			group.purchaseHistory?.[group.purchaseHistory.length - 1] ??
+				new Date()
+		);
+		const nextPurchase = new Date(
+			new Date(
+				group.purchaseHistory?.[group.purchaseHistory.length - 1] ??
+					new Date()
+			).getTime() + (group.purchaseAvgInterval ?? 0)
+		);
 		console.log(
-			`Próximo ${group.product.name} será comprado em ${new Date(
-				new Date(
-					group.history[group.history.length - 1].createdAt
-				).getTime() + (group.purchaseAvgInterval ?? 0)
-			)}`
+			`Último ${group.product.name} foi comprado em ${lastPurchase
+				.getDate()
+				.toString()
+				.padStart(2, "0")}/${(lastPurchase.getMonth() + 1)
+				.toString()
+				.padStart(2, "0")}/${lastPurchase.getFullYear()}`
+		);
+		console.log(
+			`Próximo ${group.product.name} será comprado em ${nextPurchase
+				.getDate()
+				.toString()
+				.padStart(2, "0")}/${(nextPurchase.getMonth() + 1)
+				.toString()
+				.padStart(
+					2,
+					"0"
+				)}/${nextPurchase.getFullYear()} ${nextPurchase}`
 		);
 	});
 
@@ -127,6 +152,8 @@ export async function getSuggestedProductsUseCase(
 				).getTime() +
 					(group.purchaseAvgInterval ?? 0)
 	);
+
+	console.log("Resultado", res);
 
 	return [];
 }
