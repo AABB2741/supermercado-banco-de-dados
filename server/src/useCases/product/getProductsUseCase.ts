@@ -46,6 +46,9 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 		},
 		where: {
 			userId,
+			name: {
+				contains: normalize(search).toLowerCase(),
+			},
 		},
 		orderBy: {
 			name: "asc",

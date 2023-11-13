@@ -1,5 +1,7 @@
 import { prisma } from "../../prisma";
 
+import { normalize } from "../../utils/normalize";
+
 type HistoryProps = {
 	id: number;
 	amount: number;
@@ -155,6 +157,9 @@ export async function getSuggestedProductsUseCase(
 		where: {
 			id: {
 				in: final.map((f) => f.productId),
+			},
+			name: {
+				contains: normalize(search).toLowerCase(),
 			},
 		},
 	});
