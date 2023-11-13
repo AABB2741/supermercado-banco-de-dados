@@ -1,4 +1,9 @@
+import { PantryHistory, Product } from "@prisma/client";
 import { prisma } from "../../prisma";
+
+type GroupHistoryProps = {
+	product: Product;
+} & PantryHistory;
 
 export async function getSuggestedProductsUseCase(
 	userId: number,
@@ -18,24 +23,6 @@ export async function getSuggestedProductsUseCase(
 			id: "asc",
 		},
 	});
-
-	// Pega todas as vezes que o usuario gastou um produto
-	// TODO: Arrumar, está pegando de TODOS os produtos
-	const consumption = [];
-
-	for (let i = 0; i < history.length; i++) {
-		if (i === 0) continue;
-
-		const h = history[i];
-
-		const difference = h.amount - history[i - 1].amount;
-
-		if (difference > 0) {
-			consumption.push(h);
-		}
-	}
-
-	console.log(consumption);
 
 	return [];
 }
