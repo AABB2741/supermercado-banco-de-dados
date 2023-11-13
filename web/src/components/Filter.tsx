@@ -15,6 +15,8 @@ interface FilterProps {
 }
 
 export function Filter({ title, value, options, onValueChange }: FilterProps) {
+    return null;
+
     return (
         <div>
             {title && (

@@ -17,7 +17,7 @@ import { getSuggestedProductsUseCase } from "./getSuggestedProductsUseCase";
  */
 
 export async function getProductsUseCase(userId: number, search: string = "") {
-	console.time("produtos");
+	console.time("Tempo para carregar lista de sugestões + lista de produtos");
 	const findBasic = prisma.product.findMany({
 		where: {
 			name: {
@@ -45,7 +45,9 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 
 	const suggested = await getSuggestedProductsUseCase(userId, search);
 
-	console.timeEnd("produtos");
+	console.timeEnd(
+		"Tempo para carregar lista de sugestões + lista de produtos"
+	);
 
 	return {
 		basic: res[0],
