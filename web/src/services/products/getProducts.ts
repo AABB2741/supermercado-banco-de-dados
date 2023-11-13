@@ -4,6 +4,13 @@ import { normalize } from "../../utils/normalize";
 
 import { ProductProps } from "../../@types/product-props";
 
+type GetProductsProps = {
+    id: number;
+    name: string;
+    brand?: string;
+    price?: number;
+};
+
 function sort(a: ProductProps, b: ProductProps, search: string) {
     if (
         normalize(a.name).toLowerCase().startsWith(search) &&
@@ -24,9 +31,9 @@ export async function getProducts(search: string) {
     const {
         data: { basic, custom, suggested },
     } = await api.get<{
-        basic: ProductProps[];
-        custom: ProductProps[];
-        suggested: ProductProps[];
+        basic: GetProductsProps[];
+        custom: GetProductsProps[];
+        suggested: GetProductsProps[];
     }>("/products/get/" + encodeURI(search));
     return {
         basic: basic.sort((a, b) => sort(a, b, search)),

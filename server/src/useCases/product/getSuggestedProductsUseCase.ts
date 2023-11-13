@@ -1,19 +1,18 @@
 import { prisma } from "../../prisma";
 
-import { PantryHistory, Product } from "@prisma/client";
+type HistoryProps = {
+	id: number;
+	amount: number;
+	createdAt: Date;
+};
 
 type GroupHistoryProps = {
-	product: Product;
-} & PantryHistory;
+	productId: number;
+} & HistoryProps;
 
 type GroupProps = {
 	productId: number;
-	product: Product;
-	history: {
-		id: number;
-		amount: number;
-		createdAt: Date;
-	}[];
+	history: HistoryProps[];
 	purchaseHistory?: Date[];
 	purchaseAvgInterval?: number; // Intervalo médio de tempo para comprar um certo produo
 };
@@ -33,7 +32,6 @@ function groupHistory(history: GroupHistoryProps[], search: string = "") {
 		} else {
 			groups.push({
 				productId: h.productId,
-				product: h.product,
 				history: [
 					{
 						id: h.id,
@@ -55,11 +53,14 @@ export async function getSuggestedProductsUseCase(
 	// Pega todos os produtos que o usuário já comprou/usou
 
 	const history = await prisma.pantryHistory.findMany({
+		select: {
+			id: true,
+			productId: true,
+			createdAt: true,
+			amount: true,
+		},
 		where: {
 			userId,
-		},
-		include: {
-			product: true,
 		},
 		orderBy: {
 			id: "asc",
@@ -93,7 +94,6 @@ export async function getSuggestedProductsUseCase(
 			}
 		}
 
-		console.log(purchaseHistory);
 		// Diferenças entre os tempos de compra
 		const purchaseDiff = [];
 
@@ -106,7 +106,7 @@ export async function getSuggestedProductsUseCase(
 			// Obtém a diferença de tempo
 			purchaseDiff.push(Math.abs(curr.getTime() - prev.getTime()));
 		}
-		console.log(purchaseDiff);
+
 		const purchaseAvgInterval = purchaseDiff.reduce(
 			(prev, curr, index) => (prev + curr) / (index === 0 ? 1 : 2),
 			0
@@ -116,7 +116,7 @@ export async function getSuggestedProductsUseCase(
 		groupedHistory[g].purchaseAvgInterval = purchaseAvgInterval;
 	}
 
-	const res = groupedHistory.filter(
+	const final = groupedHistory.filter(
 		(group) => {
 			const date = new Date();
 			date.setHours(0, 0, 0, 0);
@@ -129,8 +129,6 @@ export async function getSuggestedProductsUseCase(
 				lastPurchase.getTime() + (group.purchaseAvgInterval ?? 0)
 			);
 			nextPurchase.setHours(0, 0, 0, 0);
-
-			console.log("Verificando se", time, ">=", nextPurchase);
 
 			return (
 				group.purchaseHistory &&
@@ -147,7 +145,19 @@ export async function getSuggestedProductsUseCase(
 		// 			(group.purchaseAvgInterval ?? 0)
 	);
 
-	console.log("Resultado", res);
+	const products = await prisma.product.findMany({
+		select: {
+			id: true,
+			name: true,
+			brand: true,
+			price: true,
+		},
+		where: {
+			id: {
+				in: final.map((f) => f.productId),
+			},
+		},
+	});
 
-	return [];
+	return products;
 }

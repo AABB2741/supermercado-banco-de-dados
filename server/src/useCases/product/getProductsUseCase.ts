@@ -19,6 +19,12 @@ import { getSuggestedProductsUseCase } from "./getSuggestedProductsUseCase";
 export async function getProductsUseCase(userId: number, search: string = "") {
 	console.time("Tempo para carregar lista de sugestões + lista de produtos");
 	const findBasic = prisma.product.findMany({
+		select: {
+			id: true,
+			name: true,
+			brand: true,
+			price: true,
+		},
 		where: {
 			name: {
 				contains: normalize(search).toLowerCase(),
@@ -32,6 +38,12 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 	});
 
 	const findCustom = prisma.product.findMany({
+		select: {
+			id: true,
+			name: true,
+			brand: true,
+			price: true,
+		},
 		where: {
 			userId,
 		},
