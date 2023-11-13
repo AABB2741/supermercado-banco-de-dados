@@ -43,7 +43,9 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 
 	const res = await prisma.$transaction([findBasic, findCustom]);
 
+	console.time("Tempo para carregar lista de sugestões");
 	const suggested = await getSuggestedProductsUseCase(userId, search);
+	console.timeEnd("Tempo para carregar lista de sugestões");
 
 	console.timeEnd(
 		"Tempo para carregar lista de sugestões + lista de produtos"

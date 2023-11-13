@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 import { prisma } from "../../prisma";
 
 import { PantryHistory, Product } from "@prisma/client";
@@ -73,8 +71,13 @@ export async function getSuggestedProductsUseCase(
 		const group = groupedHistory[g];
 		const purchaseHistory: Date[] = [];
 
+		if (group.history.length < 3) continue;
+
 		for (const i in group.history) {
-			if (i == "0") continue;
+			if (i == "0") {
+				purchaseHistory.push(group.history[i].createdAt);
+				continue;
+			}
 
 			const prev = group.history[parseInt(i) - 1];
 			const curr = group.history[i];
@@ -105,7 +108,25 @@ export async function getSuggestedProductsUseCase(
 		groupedHistory[g].purchaseAvgInterval = purchaseAvgInterval;
 	}
 
-	console.log(groupedHistory);
+	groupedHistory.forEach((group) => {
+		console.log(
+			`Próximo ${group.product.name} será comprado em ${new Date(
+				new Date(
+					group.history[group.history.length - 1].createdAt
+				).getTime() + (group.purchaseAvgInterval ?? 0)
+			)}`
+		);
+	});
+
+	const res = groupedHistory.filter(
+		(group) =>
+			group.history.length >= 3 &&
+			new Date().getTime() >=
+				new Date(
+					group.history[group.history.length - 1].createdAt
+				).getTime() +
+					(group.purchaseAvgInterval ?? 0)
+	);
 
 	return [];
 }
