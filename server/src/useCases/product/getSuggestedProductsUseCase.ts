@@ -1,5 +1,8 @@
-import { PantryHistory, Product } from "@prisma/client";
+import dayjs from "dayjs";
+
 import { prisma } from "../../prisma";
+
+import { PantryHistory, Product } from "@prisma/client";
 
 type GroupHistoryProps = {
 	product: Product;
@@ -13,6 +16,7 @@ type GroupProps = {
 		amount: number;
 		createdAt: Date;
 	}[];
+	purchaseAvgInterval?: number; // Intervalo médio de tempo para comprar um certo produo
 };
 
 function groupHistory(history: GroupHistoryProps[], search: string = "") {
@@ -65,7 +69,8 @@ export async function getSuggestedProductsUseCase(
 
 	const groupedHistory = groupHistory(history, search);
 
-	for (const group of groupedHistory) {
+	for (const g in groupedHistory) {
+		const group = groupedHistory[g];
 		const purchaseHistory: Date[] = [];
 
 		for (const i in group.history) {
@@ -80,12 +85,27 @@ export async function getSuggestedProductsUseCase(
 			}
 		}
 
-		console.log(
-			`Datas em que o produto ${
-				group.product.name
-			} foi comprado: ${purchaseHistory.join(", ")}`
+		// Diferenças entre os tempos de compra
+		const purchaseDiff = [];
+
+		for (const i in purchaseHistory) {
+			if (i == "0") continue;
+
+			const prev = purchaseHistory[parseInt(i) - 1];
+			const curr = purchaseHistory[i];
+
+			// Obtém a diferença de tempo
+			purchaseDiff.push(Math.abs(curr.getTime() - prev.getTime()));
+		}
+		console.log(purchaseDiff);
+		const purchaseAvgInterval = purchaseDiff.reduce(
+			(prev, curr, index) => (prev + curr) / (index === 0 ? 1 : 2),
+			0
 		);
+		groupedHistory[g].purchaseAvgInterval = purchaseAvgInterval;
 	}
+
+	console.log(groupedHistory);
 
 	return [];
 }
