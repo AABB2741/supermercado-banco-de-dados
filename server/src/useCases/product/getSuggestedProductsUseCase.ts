@@ -5,28 +5,6 @@ export async function getSuggestedProductsUseCase(
 	search: string = ""
 ) {
 	// Pega todos os produtos que o usuário já comprou/usou
-	const products = await prisma.product.findMany({
-		where: {
-			OR: [
-				{
-					name: {
-						contains: search,
-					},
-					public: true,
-				},
-				{
-					name: {
-						contains: search,
-					},
-					userId,
-				},
-			],
-		},
-		orderBy: {
-			name: "asc",
-		},
-		take: 3,
-	});
-
-	return products;
+	// Retorna o promise para o transaction em getProductsUseCase.
+	return [];
 }

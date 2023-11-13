@@ -4,8 +4,21 @@ import { normalize } from "../../utils/normalize";
 
 import { getSuggestedProductsUseCase } from "./getSuggestedProductsUseCase";
 
+/**
+ * Sem transaction:
+ * 4.805ms
+ * 8.725ms
+ * 6.132ms
+ *
+ * Com transaction:
+ * 10.611ms
+ * 2.578ms
+ * 4.027ms
+ */
+
 export async function getProductsUseCase(userId: number, search: string = "") {
-	const basic = await prisma.product.findMany({
+	console.time("produtos");
+	const findBasic = prisma.product.findMany({
 		where: {
 			name: {
 				contains: normalize(search).toLowerCase(),
@@ -18,7 +31,7 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 		take: 5,
 	});
 
-	const custom = await prisma.product.findMany({
+	const findCustom = prisma.product.findMany({
 		where: {
 			userId,
 		},
@@ -28,14 +41,15 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 		take: 3,
 	});
 
-	const suggested = await getSuggestedProductsUseCase(
-		userId,
-		normalize(search).toLowerCase()
-	);
+	const res = await prisma.$transaction([findBasic, findCustom]);
+
+	const suggested = await getSuggestedProductsUseCase(userId, search);
+
+	console.timeEnd("produtos");
 
 	return {
-		basic,
-		custom,
+		basic: res[0],
+		custom: res[1],
 		suggested,
 	};
 }
