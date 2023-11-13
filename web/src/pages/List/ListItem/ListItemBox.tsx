@@ -37,19 +37,31 @@ export function ListItemBox({ id, checked, amount, product }: ListItemProps) {
 
     return (
         <li
-            className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-md dark:border-zinc-700 dark:bg-zinc-900"
+            className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-2 shadow-md data-[disabled=true]:cursor-not-allowed data-[checked=true]:opacity-75 dark:border-zinc-700 dark:bg-zinc-900"
+            data-disabled={list.checked}
+            data-checked={checked}
             key={id}
+            title={
+                list.checked
+                    ? "A lista está marcada como concluída. Desmarque para selecionar os itens."
+                    : undefined
+            }
         >
             <button
-                className="flex h-5 w-5 items-center justify-center rounded-md border border-gray-300 p-1 data-[checked=true]:border-none data-[checked=true]:bg-sky-500 data-[checked=true]:text-white dark:border-zinc-700"
+                className="flex h-5 w-5 items-center justify-center rounded-md border border-gray-300 p-1 disabled:pointer-events-none data-[checked=true]:border-none data-[checked=true]:bg-sky-500 data-[checked=true]:text-white dark:border-zinc-700"
                 data-checked={checked}
-                onClick={handleCheckItem}
                 disabled={list.checked}
+                onClick={handleCheckItem}
             >
                 {checked && <Check size={14} />}
             </button>
             <div className="flex-1 overflow-hidden">
-                <p className="overflow-hidden text-ellipsis">{product.name}</p>
+                <p
+                    className="overflow-hidden text-ellipsis font-medium data-[checked=true]:line-through"
+                    data-checked={checked}
+                >
+                    {product.name}
+                </p>
                 <p className="flex items-center gap-2 text-sm text-gray-600 dark:text-zinc-400">
                     {product.brand && <span>{product.brand}</span>}
                     <span>x{amount}</span>
