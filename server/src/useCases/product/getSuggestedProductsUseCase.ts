@@ -65,7 +65,7 @@ export async function getSuggestedProductsUseCase(
 		where: {
 			userId,
 			NOT: {
-				id: {
+				productId: {
 					in: prohibitedIDs,
 				},
 			},

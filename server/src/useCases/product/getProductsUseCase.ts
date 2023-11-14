@@ -57,15 +57,6 @@ export async function getProductsUseCase(userId: number, search: string = "") {
 	});
 
 	const res = await prisma.$transaction([findBasic, findCustom]);
-	console.log("Pesquisa", normalize(search).toLowerCase());
-	console.log(
-		"Lista de produtos básicos:",
-		res[0].map((p) => p.name)
-	);
-	console.log(
-		"Lista de produtos personalizados:",
-		res[1].map((p) => p.name)
-	);
 	console.time("Tempo para carregar lista de sugestões");
 	const suggested = await getSuggestedProductsUseCase(userId, search);
 	console.timeEnd("Tempo para carregar lista de sugestões");
