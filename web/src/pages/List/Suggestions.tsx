@@ -11,7 +11,7 @@ export function Suggestions() {
     if (list.checked) return null;
 
     return (
-        <div className="mx-4 mb-8 mt-4 rounded-xl border-2 border-gray-400 dark:border-zinc-600 md:mx-6 md:mt-6 lg:mx-10 lg:mt-10">
+        <div className="mx-4 mt-4 rounded-xl border-2 border-gray-400 dark:border-zinc-600 md:mx-6 md:mt-6 lg:mx-10 lg:mt-10">
             <div className="flex items-center justify-between px-6 py-4">
                 <div className="flex items-center gap-4">
                     <Sparkles size={18} />
