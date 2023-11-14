@@ -108,7 +108,7 @@ export function List() {
                         },
                     ]}
                 />
-                <div className="flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6 lg:px-10">
+                <div className="mt-4 flex flex-col items-center justify-between gap-4 px-4 md:mt-6 md:flex-row md:px-6 lg:px-10">
                     <input
                         type="text"
                         className="w-full min-w-0 max-w-[500px] flex-1 rounded-full bg-white px-6 py-2 shadow-md outline-none focus:shadow-input dark:bg-zinc-900"
