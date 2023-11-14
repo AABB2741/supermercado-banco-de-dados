@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"reset": "prisma migrate reset --force && prisma generate && prisma db push && ts-node src/seed.ts",
 		"dev": "nodemon src/server.ts",
 		"vercel-build": "tsc && prisma db push && ts-node src/seed.ts"
 	},

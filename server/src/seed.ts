@@ -6,6 +6,7 @@ import { defaultProducts } from "./data/defaultProducts";
 
 /** Esta função deve ser executada toda vez que o banco de dados for zerado. Ele contém algumas informações padrões necessárias, como o usuário RPB Shopping e produtos para listas de compras */
 export async function setup() {
+	const startTime = new Date().getTime();
 	console.log(`Iniciando dados padrão para o banco de dados...`);
 	// Criação de usuário padrão
 	const defaultUser = {
@@ -37,6 +38,9 @@ export async function setup() {
 		`${res.length} produtos foram adicionados ao banco de dados para o usuário padrão`
 	);
 
-	console.log("Finalizado a função de dados padrão.");
+	const endTime = new Date().getTime();
+	console.log(
+		`População de banco de dados finalizada em ${endTime - startTime}ms`
+	);
 }
 setup();
