@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp, Plus, Sparkles } from "lucide-react";
 
 import { useList } from "../../contexts/ListProvider";
+
+import { getSuggestions } from "../../services/products/getSuggestions";
 
 export function Suggestions() {
     const [open, setOpen] = useState(true);
 
     const { list } = useList();
+
+    useEffect(() => {
+        getSuggestions(list.id);
+    }, []);
 
     if (list.checked) return null;
 

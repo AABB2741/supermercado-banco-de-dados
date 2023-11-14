@@ -13,7 +13,7 @@ const productRoutes = Router();
 productRoutes.use(authHandler);
 
 productRoutes.post("/create", createProductController);
-productRoutes.get("/suggestions", getSuggestionsController);
+productRoutes.get("/suggestions/:id", getSuggestionsController);
 productRoutes.get("/get/:search", getProductsController);
 productRoutes.get("/get", getProductsController);
 productRoutes.get("/:id", getProductController);

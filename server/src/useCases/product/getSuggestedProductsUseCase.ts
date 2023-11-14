@@ -19,7 +19,7 @@ type GroupProps = {
 	purchaseAvgInterval?: number; // Intervalo médio de tempo para comprar um certo produo
 };
 
-function groupHistory(history: GroupHistoryProps[], search: string = "") {
+function groupHistory(history: GroupHistoryProps[]) {
 	const groups: GroupProps[] = [];
 
 	for (const h of history) {
@@ -50,7 +50,8 @@ function groupHistory(history: GroupHistoryProps[], search: string = "") {
 
 export async function getSuggestedProductsUseCase(
 	userId: number,
-	search: string = ""
+	search: string = "",
+	prohibitedIDs: number[] = []
 ) {
 	// Pega todos os produtos que o usuário já comprou/usou
 
@@ -63,13 +64,18 @@ export async function getSuggestedProductsUseCase(
 		},
 		where: {
 			userId,
+			NOT: {
+				id: {
+					in: prohibitedIDs,
+				},
+			},
 		},
 		orderBy: {
 			id: "asc",
 		},
 	});
 
-	const groupedHistory = groupHistory(history, search);
+	const groupedHistory = groupHistory(history);
 
 	for (const g in groupedHistory) {
 		const group = groupedHistory[g];
