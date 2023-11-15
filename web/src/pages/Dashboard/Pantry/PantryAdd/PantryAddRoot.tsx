@@ -3,11 +3,15 @@ import { Plus } from "lucide-react";
 import z from "zod";
 import * as Dialog from "@radix-ui/react-dialog";
 
+import { usePantry } from "../../../../contexts/PantryProvider";
+
 import { PantryAdd } from ".";
 import { Button } from "../../../../components/Button";
 
 import { ProductProps } from "../../../../@types/product-props";
-import { usePantry } from "../../../../contexts/PantryProvider";
+
+import emptyPantryImage from "../../../../assets/empty-pantry.svg";
+import { Empty } from "../../../../components/Empty";
 
 type Product = ProductProps & {
     isOffline: boolean;
@@ -59,7 +63,17 @@ export function PantryAddRoot() {
                         </Dialog.Title>
 
                         <PantryAdd.Search />
-                        <PantryAdd.Empty />
+                        <Empty.Root>
+                            <Empty.Image src={emptyPantryImage} />
+                            <Empty.Title>
+                                Vamos adicionar um produto à sua despensa!
+                            </Empty.Title>
+                            <Empty.Description>
+                                Para começar, digite o nome do produto que você
+                                quer adicionar à despensa na caixa de texto
+                                acima.
+                            </Empty.Description>
+                        </Empty.Root>
                         <PantryAdd.Preview />
                         <PantryAdd.Manager ref={managerRef} />
 
