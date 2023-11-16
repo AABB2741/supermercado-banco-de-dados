@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 
 import { fetchRecipe } from "../services/recipe/fetchRecipe";
@@ -7,7 +8,7 @@ import { fetchRecipe } from "../services/recipe/fetchRecipe";
 import { RecipeProps } from "../@types/recipe-props";
 
 interface RecipeProviderValue {
-    recipe?: RecipeProps;
+    recipe: RecipeProps;
 }
 
 interface RecipeProviderProps {
@@ -34,6 +35,15 @@ export function RecipeProvider({ children }: RecipeProviderProps) {
 
         return cancelToken.cancel;
     }, [id]);
+
+    if (!recipe) {
+        return (
+            <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+                <DotSpinner color="currentColor" />
+                <span>Carregando receita...</span>
+            </div>
+        );
+    }
 
     return (
         <RecipeContext.Provider value={{ recipe }}>
