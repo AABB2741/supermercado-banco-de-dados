@@ -6,11 +6,7 @@ type CarouselSlideProps = {
     value: number;
 } & React.ComponentProps<"div">;
 
-export function CarouselSlide({
-    value,
-    children,
-    ...rest
-}: CarouselSlideProps) {
+export function CarouselSlide({ value, ...rest }: CarouselSlideProps) {
     const { slide, setSlides } = useCarousel();
 
     useEffect(() => {
@@ -21,5 +17,5 @@ export function CarouselSlide({
 
     if (slide !== value) return null;
 
-    return <div {...rest}>{children}</div>;
+    return <div {...rest} />;
 }
