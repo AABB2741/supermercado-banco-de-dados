@@ -60,7 +60,12 @@ export function Recipe() {
                 </div>
             </div>
             <div className="p-6">
-                <LinkableText text="Ingredientes" id="ingredients" />
+                <LinkableText
+                    text={`Ingredientes (${recipe.ingredientPortion} ${
+                        recipe.ingredientPortion === 1 ? "porção" : "porções"
+                    })`}
+                    id="ingredients"
+                />
             </div>
         </div>
     );
