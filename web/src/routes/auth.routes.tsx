@@ -13,7 +13,7 @@ export function AuthRoutes() {
             <Carousel.Root slide={slide} onSlideChange={setSlide}>
                 <Carousel.Slide
                     value={1}
-                    className="relative flex h-[50vh] w-full flex-col justify-end overflow-hidden bg-cover bg-center lg:h-full lg:w-1/2"
+                    className="relative flex h-[50vh] w-full flex-col justify-end overflow-hidden bg-cover bg-center text-white lg:h-full lg:w-1/2"
                     style={{
                         backgroundImage: `url('${authBackground}')`,
                     }}
@@ -24,7 +24,7 @@ export function AuthRoutes() {
                         <h1 className="mx-4 text-center text-3xl font-bold">
                             A sua lista de compras. Do seu jeito.
                         </h1>
-                        <p className="mx-4 my-4 text-center">
+                        <p className="mx-6 my-6 text-center">
                             Com opções altamente personalizáveis, o RPB Shopping
                             permite você criar a sua lista de compras do jeito
                             que você quiser.

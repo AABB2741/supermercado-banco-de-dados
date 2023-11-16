@@ -28,6 +28,8 @@ export function AddItemPreview() {
         activeElement === priceRef.current ||
         editLoading;
 
+    console.log("Disabled:", disabled);
+
     useEffect(() => {
         setDisabled(disabled);
     }, [disabled, setDisabled]);
@@ -39,29 +41,34 @@ export function AddItemPreview() {
 
         setEditLoading(true);
 
-        const response = await editProduct(product.id, {
-            brand,
-            price,
-        });
+        try {
+            const response = await editProduct(product.id, {
+                brand,
+                price,
+            });
 
-        setProduct(response);
+            setProduct(response);
 
-        const newItems = [...list.items];
-        for (const i in newItems) {
-            if (newItems[i].productId === product.id) {
-                newItems[i].productId = response.id;
-                newItems[i].product = { ...response };
-                break;
+            const newItems = [...list.items];
+            for (const i in newItems) {
+                if (newItems[i].productId === product.id) {
+                    newItems[i].productId = response.id;
+                    newItems[i].product = { ...response };
+                    break;
+                }
             }
-        }
 
-        setList({
-            ...list,
-            items: newItems,
-        });
-        setBrand(undefined);
-        setPrice(undefined);
-        setEditLoading(false);
+            setList({
+                ...list,
+                items: newItems,
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setBrand(undefined);
+            setPrice(undefined);
+            setEditLoading(false);
+        }
     }
 
     return (
