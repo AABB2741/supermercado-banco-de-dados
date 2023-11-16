@@ -109,16 +109,27 @@ model PantryHistory {
 // }
 
 model Recipe {
-    id          Int      @id @default(autoincrement())
-    name        String
-    description String
-    content     String
-    createdAt   DateTime @default(now())
-
-    ingredients Ingredient[]
+    id                Int           @id @default(autoincrement())
+    name              String
+    description       String
+    content           String
+    createdAt         DateTime      @default(now())
+    ingredientPortion Int
+    ingredients       Ingredient[]
+    preparation       Preparation[]
 
     user   User @relation(fields: [userId], references: [id])
     userId Int
+}
+
+model Preparation {
+    id      Int     @id @default(autoincrement())
+    step    Int
+    title   String?
+    content String
+
+    Recipe   Recipe? @relation(fields: [recipeId], references: [id])
+    recipeId Int?
 }
 
 model Ingredient {
