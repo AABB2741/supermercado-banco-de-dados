@@ -5,8 +5,10 @@ generator client {
     provider = "prisma-client-js"
 }
 
+// Datasource for DEVELOPMENT
+// Aviso: Existem modificações para aplicar durante a produção (recipes, unit)
 datasource db {
-    provider = "postgresql"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
 }
 
@@ -21,6 +23,10 @@ model User {
     products      Product[]
     PantryItem    PantryItem[]
     PantryHistory PantryHistory[]
+    Recipe        Recipe[]
+    Comment       Comment[]
+    Like          Like[]
+    Dislike       Dislike[]
 }
 
 model List {
@@ -66,6 +72,7 @@ model Product {
     userId        Int
     PantryItem    PantryItem[]
     PantryHistory PantryHistory[]
+    Ingredient    Ingredient[]
 }
 
 model PantryItem {
@@ -92,9 +99,68 @@ model PantryHistory {
     userId Int
 }
 
+// Disabled for sqlite
+// enum Unit {
+//     mg
+//     g
+//     kg
+//     ml
+//     l
+// }
+
 model Recipe {
-    id          Int     @id @default(autoincrement())
+    id          Int      @id @default(autoincrement())
     name        String
-    description String?
+    description String
     content     String
+    createdAt   DateTime @default(now())
+
+    ingredients Ingredient[]
+
+    user   User @relation(fields: [userId], references: [id])
+    userId Int
+}
+
+model Ingredient {
+    id Int @id @default(autoincrement())
+
+    amount     Float
+    amountUnit String
+    // amountUnit Unit
+
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int
+    Recipe    Recipe? @relation(fields: [recipeId], references: [id])
+    recipeId  Int?
+}
+
+model Comment {
+    id      Int     @id @default(autoincrement())
+    rate    Float // 1 - 5
+    content String?
+
+    likes    Like[]
+    dislikes Dislike[]
+
+    user   User @relation(fields: [userId], references: [id])
+    userId Int
+}
+
+model Like {
+    id        Int      @id @default(autoincrement())
+    Comment   Comment? @relation(fields: [commentId], references: [id])
+    commentId Int?
+
+    user   User @relation(fields: [userId], references: [id])
+    userId Int
+}
+
+model Dislike {
+    id Int @id @default(autoincrement())
+
+    Comment   Comment? @relation(fields: [commentId], references: [id])
+    commentId Int?
+
+    user   User @relation(fields: [userId], references: [id])
+    userId Int
 }

@@ -94,7 +94,7 @@ export function Footer() {
                 <span>
                     Copyright &copy; RPB Company {new Date().getFullYear()}
                 </span>
-                <span>RPB Shopping Versão 1.0.0</span>
+                <span>RPB Shopping Versão 1.0.1</span>
                 <span>Desenvolvido com ❤️ por Mário.</span>
             </div>
             <ul className="mt-8 flex items-center justify-center gap-4">
