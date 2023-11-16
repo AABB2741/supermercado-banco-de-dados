@@ -11,7 +11,7 @@ export async function setup() {
 	// Criação de usuário padrão
 	const defaultUser = {
 		name: "RPB Shopping",
-		email: "default@rpbshopping.com",
+		email: "shopping@rpbcompany.com.br",
 		password: SHA256("rpb-shopping-default-user-password").toString(),
 	};
 	console.log("Criando o usuário...");
