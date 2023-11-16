@@ -28,8 +28,6 @@ export function AddItemPreview() {
         activeElement === priceRef.current ||
         editLoading;
 
-    console.log("Disabled:", disabled);
-
     useEffect(() => {
         setDisabled(disabled);
     }, [disabled, setDisabled]);
