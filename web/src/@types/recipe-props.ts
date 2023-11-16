@@ -4,6 +4,7 @@ import { UserProps } from "./user-props";
 
 export type RecipeProps = {
     id: number;
+    thumbnail: string;
     name: string;
     description: string;
     createdAt: Date;

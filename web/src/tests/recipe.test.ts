@@ -1,7 +1,10 @@
 import { RecipeProps } from "../@types/recipe-props";
 
+import boloDeCenoura from "../assets/recipes/bolo-de-cenoura.jpeg";
+
 export const recipeTest: RecipeProps = {
     id: 1,
+    thumbnail: boloDeCenoura,
     name: "Bolo de cenoura",
     description:
         "Confira como fazer essa receita de bolo de cenoura simples e fácil, nossa campeã de acessos! Uma receita prática, feita com auxílio do liquidificador e perfeita para o café da manhã e para a hora do lanche!",
