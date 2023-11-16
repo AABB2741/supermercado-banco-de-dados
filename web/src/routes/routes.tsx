@@ -18,6 +18,7 @@ import { List } from "../pages/List";
 
 import { Pantry } from "../pages/Dashboard/Pantry";
 
+import { RecipeProvider } from "../contexts/RecipeProvider";
 import { Recipe } from "../pages/Recipe";
 
 export const router = createBrowserRouter([
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
     },
     {
         path: "/recipe/:id",
-        element: <Recipe />,
+        element: (
+            <RecipeProvider>
+                <Recipe />
+            </RecipeProvider>
+        ),
     },
 ]);

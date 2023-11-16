@@ -1,9 +1,18 @@
-import { useParams } from "react-router-dom";
+import { DotSpinner } from "@uiball/loaders";
+
+import { useRecipe } from "../../contexts/RecipeProvider";
 
 export function Recipe() {
-    const { id } = useParams();
+    const { recipe } = useRecipe();
 
-    if (!id) return null;
+    if (!recipe) {
+        return (
+            <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+                <DotSpinner color="currentColor" />
+                <span>Carregando receita...</span>
+            </div>
+        );
+    }
 
-    return <h1>Recipe {id}</h1>;
+    return <h1>Recipe {recipe.id}</h1>;
 }
