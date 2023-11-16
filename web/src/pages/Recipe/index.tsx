@@ -1,16 +1,20 @@
 import { Flag, MessageCircle, Star, ThumbsDown, ThumbsUp } from "lucide-react";
+
 import { useRecipe } from "../../contexts/RecipeProvider";
+
+import { LinkableText } from "../../components/LinkableText";
 
 export function Recipe() {
     const { recipe } = useRecipe();
 
     return (
         <div>
-            <div className="relative">
+            <div className="relative flex min-h-[300px] items-end">
                 <img
                     src={recipe.thumbnail}
                     className="absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full object-cover object-top brightness-50"
                 />
+
                 <div className="relative z-10 p-8 text-white">
                     <h1 className="text-4xl font-black">{recipe.name}</h1>
                     <p className="my-2 leading-relaxed">{recipe.description}</p>
@@ -55,7 +59,9 @@ export function Recipe() {
                     </div>
                 </div>
             </div>
-            <div className="p-6"></div>
+            <div className="p-6">
+                <LinkableText text="Ingredientes" id="ingredients" />
+            </div>
         </div>
     );
 }
