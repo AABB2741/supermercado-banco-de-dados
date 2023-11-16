@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Share2 } from "lucide-react";
 
 import { Carousel } from "../../components/Carousel";
 
 import listBanner from "../../assets/list-banner.jpg";
 import avatar from "../../assets/avatar.png";
+import { Link } from "react-router-dom";
 
 export function FeaturedRecipes() {
     const [page, setPage] = useState(1);
@@ -59,10 +60,16 @@ export function FeaturedRecipes() {
                                     </span>
                                 </div>
                             </div>
-                            <div>
-                                <button className="rounded-full bg-sky-500 p-4">
-                                    <Plus />
+                            <div className="flex items-center gap-6">
+                                <button>
+                                    <Share2 />
                                 </button>
+                                <Link
+                                    to="/recipe/1"
+                                    className="rounded-full bg-sky-500 p-4"
+                                >
+                                    <ExternalLink />
+                                </Link>
                             </div>
                         </div>
                     </div>

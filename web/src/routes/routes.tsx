@@ -18,6 +18,8 @@ import { List } from "../pages/List";
 
 import { Pantry } from "../pages/Dashboard/Pantry";
 
+import { Recipe } from "../pages/Recipe";
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -76,5 +78,9 @@ export const router = createBrowserRouter([
                 <Footer />
             </ListProvider>
         ),
+    },
+    {
+        path: "/recipe/:id",
+        element: <Recipe />,
     },
 ]);
