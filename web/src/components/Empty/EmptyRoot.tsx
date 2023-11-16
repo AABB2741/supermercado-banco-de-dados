@@ -11,7 +11,7 @@ export function EmptyRoot({ disabled, className, ...rest }: EmptyRootProps) {
         <div
             {...rest}
             className={twMerge(
-                "mx-auto my-10 flex max-w-[500px] flex-col items-center text-center",
+                "mx-auto my-10 flex max-w-[500px] flex-col items-center px-4 text-center",
                 className,
             )}
         />

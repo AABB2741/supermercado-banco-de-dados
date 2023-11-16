@@ -26,8 +26,8 @@ export function Lists() {
                 <Empty.Title>Está tudo tão vazio por aqui</Empty.Title>
                 <Empty.Description>
                     Você ainda não têm listas de compras criadas. Comece
-                    clicando em "+ Nova lista" para criar a sua primeira lista
-                    de compras!
+                    clicando em "+ Criar nova lista" para criar a sua primeira
+                    lista de compras!
                 </Empty.Description>
             </Empty.Root>
             <section className="grid grid-cols-1 gap-6 px-4 py-8 md:grid-cols-2 md:px-8 xl:grid-cols-3">
