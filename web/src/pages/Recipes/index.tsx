@@ -1,3 +1,9 @@
+import { FeaturedRecipes } from "./FeaturedRecipes";
+
 export function Recipes() {
-    return <h1>Recipes</h1>;
+    return (
+        <div>
+            <FeaturedRecipes />
+        </div>
+    );
 }

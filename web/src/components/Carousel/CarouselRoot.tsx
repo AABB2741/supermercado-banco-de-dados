@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 
 type CarouselRootProps = {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     slide: number;
     onSlideChange?: (slide: number) => void;
 };
