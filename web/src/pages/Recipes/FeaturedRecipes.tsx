@@ -21,9 +21,9 @@ export function FeaturedRecipes() {
 
                     <div className="pointer-events-none absolute h-full w-full bg-gradient-to-b from-transparent to-black" />
 
-                    <div className="relative flex h-full flex-col justify-between md:p-6">
+                    <div className="relative flex h-full flex-col justify-between p-4 md:p-6">
                         <div className="flex-1">
-                            <p className="inline-block rounded-full bg-black/50 px-4 py-2">
+                            <p className="inline-block rounded-full bg-black/50 px-4 py-2 text-sm md:text-base">
                                 Aproveite essa receita deliciosa que combina bem
                                 com esse calor!
                             </p>
@@ -40,14 +40,14 @@ export function FeaturedRecipes() {
 
                         <div className="flex flex-1 items-end justify-between">
                             <div>
-                                <h1 className="text-4xl font-bold">
+                                <h1 className="line-clamp-2 text-2xl font-bold md:text-4xl">
                                     Suco de laranja
                                 </h1>
-                                <p className="my-2">
+                                <p className="my-2 line-clamp-2 text-sm leading-relaxed md:text-base">
                                     Uma receita simples, mas que vale a pena o
                                     esforço.
                                 </p>
-                                <div className="flex items-center gap-6">
+                                <div className="flex flex-col gap-3 md:flex-row md:gap-6">
                                     <div className="flex items-center gap-3">
                                         <img
                                             src={avatar}
@@ -55,7 +55,7 @@ export function FeaturedRecipes() {
                                         />
                                         <span>por Joãozinho</span>
                                     </div>
-                                    <span className="font-bold">
+                                    <span className="text-sm font-bold md:text-base">
                                         3/14 ingredientes
                                     </span>
                                 </div>
