@@ -99,15 +99,6 @@ model PantryHistory {
     userId Int
 }
 
-// Disabled for sqlite
-// enum Unit {
-//     mg
-//     g
-//     kg
-//     ml
-//     l
-// }
-
 model Recipe {
     id                Int           @id @default(autoincrement())
     name              String
@@ -133,11 +124,8 @@ model Preparation {
 }
 
 model Ingredient {
-    id Int @id @default(autoincrement())
-
-    amount     Float
-    amountUnit String
-    // amountUnit Unit
+    id     Int   @id @default(autoincrement())
+    amount Float
 
     product   Product @relation(fields: [productId], references: [id])
     productId Int

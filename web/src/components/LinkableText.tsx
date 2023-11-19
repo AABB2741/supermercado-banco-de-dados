@@ -21,7 +21,10 @@ export function LinkableText({ text, id, ...rest }: LinkableTextProps) {
     return (
         <button
             {...rest}
-            className={twMerge("group flex items-center gap-4", rest.className)}
+            className={twMerge(
+                "group flex items-center gap-4 text-left",
+                rest.className,
+            )}
             title="Copiar URL"
             onClick={handleCopyURL}
             id={id}

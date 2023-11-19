@@ -1,4 +1,4 @@
-import { Flag, MessageCircle, Star, ThumbsDown, ThumbsUp } from "lucide-react";
+// import { Flag, MessageCircle, Star, ThumbsDown, ThumbsUp } from "lucide-react";
 
 import { useRecipe } from "../../contexts/RecipeProvider";
 
@@ -19,10 +19,10 @@ export function Recipe() {
                 <div className="relative z-10 p-8 text-white">
                     <h1 className="text-4xl font-black">{recipe.name}</h1>
                     <p className="my-2 leading-relaxed">{recipe.description}</p>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3 text-black dark:text-white">
+                    {/* <div className="flex items-center justify-between gap-6">
+                        <div className="flex flex-1 items-center gap-3 overflow-x-auto bg-red-200 text-black dark:text-white">
                             <div
-                                className="flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm dark:bg-zinc-900"
+                                className="flex items-center gap-2 overflow-x-hidden rounded-full bg-white px-3 py-1 text-sm dark:bg-zinc-900"
                                 title="Avaliação média"
                             >
                                 <Star size={14} />
@@ -57,7 +57,7 @@ export function Recipe() {
                                 <Flag size={20} />
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="p-6">
