@@ -3,6 +3,7 @@ import { Flag, MessageCircle, Star, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useRecipe } from "../../contexts/RecipeProvider";
 
 import { LinkableText } from "../../components/LinkableText";
+import { Ingredient } from "../../components/Ingredient";
 
 export function Recipe() {
     const { recipe } = useRecipe();
@@ -66,6 +67,13 @@ export function Recipe() {
                     })`}
                     id="ingredients"
                 />
+                <div className="grid grid-cols-1 gap-12 pt-4 md:grid-cols-2 xl:grid-cols-3">
+                    <Ingredient />
+                    <Ingredient />
+                    <Ingredient />
+                    <Ingredient />
+                    <Ingredient />
+                </div>
             </div>
         </div>
     );
