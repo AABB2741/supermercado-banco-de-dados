@@ -68,11 +68,42 @@ export function Recipe() {
                     id="ingredients"
                 />
                 <div className="grid grid-cols-1 gap-12 pt-4 md:grid-cols-2 xl:grid-cols-3">
-                    <Ingredient />
-                    <Ingredient />
-                    <Ingredient />
-                    <Ingredient />
-                    <Ingredient />
+                    <Ingredient
+                        productId={1}
+                        name="Óleo"
+                        required={0.25}
+                        has={2}
+                    />
+                    <Ingredient
+                        productId={2}
+                        name="Cenoura"
+                        required={3}
+                        has={2}
+                    />
+                    <Ingredient
+                        productId={3}
+                        name="Ovos"
+                        required={4}
+                        has={2}
+                    />
+                    <Ingredient
+                        productId={4}
+                        name="Açúcar"
+                        required={2}
+                        has={2}
+                    />
+                    <Ingredient
+                        productId={5}
+                        name="Fermento"
+                        required={1}
+                        has={2}
+                    />
+                    <Ingredient
+                        productId={5}
+                        name="Farinha de trigo"
+                        required={2.5}
+                        has={2}
+                    />
                 </div>
             </div>
         </div>
