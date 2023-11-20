@@ -7,6 +7,7 @@ import { Ingredient } from "../../components/Ingredient";
 import { Footer } from "../../components/Footer";
 
 import listBanner from "../../assets/list-banner.jpg";
+import { Preparation } from "../../components/Preparation";
 
 export function Recipe() {
     const { recipe } = useRecipe();
@@ -70,6 +71,17 @@ export function Recipe() {
                     })`}
                     id="ingredients"
                 />
+                <p
+                    className="my-6 text-center text-xl font-bold text-green-500"
+                    hidden={
+                        !recipe.ingredients.every(
+                            (ingredient) => ingredient.has >= ingredient.amount,
+                        )
+                    }
+                >
+                    Você tem todos os ingredientes necessários para fazer essa
+                    receita!
+                </p>
                 <div className="mb-8 grid grid-cols-1 gap-12 pt-4 md:grid-cols-2 xl:grid-cols-3">
                     {recipe.ingredients.map((ingredient) => (
                         <Ingredient
@@ -82,6 +94,11 @@ export function Recipe() {
                     ))}
                 </div>
                 <LinkableText id="preparation" text="Modo de preparo" />
+                <div className="mt-4 flex flex-col gap-4">
+                    {recipe.preparation.map((preparation) => (
+                        <Preparation {...preparation} key={preparation.id} />
+                    ))}
+                </div>
             </div>
             <Footer />
         </div>

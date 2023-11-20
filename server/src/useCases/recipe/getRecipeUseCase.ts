@@ -11,6 +11,7 @@ export async function getRecipeUseCase(recipeId: number, userId: number) {
 					product: true,
 				},
 			},
+			preparation: true,
 			user: true,
 		},
 	});

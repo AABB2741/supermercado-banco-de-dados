@@ -10,12 +10,14 @@ export function LinkableText({ text, id, ...rest }: LinkableTextProps) {
     const url = `${location.protocol}//${location.host}${location.pathname}#${id}`;
 
     function handleCopyURL() {
-        navigator.clipboard.writeText(url).catch((err) => {
+        try {
+            navigator.clipboard.writeText(url);
+        } catch (err) {
             alert(
                 `Não foi possível copiar a URL. Talvez seu navegador não tenha suporte a esse recurso.\n\nURL: ${url}`,
             );
             console.error(err);
-        });
+        }
     }
 
     return (
