@@ -27,7 +27,7 @@ export function Recipe() {
                     className="absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full object-cover object-top brightness-50"
                 />
 
-                <div className="relative z-10 p-8 text-white">
+                <div className="relative z-10 w-full p-8 text-white">
                     <Link
                         className="mb-6 inline-block rounded-full bg-black/50 p-3"
                         to="/dashboard"

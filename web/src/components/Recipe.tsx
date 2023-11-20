@@ -17,7 +17,7 @@ interface RecipeProps {
 export function Recipe({ id, name, description, user }: RecipeProps) {
     return (
         <Link
-            className="relative h-48 w-48 overflow-hidden rounded-lg shadow-lg"
+            className="relative h-48 w-48 overflow-hidden rounded-lg text-white shadow-lg"
             to={"/recipe/" + id}
         >
             <img

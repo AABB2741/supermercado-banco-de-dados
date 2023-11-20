@@ -328,7 +328,7 @@ export const preparation: PreparationProps[] = [
 		recipeId: 5,
 	},
 	{
-		step: 3,
+		step: 2,
 		content: "Leve ao congelador ou freezer e espere cerca de 3 horas.",
 		recipeId: 5,
 	},

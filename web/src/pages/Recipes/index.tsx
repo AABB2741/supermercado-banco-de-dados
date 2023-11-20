@@ -37,7 +37,7 @@ export function Recipes() {
                 description="Essas são as receitas escolhidas especialmente para você. Você tem todos os ingredientes necessários para fazê-las."
                 data-empty={suggestedRecipes && suggestedRecipes.length === 0}
             >
-                <div className="mt-4 flex items-center">
+                <div className="mt-4 flex items-center gap-4">
                     {suggestedRecipes?.map((recipe) => (
                         <Recipe key={recipe.id} {...recipe} />
                     ))}
