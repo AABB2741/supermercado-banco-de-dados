@@ -1,10 +1,12 @@
 import { CancelToken } from "axios";
 
-import { wait } from "../../utils/wait";
 import { api } from "../../api/api";
+import { RecipeProps } from "../../@types/recipe-props";
 
 export async function fetchRecipe(id: number, cancelToken: CancelToken) {
-    await wait(1000);
-    const recipe = await api.get("/recipes/" + id, { cancelToken });
-    return recipe;
+    const { data } = await api.get<RecipeProps>("/recipes/" + id, {
+        cancelToken,
+    });
+    console.log(data);
+    return data;
 }

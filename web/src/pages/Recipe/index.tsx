@@ -6,6 +6,8 @@ import { LinkableText } from "../../components/LinkableText";
 import { Ingredient } from "../../components/Ingredient";
 import { Footer } from "../../components/Footer";
 
+import listBanner from "../../assets/list-banner.jpg";
+
 export function Recipe() {
     const { recipe } = useRecipe();
 
@@ -13,7 +15,7 @@ export function Recipe() {
         <div>
             <div className="relative flex min-h-[300px] items-end">
                 <img
-                    src={recipe.thumbnail}
+                    src={recipe.thumbnail || listBanner}
                     className="absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full object-cover object-top brightness-50"
                 />
 
@@ -69,42 +71,15 @@ export function Recipe() {
                     id="ingredients"
                 />
                 <div className="mb-8 grid grid-cols-1 gap-12 pt-4 md:grid-cols-2 xl:grid-cols-3">
-                    <Ingredient
-                        productId={1}
-                        name="Óleo"
-                        required={0.25}
-                        has={2}
-                    />
-                    <Ingredient
-                        productId={2}
-                        name="Cenoura"
-                        required={3}
-                        has={2}
-                    />
-                    <Ingredient
-                        productId={3}
-                        name="Ovos"
-                        required={4}
-                        has={2}
-                    />
-                    <Ingredient
-                        productId={4}
-                        name="Açúcar"
-                        required={2}
-                        has={2}
-                    />
-                    <Ingredient
-                        productId={5}
-                        name="Fermento"
-                        required={1}
-                        has={2}
-                    />
-                    <Ingredient
-                        productId={5}
-                        name="Farinha de trigo"
-                        required={2.5}
-                        has={2}
-                    />
+                    {recipe.ingredients.map((ingredient) => (
+                        <Ingredient
+                            productId={ingredient.productId}
+                            name={ingredient.product.name}
+                            required={ingredient.amount}
+                            has={ingredient.has}
+                            key={ingredient.id}
+                        />
+                    ))}
                 </div>
                 <LinkableText id="preparation" text="Modo de preparo" />
             </div>

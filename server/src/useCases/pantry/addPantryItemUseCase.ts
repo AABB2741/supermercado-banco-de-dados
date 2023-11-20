@@ -37,6 +37,7 @@ export async function addPantryItemUseCase(data: AddPantryItemProps) {
 
 		return item;
 	} else {
+		console.log(data);
 		const item = await prisma.pantryItem.create({
 			data,
 			include: {

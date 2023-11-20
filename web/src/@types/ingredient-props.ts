@@ -11,4 +11,5 @@ export type IngredientProps = {
     product: ProductProps;
     recipeId: number;
     recipe: RecipeProps;
+    has: number;
 };

@@ -29,9 +29,15 @@ export function RecipeProvider({ children }: RecipeProviderProps) {
 
         const cancelToken = axios.CancelToken.source();
 
-        fetchRecipe(recipeId, cancelToken.token).then((res) => {
-            setRecipe(res);
-        });
+        fetchRecipe(recipeId, cancelToken.token)
+            .then((res) => {
+                setRecipe(res);
+            })
+            .catch((err) => {
+                if (!axios.isCancel(err)) {
+                    console.error("Ocorreu um erro ao obter a lista:", err);
+                }
+            });
 
         return cancelToken.cancel;
     }, [id]);
