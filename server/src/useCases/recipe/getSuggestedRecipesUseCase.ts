@@ -26,6 +26,14 @@ export async function getSuggestedRecipesUseCase(userId: number) {
 				},
 			},
 		},
+		include: {
+			user: {
+				select: {
+					id: true,
+					name: true,
+				},
+			},
+		},
 	});
 
 	return suggestions;
