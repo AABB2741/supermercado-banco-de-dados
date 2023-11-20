@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 export function FeaturedRecipes() {
     const [page, setPage] = useState(1);
 
+    return null;
+
     return (
         <Carousel.Root slide={page} onSlideChange={setPage}>
             <Carousel.Container className="relative flex h-[500px] overflow-hidden rounded-xl text-white dark:bg-zinc-900">
