@@ -15,7 +15,7 @@ export function Footer() {
                             Algoritmos e Linguagem de Progamação e
                             Desenvolvimento de Aplicativos para o Centro
                             Profissional Dom Bosco com o objetivo de obtenção de
-                            notas para para a AV2.
+                            notas para a AV2.
                         </p>
                         <p className="mt-4">
                             Essa é a terceira ideia sugerida para os trabalhos.
