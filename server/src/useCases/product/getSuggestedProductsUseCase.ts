@@ -140,7 +140,7 @@ export async function getSuggestedProductsUseCase(
 
 			return (
 				group.purchaseHistory &&
-				group.purchaseHistory?.length > 3 &&
+				group.purchaseHistory?.length >= 3 &&
 				time.getTime() >= nextPurchase.getTime()
 			);
 		}
