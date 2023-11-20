@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 
 import listBanner from "../assets/list-banner.jpg";
 import avatar from "../assets/avatar.png";
@@ -12,12 +13,22 @@ interface RecipeProps {
         id: number;
         name: string;
     };
+    className?: string;
 }
 
-export function Recipe({ id, name, description, user }: RecipeProps) {
+export function Recipe({
+    id,
+    name,
+    description,
+    user,
+    className,
+}: RecipeProps) {
     return (
         <Link
-            className="relative h-48 w-48 overflow-hidden rounded-lg text-white shadow-lg"
+            className={twMerge(
+                "relative min-h-[192px] min-w-[192px] overflow-hidden rounded-lg text-white shadow-lg",
+                className,
+            )}
             to={"/recipe/" + id}
         >
             <img
