@@ -12,7 +12,7 @@ export function FeaturedRecipes() {
 
     return (
         <Carousel.Root slide={page} onSlideChange={setPage}>
-            <Carousel.Container className="relative mx-4 flex h-[500px] overflow-hidden rounded-xl text-white dark:bg-zinc-900 md:mx-6 lg:mx-8">
+            <Carousel.Container className="relative flex h-[500px] overflow-hidden rounded-xl text-white dark:bg-zinc-900">
                 <Carousel.Slide value={1} className="relative h-full w-full">
                     <img
                         src={listBanner}
