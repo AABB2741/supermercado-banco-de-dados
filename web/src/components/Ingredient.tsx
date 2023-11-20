@@ -10,6 +10,7 @@ import { getLists } from "../services/list/getLists";
 import { normalize } from "../utils/normalize";
 
 import { ListProps } from "../@types/list-props";
+import { AddItemProps, addItem } from "../services/list/addItem";
 
 interface IngredientProps {
     productId: number;
@@ -18,7 +19,12 @@ interface IngredientProps {
     has: number;
 }
 
-export function Ingredient({ name, required, has }: IngredientProps) {
+export function Ingredient({
+    name,
+    required,
+    has,
+    productId,
+}: IngredientProps) {
     const [lists, setLists] = useState<ListProps[]>();
 
     const [open, setOpen] = useState(false);
@@ -46,7 +52,18 @@ export function Ingredient({ name, required, has }: IngredientProps) {
         return cancelToken.cancel;
     }, [open]);
 
-    async function handleAddIngredient(listId: number) {}
+    async function handleAddIngredient(props: AddItemProps) {
+        setBusy(true);
+
+        try {
+            await addItem(props);
+            setOpen(false);
+        } catch (err) {
+            console.error("Ocorreu um erro ao adicionar ingrediente:", err);
+        } finally {
+            setBusy(false);
+        }
+    }
 
     return (
         <div className="flex items-center justify-between gap-6">
@@ -69,7 +86,7 @@ export function Ingredient({ name, required, has }: IngredientProps) {
                     onOpenChange={!busy ? setOpen : undefined}
                 >
                     <Popover.Trigger asChild>
-                        <button className="rounded-full p-2 dark:bg-zinc-900">
+                        <button className="rounded-full bg-white p-2 dark:bg-zinc-900">
                             <Plus size={18} />
                         </button>
                     </Popover.Trigger>
@@ -77,7 +94,7 @@ export function Ingredient({ name, required, has }: IngredientProps) {
                         <Popover.Content
                             side="bottom"
                             sideOffset={8}
-                            className="rounded-lg bg-zinc-900 p-1 shadow-md dark:text-white"
+                            className="rounded-lg bg-white p-1 shadow-md dark:bg-zinc-900 dark:text-white"
                         >
                             <p className="p-2 text-left text-xs dark:text-zinc-400">
                                 Selecione uma lista para adicionar {required}{" "}
@@ -93,7 +110,7 @@ export function Ingredient({ name, required, has }: IngredientProps) {
                                 autoFocus
                             />
                             <button
-                                className="my-1 flex w-full items-center justify-center gap-2 rounded-md py-2 text-sm hover:bg-zinc-800"
+                                className="my-1 flex w-full items-center justify-center gap-2 rounded-md py-2 text-sm hover:bg-gray-200 dark:hover:bg-zinc-800"
                                 title={`Criar uma lista com o nome "${recipe.name}"`}
                             >
                                 <Plus size={14} />
@@ -127,7 +144,14 @@ export function Ingredient({ name, required, has }: IngredientProps) {
                                     .map((list) => (
                                         <button
                                             key={list.id}
-                                            className="flex items-center justify-between gap-4 rounded-md px-2 py-1 text-sm dark:hover:bg-zinc-800"
+                                            className="flex items-center justify-between gap-4 rounded-md px-2 py-1 text-sm hover:bg-gray-200 dark:hover:bg-zinc-800"
+                                            onClick={() =>
+                                                handleAddIngredient({
+                                                    amount: required,
+                                                    productId,
+                                                    listId: list.id,
+                                                })
+                                            }
                                         >
                                             <span className="flex-1 text-left">
                                                 {list.name}

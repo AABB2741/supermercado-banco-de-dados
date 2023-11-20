@@ -4,6 +4,7 @@ import { useRecipe } from "../../contexts/RecipeProvider";
 
 import { LinkableText } from "../../components/LinkableText";
 import { Ingredient } from "../../components/Ingredient";
+import { Footer } from "../../components/Footer";
 
 export function Recipe() {
     const { recipe } = useRecipe();
@@ -67,7 +68,7 @@ export function Recipe() {
                     })`}
                     id="ingredients"
                 />
-                <div className="grid grid-cols-1 gap-12 pt-4 md:grid-cols-2 xl:grid-cols-3">
+                <div className="mb-8 grid grid-cols-1 gap-12 pt-4 md:grid-cols-2 xl:grid-cols-3">
                     <Ingredient
                         productId={1}
                         name="Óleo"
@@ -105,7 +106,9 @@ export function Recipe() {
                         has={2}
                     />
                 </div>
+                <LinkableText id="preparation" text="Modo de preparo" />
             </div>
+            <Footer />
         </div>
     );
 }
