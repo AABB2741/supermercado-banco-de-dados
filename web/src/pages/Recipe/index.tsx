@@ -1,4 +1,7 @@
 // import { Flag, MessageCircle, Star, ThumbsDown, ThumbsUp } from "lucide-react";
+import { useEffect } from "react";
+import { ChevronLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { useRecipe } from "../../contexts/RecipeProvider";
 
@@ -12,15 +15,25 @@ import { Preparation } from "../../components/Preparation";
 export function Recipe() {
     const { recipe } = useRecipe();
 
+    useEffect(() => {
+        document.title = `${recipe.name} - Receitas - RPB Shopping`;
+    }, [recipe]);
+
     return (
         <div>
-            <div className="relative flex min-h-[300px] items-end">
+            <div className="relative flex min-h-[300px] flex-col items-end justify-end">
                 <img
                     src={recipe.thumbnail || listBanner}
                     className="absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full object-cover object-top brightness-50"
                 />
 
                 <div className="relative z-10 p-8 text-white">
+                    <Link
+                        className="mb-6 inline-block rounded-full bg-black/50 p-3"
+                        to="/dashboard"
+                    >
+                        <ChevronLeft size={18} />
+                    </Link>
                     <h1 className="text-4xl font-black">{recipe.name}</h1>
                     <p className="my-2 leading-relaxed">{recipe.description}</p>
                     {/* <div className="flex items-center justify-between gap-6">
